@@ -7,7 +7,7 @@ const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const searchReposName = searchParams.get("q");
-  const page = Number(searchParams.get("page"));
+  const page = Number(searchParams.get("page")) || 1;
 
   // state
   const { searchReposList, isLoading, isFetching } = useSearch(
@@ -35,6 +35,7 @@ const SearchPage = () => {
           searchParams.set("page", String(page - 1));
           setSearchParams(searchParams);
         }}
+        disabled={page === 1}
       >
         Prev
       </button>
@@ -43,6 +44,7 @@ const SearchPage = () => {
           searchParams.set("page", String(page + 1));
           setSearchParams(searchParams);
         }}
+        disabled={searchReposList.length < 15}
       >
         Next
       </button>

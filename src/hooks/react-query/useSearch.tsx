@@ -13,7 +13,7 @@ const useSearch = (searchReposName: string, page: number) => {
     isLoading,
     isFetching,
   } = useQuery(
-    [queryKeys.search, page],
+    [queryKeys.search, searchReposName, page],
     () => searchApi.searchRepos({ q: searchReposName, page }),
     {
       select: (response) => response.items,

@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { isBlank } from "../util/lodash";
 
 const InputView = () => {
   // navigate
@@ -18,7 +19,9 @@ const InputView = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button onClick={() => onClickSearchButton()}>SEARCH</button>
+      <button onClick={() => onClickSearchButton()} disabled={isBlank(input)}>
+        SEARCH
+      </button>
     </>
   );
 };
