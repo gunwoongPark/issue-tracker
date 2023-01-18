@@ -4,12 +4,6 @@ export interface SearchReposReq {
 }
 
 export interface SearchReposRes {
-  type: string;
-  required: string[];
-  properties: Properties;
-}
-
-export interface Properties {
   total_count: TotalCount;
   incomplete_results: IncompleteResults;
   items: Items;
