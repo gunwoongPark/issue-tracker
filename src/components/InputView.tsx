@@ -8,7 +8,7 @@ const InputView = () => {
   const [input, setInput] = useState<string>("");
 
   const onClickSearchButton = useCallback(() => {
-    navigate({ pathname: "/search", search: `?q=${input}` });
+    navigate({ pathname: "/search", search: `?q=${input}&page=1` });
   }, [input, navigate]);
 
   return (
