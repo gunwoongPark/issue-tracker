@@ -18,6 +18,7 @@ const SearchPage = () => {
   return (
     <>
       <InputView />
+
       {isLoading || isFetching ? (
         <p>Loading...</p>
       ) : (
