@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import InputView from "../components/InputView";
 import searchApi from "../lib/api/search";
 import { RepoSearchResultItem } from "../lib/api/search/schema";
+import { isNotNaN, isNotNil } from "../util/lodash";
 
 const SearchPage = () => {
   // query string
@@ -12,35 +14,56 @@ const SearchPage = () => {
 
   // state
   const [reposList, setReposList] = useState<RepoSearchResultItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    searchRepos();
-  }, [searchReposName, page]);
+    let ignore = false;
 
-  const searchRepos = async () => {
-    try {
-      const res = await searchApi.searchRepos({
-        q: searchReposName as string,
-        page: page as number,
-      });
+    const searchRepos = async () => {
+      try {
+        if (isLoading) {
+          return;
+        }
 
-      setReposList(res.items);
-    } catch (error) {
-      console.log(error);
+        setIsLoading(() => true);
+
+        const res = await searchApi.searchRepos({
+          q: searchReposName as string,
+          page: page as number,
+        });
+
+        if (!ignore) {
+          setReposList(res.items);
+          setIsLoading(() => false);
+        }
+      } catch (error) {
+        setIsLoading(() => false);
+      }
+    };
+
+    if (isNotNil(searchReposName) && isNotNil(page) && isNotNaN(page)) {
+      searchRepos();
     }
-  };
 
-  useEffect(() => {
-    console.log(reposList);
-  }, [reposList]);
+    return () => {
+      ignore = true;
+    };
+  }, [searchReposName, page]);
 
   return (
     <>
-      <ul>
-        {reposList.map((repos) => (
-          <li key={`search-repos-list-item-${repos.id}`}>{repos.full_name}</li>
-        ))}
-      </ul>
+      <InputView />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <ul>
+          {reposList.map((repos) => (
+            <li key={`search-repos-list-item-${repos.id}`}>
+              {repos.full_name}
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 };
