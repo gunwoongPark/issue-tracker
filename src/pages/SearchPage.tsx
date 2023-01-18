@@ -1,5 +1,6 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import InputView from "../components/InputView";
+import ReposItemView from "../components/ReposItemView";
 import useSearch from "../hooks/react-query/useSearch";
 
 const SearchPage = () => {
@@ -17,6 +18,8 @@ const SearchPage = () => {
 
   return (
     <>
+      <Link to="/">HOME</Link>
+
       <InputView />
 
       {isLoading || isFetching ? (
@@ -24,9 +27,10 @@ const SearchPage = () => {
       ) : (
         <ul>
           {searchReposList.map((repos) => (
-            <li key={`search-repos-list-item-${repos.id}`}>
-              {repos.full_name}
-            </li>
+            <ReposItemView
+              key={`search-repos-list-item-${repos.id}`}
+              repos={repos}
+            />
           ))}
         </ul>
       )}
