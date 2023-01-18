@@ -9,7 +9,7 @@ const searchApi = {
    * @returns Promise
    */
   searchRepos: ({ q, page }: SearchReposReq): Promise<SearchReposRes> =>
-    apiBase.get(`/search/repositories?q=${q}+in:name&page=${page}&per_page=10`),
+    apiBase.get(`/search/repositories?q=${q}+in:name&page=${page}&per_page=15`),
 };
 
 export default searchApi;

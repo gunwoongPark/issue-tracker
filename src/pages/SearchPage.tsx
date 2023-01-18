@@ -10,20 +10,42 @@ const SearchPage = () => {
   const page = Number(searchParams.get("page"));
 
   // state
-  const { searchReposList } = useSearch(searchReposName ?? "", page);
+  const { searchReposList, isLoading, isFetching } = useSearch(
+    searchReposName ?? "",
+    page
+  );
 
   return (
     <>
       <InputView />
+      {isLoading || isFetching ? (
+        <p>Loading...</p>
+      ) : (
+        <ul>
+          {searchReposList.map((repos) => (
+            <li key={`search-repos-list-item-${repos.id}`}>
+              {repos.full_name}
+            </li>
+          ))}
+        </ul>
+      )}
 
-      <ul>
-        {searchReposList.map((repos) => (
-          <li key={`search-repos-list-item-${repos.id}`}>{repos.full_name}</li>
-        ))}
-      </ul>
-
-      <button>Prev</button>
-      <button>Next</button>
+      <button
+        onClick={() => {
+          searchParams.set("page", String(page - 1));
+          setSearchParams(searchParams);
+        }}
+      >
+        Prev
+      </button>
+      <button
+        onClick={() => {
+          searchParams.set("page", String(page + 1));
+          setSearchParams(searchParams);
+        }}
+      >
+        Next
+      </button>
     </>
   );
 };

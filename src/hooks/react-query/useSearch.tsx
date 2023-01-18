@@ -8,11 +8,16 @@ const useSearch = (searchReposName: string, page: number) => {
   // navigate
   const navigate = useNavigate();
 
-  const { data: searchReposList = [], isLoading } = useQuery(
+  const {
+    data: searchReposList = [],
+    isLoading,
+    isFetching,
+  } = useQuery(
     [queryKeys.search, page],
     () => searchApi.searchRepos({ q: searchReposName, page }),
     {
       select: (response) => response.items,
+      keepPreviousData: false,
       // TODO : ERROR HANDLING
       onError: (error) => {
         if (axios.isAxiosError(error)) {
@@ -25,7 +30,7 @@ const useSearch = (searchReposName: string, page: number) => {
     }
   );
 
-  return { searchReposList, isLoading };
+  return { searchReposList, isLoading, isFetching };
 };
 
 export default useSearch;
