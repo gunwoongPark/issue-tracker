@@ -7,6 +7,7 @@ const Routes = () => {
     <RouteList>
       <Route path="/" element={<HomePage />} />
       <Route path="/search" element={<SearchPage />} />
+      <Route path="/issues/:owner/:repoName" element={<SearchPage />} />
     </RouteList>
   );
 };

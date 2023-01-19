@@ -17,8 +17,8 @@ const InputView = () => {
 
   useEffect(() => {
     if (location.pathname === "/search") {
-      const searchReposName = searchParams.get("q");
-      setInput(() => searchReposName ?? "");
+      const searchRepoName = searchParams.get("q");
+      setInput(() => searchRepoName ?? "");
     }
   }, [location.pathname, searchParams]);
 

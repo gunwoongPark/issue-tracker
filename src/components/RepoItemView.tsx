@@ -4,7 +4,7 @@ import type { RepoSearchResultItem } from "../lib/api/search/schema";
 import { BookmarkListType } from "../types/bookmark";
 import { isNotNil } from "../util/lodash";
 
-const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
+const RepoItemView = (props: { repo: RepoSearchResultItem }) => {
   const [isBookmark, setIsBookmark] = useState<boolean>(false);
 
   // TODO : 데이터 할당 최적화
@@ -18,11 +18,11 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
     const bookmarkList: BookmarkListType = JSON.parse(data);
 
     if (
-      isNotNil(bookmarkList.find((bookmark) => bookmark.id === props.repos.id))
+      isNotNil(bookmarkList.find((bookmark) => bookmark.id === props.repo.id))
     ) {
       setIsBookmark(true);
     }
-  }, [props.repos.id]);
+  }, [props.repo.id]);
 
   const onChangeBookmark = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -33,9 +33,9 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
           "bookmarkList",
           JSON.stringify([
             {
-              id: props.repos.id,
-              owner: props.repos.owner?.login ?? "",
-              reposName: props.repos.name,
+              id: props.repo.id,
+              owner: props.repo.owner?.login ?? "",
+              repoName: props.repo.name,
             },
           ])
         );
@@ -55,9 +55,7 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
 
       // 중복 데이터 존재
       if (
-        isNotNil(
-          bookmarkList.find((bookmark) => bookmark.id === props.repos.id)
-        )
+        isNotNil(bookmarkList.find((bookmark) => bookmark.id === props.repo.id))
       ) {
         alert("이미 추가된 레포지토리입니다.");
         return;
@@ -68,9 +66,9 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
         JSON.stringify([
           ...bookmarkList,
           {
-            id: props.repos.id,
-            owner: props.repos.owner?.login ?? "",
-            reposName: props.repos.name,
+            id: props.repo.id,
+            owner: props.repo.owner?.login ?? "",
+            repoName: props.repo.name,
           },
         ])
       );
@@ -81,7 +79,7 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
       );
 
       const filteredBookmarkList = bookmarkList.filter(
-        (bookmark) => bookmark.id !== props.repos.id
+        (bookmark) => bookmark.id !== props.repo.id
       );
 
       localStorage.setItem(
@@ -94,8 +92,8 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
 
   return (
     <li>
-      <span>{props.repos.full_name}</span>
-      {props.repos.visibility === "public" && (
+      <span>{props.repo.full_name}</span>
+      {props.repo.visibility === "public" && (
         <input
           type="checkbox"
           checked={isBookmark}
@@ -106,4 +104,4 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
   );
 };
 
-export default ReposItemView;
+export default RepoItemView;

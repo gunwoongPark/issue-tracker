@@ -1,18 +1,18 @@
 import { Link, useSearchParams } from "react-router-dom";
 import InputView from "../components/InputView";
-import ReposItemView from "../components/ReposItemView";
+import RepoItemView from "../components/RepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
 
 const SearchPage = () => {
   // query string
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const searchReposName = searchParams.get("q");
+  const searchRepoName = searchParams.get("q");
   const page = Number(searchParams.get("page")) || 1;
 
   // state
-  const { searchReposList, isLoading, isFetching } = useSearch(
-    searchReposName ?? "",
+  const { searchRepoList, isLoading, isFetching } = useSearch(
+    searchRepoName ?? "",
     page
   );
 
@@ -26,10 +26,10 @@ const SearchPage = () => {
         <p>Loading...</p>
       ) : (
         <ul>
-          {searchReposList.map((repos) => (
-            <ReposItemView
-              key={`search-repos-list-item-${repos.id}`}
-              repos={repos}
+          {searchRepoList.map((repo) => (
+            <RepoItemView
+              key={`search-repo-list-item-${repo.id}`}
+              repo={repo}
             />
           ))}
         </ul>
@@ -49,7 +49,7 @@ const SearchPage = () => {
           searchParams.set("page", String(page + 1));
           setSearchParams(searchParams);
         }}
-        disabled={searchReposList.length < 15}
+        disabled={searchRepoList.length < 15}
       >
         Next
       </button>

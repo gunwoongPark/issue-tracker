@@ -1,7 +1,7 @@
 export type BookmarkType = {
   id: number;
   owner: string;
-  reposName: string;
+  repoName: string;
 };
 
 export type BookmarkListType = Array<BookmarkType>;

@@ -1,5 +1,5 @@
 import apiBase from "..";
-import { SearchReposReq, SearchReposRes } from "./schema";
+import { SearchRepoReq, SearchRepoRes } from "./schema";
 
 const searchApi = {
   /**
@@ -8,7 +8,7 @@ const searchApi = {
    * @param  {SearchReposReq} page}
    * @returns Promise
    */
-  searchRepos: ({ q, page }: SearchReposReq): Promise<SearchReposRes> =>
+  searchRepo: ({ q, page }: SearchRepoReq): Promise<SearchRepoRes> =>
     apiBase.get(
       `/search/repositories?q=${q}+in:name&page=${page}&per_page=15&sort=updated`
     ),

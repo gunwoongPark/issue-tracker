@@ -1,4 +1,4 @@
-export interface SearchReposReq {
+export interface SearchRepoReq {
   q: string;
   page: number;
 }
@@ -16,7 +16,7 @@ export type SearchResultTextMatches = {
   [k: string]: unknown;
 }[];
 
-export interface SearchReposRes {
+export interface SearchRepoRes {
   total_count: number;
   incomplete_results: boolean;
   items: RepoSearchResultItem[];

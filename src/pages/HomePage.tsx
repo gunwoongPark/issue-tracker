@@ -23,7 +23,7 @@ const HomePage = () => {
       <ul>
         {bookmarkList.map((bookmark) => (
           <li key={`bookmark-list-item-${bookmark.id}`}>
-            {bookmark.owner}/{bookmark.reposName}
+            {bookmark.owner}/{bookmark.repoName}
           </li>
         ))}
       </ul>

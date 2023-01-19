@@ -4,17 +4,17 @@ import { useNavigate } from "react-router-dom";
 import searchApi from "../../lib/api/search";
 import { queryKeys } from "../../react-query/queryKeys";
 
-const useSearch = (searchReposName: string, page: number) => {
+const useSearch = (searchRepoName: string, page: number) => {
   // navigate
   const navigate = useNavigate();
 
   const {
-    data: searchReposList = [],
+    data: searchRepoList = [],
     isLoading,
     isFetching,
   } = useQuery(
-    [queryKeys.search, searchReposName, page],
-    () => searchApi.searchRepos({ q: searchReposName, page }),
+    [queryKeys.search, searchRepoName, page],
+    () => searchApi.searchRepo({ q: searchRepoName, page }),
     {
       select: (response) => response.items,
       keepPreviousData: false,
@@ -30,7 +30,7 @@ const useSearch = (searchReposName: string, page: number) => {
     }
   );
 
-  return { searchReposList, isLoading, isFetching };
+  return { searchRepoList, isLoading, isFetching };
 };
 
 export default useSearch;
