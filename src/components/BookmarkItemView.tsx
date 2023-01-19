@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import useIssues from "../hooks/react-query/useIssues";
 import { BookmarkListType, BookmarkType } from "../types/bookmark";
+import IssueItemView from "./IssueItemView";
 
 const BookmarkItemView2 = (props: {
   bookmark: BookmarkType;
@@ -38,7 +39,7 @@ const BookmarkItemView2 = (props: {
       ) : (
         <ul>
           {issueList.map((issue) => (
-            <li key={`repo-list-item-${issue.id}`}>{issue.title}</li>
+            <IssueItemView key={`repo-list-item-${issue.id}`} issue={issue} />
           ))}
         </ul>
       )}
