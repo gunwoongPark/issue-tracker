@@ -44,8 +44,18 @@ const BookmarkItemView2 = (props: {
         </ul>
       )}
 
-      <button onClick={() => setPage((prevPage) => prevPage - 1)}>Prev</button>
-      <button onClick={() => setPage((prevPage) => prevPage + 1)}>Next</button>
+      <button
+        onClick={() => setPage((prevPage) => prevPage - 1)}
+        disabled={page === 1}
+      >
+        Prev
+      </button>
+      <button
+        onClick={() => setPage((prevPage) => prevPage + 1)}
+        disabled={issueList.length < 5}
+      >
+        Next
+      </button>
     </li>
   );
 };
