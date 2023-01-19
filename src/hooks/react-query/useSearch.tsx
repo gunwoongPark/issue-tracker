@@ -31,7 +31,7 @@ const useSearch = (searchRepoName: string, page: number) => {
     }
   );
 
-  return { searchRepoList, isLoading, isFetching };
+  return { searchRepoList, isLoading, isFetching, error };
 };
 
 export default useSearch;
