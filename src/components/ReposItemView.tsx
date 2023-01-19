@@ -1,11 +1,13 @@
 import { isNil } from "lodash";
 import { ChangeEvent, useEffect, useState } from "react";
 import type { RepoSearchResultItem } from "../lib/api/search/schema";
-import { isBlank, isNotNil } from "../util/lodash";
+import { BookmarkListType } from "../types/bookmark";
+import { isNotNil } from "../util/lodash";
 
 const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
   const [isBookmark, setIsBookmark] = useState<boolean>(false);
 
+  // TODO : 데이터 할당 최적화
   useEffect(() => {
     const data = localStorage.getItem("bookmarkList");
 
@@ -13,8 +15,7 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
       return;
     }
 
-    const bookmarkList: { id: number; owner: string; name: string }[] =
-      JSON.parse(data);
+    const bookmarkList: BookmarkListType = JSON.parse(data);
 
     if (
       isNotNil(bookmarkList.find((bookmark) => bookmark.id === props.repos.id))
@@ -43,8 +44,7 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
         return;
       }
 
-      const bookmarkList: { id: number; owner: string; reposName: string }[] =
-        JSON.parse(data);
+      const bookmarkList: BookmarkListType = JSON.parse(data);
 
       // 최대 북마크 수 초과
       if (bookmarkList.length === 4) {
@@ -76,17 +76,13 @@ const ReposItemView = (props: { repos: RepoSearchResultItem }) => {
       );
       setIsBookmark(true);
     } else {
-      const bookmarkList: { id: number; owner: string; name: string }[] =
-        JSON.parse(localStorage.getItem("bookmarkList") as string);
+      const bookmarkList: BookmarkListType = JSON.parse(
+        localStorage.getItem("bookmarkList") as string
+      );
 
       const filteredBookmarkList = bookmarkList.filter(
         (bookmark) => bookmark.id !== props.repos.id
       );
-
-      // 모든 북마크 해제
-      if (isBlank(filteredBookmarkList)) {
-        localStorage.removeItem("bookmarkList");
-      }
 
       localStorage.setItem(
         "bookmarkList",
