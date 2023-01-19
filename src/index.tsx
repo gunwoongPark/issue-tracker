@@ -11,6 +11,7 @@ root.render(
   <BrowserRouter>
     <React.StrictMode>
       <App />
+      <div id="portal" />
     </React.StrictMode>
   </BrowserRouter>
 );

@@ -1,14 +1,11 @@
 import axios from "axios";
 import { isNil } from "lodash";
 import { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import RepoItemView from "../components/RepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
 
 const SearchPage = () => {
-  // navigate
-  const location = useLocation();
-
   // query string
   const [searchParams, setSearchParams] = useSearchParams();
 
