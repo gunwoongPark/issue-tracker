@@ -1,12 +1,11 @@
 import { Link, useSearchParams } from "react-router-dom";
 import InputView from "../components/InputView";
-import PaginationButtonView from "../components/PaginationButtonView";
 import RepoItemView from "../components/RepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
 
 const SearchPage = () => {
   // query string
-  const searchParams = useSearchParams()[0];
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const searchRepoName = searchParams.get("q");
   const page = Number(searchParams.get("page")) || 1;
@@ -35,7 +34,24 @@ const SearchPage = () => {
         </ul>
       )}
 
-      <PaginationButtonView itemList={searchRepoList} />
+      <button
+        onClick={() => {
+          searchParams.set("page", String(page - 1));
+          setSearchParams(searchParams);
+        }}
+        disabled={page === 1}
+      >
+        Prev
+      </button>
+      <button
+        onClick={() => {
+          searchParams.set("page", String(page + 1));
+          setSearchParams(searchParams);
+        }}
+        disabled={searchRepoList.length < 15}
+      >
+        Next
+      </button>
     </>
   );
 };
