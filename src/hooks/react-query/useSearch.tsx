@@ -12,6 +12,7 @@ const useSearch = (searchRepoName: string, page: number) => {
     data: searchRepoList = [],
     isLoading,
     isFetching,
+    error,
   } = useQuery(
     [queryKeys.search, searchRepoName, page],
     () => searchApi.searchRepo({ q: searchRepoName, page }),

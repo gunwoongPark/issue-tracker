@@ -3,13 +3,16 @@ import { queryClient } from "./react-query/queryClient";
 import Routes from "./Routes";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import { ReactQueryDevtools } from "react-query/devtools";
+import LayoutView from "./components/LayoutView";
 
 function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
-        <Routes />
+        <LayoutView>
+          <Routes />
+        </LayoutView>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </>

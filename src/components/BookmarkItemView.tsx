@@ -3,7 +3,7 @@ import useIssues from "../hooks/react-query/useIssues";
 import type { BookmarkListType, BookmarkType } from "../types/bookmark";
 import IssueItemView from "./IssueItemView";
 
-const BookmarkItemView2 = (props: {
+const BookmarkItemView = (props: {
   bookmark: BookmarkType;
   setBookmarkList: Dispatch<SetStateAction<BookmarkListType>>;
 }) => {
@@ -60,4 +60,4 @@ const BookmarkItemView2 = (props: {
   );
 };
 
-export default BookmarkItemView2;
+export default BookmarkItemView;

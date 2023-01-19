@@ -1,5 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
-import InputView from "../components/InputView";
+import { useSearchParams } from "react-router-dom";
 import RepoItemView from "../components/RepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
 
@@ -17,10 +16,6 @@ const SearchPage = () => {
 
   return (
     <>
-      <Link to="/">HOME</Link>
-
-      <InputView />
-
       {isLoading || isFetching ? (
         <p>Loading...</p>
       ) : (

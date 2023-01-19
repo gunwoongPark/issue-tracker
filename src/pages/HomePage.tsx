@@ -1,7 +1,6 @@
 import { isNil } from "lodash";
 import { useEffect, useState } from "react";
 import BookmarkItemView from "../components/BookmarkItemView";
-import InputView from "../components/InputView";
 import type { BookmarkListType } from "../types/bookmark";
 
 const HomePage = () => {
@@ -21,7 +20,6 @@ const HomePage = () => {
 
   return (
     <>
-      <InputView />
       <ul>
         {bookmarkList.map((bookmark) => (
           <BookmarkItemView

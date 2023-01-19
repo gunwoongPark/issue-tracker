@@ -19,6 +19,8 @@ const InputView = () => {
     if (location.pathname === "/search") {
       const searchRepoName = searchParams.get("q");
       setInput(() => searchRepoName ?? "");
+    } else {
+      setInput(() => "");
     }
   }, [location.pathname, searchParams]);
 
