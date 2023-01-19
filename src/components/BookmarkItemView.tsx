@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import useIssues from "../hooks/react-query/useIssues";
-import { BookmarkListType, BookmarkType } from "../types/bookmark";
+import type { BookmarkListType, BookmarkType } from "../types/bookmark";
 import IssueItemView from "./IssueItemView";
 
 const BookmarkItemView2 = (props: {

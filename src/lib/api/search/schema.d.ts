@@ -5,10 +5,10 @@ export interface SearchRepoReq {
 export interface SearchRepoRes {
   total_count: number;
   incomplete_results: boolean;
-  items: RepoType[];
+  items: Repository[];
 }
 
-export interface RepoType {
+export interface Repository {
   id: number;
   node_id: string;
   name: string;

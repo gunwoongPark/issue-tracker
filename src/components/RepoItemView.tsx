@@ -1,10 +1,10 @@
 import { isNil } from "lodash";
 import { ChangeEvent, useEffect, useState } from "react";
-import type { RepoType } from "../lib/api/search/schema";
+import type { Repository } from "../lib/api/search/schema";
 import type { BookmarkListType } from "../types/bookmark";
 import { isNotNil } from "../util/lodash";
 
-const RepoItemView = (props: { repo: RepoType }) => {
+const RepoItemView = (props: { repo: Repository }) => {
   const [isBookmark, setIsBookmark] = useState<boolean>(false);
 
   // TODO : 데이터 할당 최적화

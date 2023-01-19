@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router-dom";
-import { IssuesRes } from "../lib/api/issues/schema";
-import { RepoType } from "../lib/api/search/schema";
+import type { Issue } from "../lib/api/issues/schema";
+import type { Repository } from "../lib/api/search/schema";
 
-const PaginationButtonView = (props: { itemList: IssuesRes | RepoType[] }) => {
+const PaginationButtonView = (props: { itemList: Issue[] | Repository[] }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = Number(searchParams.get("page")) || 1;
