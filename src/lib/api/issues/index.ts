@@ -1,7 +1,7 @@
 import apiBase from "..";
 import { IssuesReq, IssuesRes } from "./schema";
 
-const IssuesApi = {
+const issuesApi = {
   /**
    * 이슈 조회
    * @param  {} {owner
@@ -15,4 +15,4 @@ const IssuesApi = {
     ),
 };
 
-export default IssuesApi;
+export default issuesApi;

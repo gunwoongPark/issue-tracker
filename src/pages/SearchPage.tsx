@@ -10,7 +10,6 @@ const SearchPage = () => {
   const searchRepoName = searchParams.get("q");
   const page = Number(searchParams.get("page")) || 1;
 
-  // state
   const { searchRepoList, isLoading, isFetching } = useSearch(
     searchRepoName ?? "",
     page

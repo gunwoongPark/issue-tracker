@@ -17,7 +17,7 @@ const useSearch = (searchRepoName: string, page: number) => {
     () => searchApi.searchRepo({ q: searchRepoName, page }),
     {
       select: (response) => response.items,
-      keepPreviousData: false,
+      keepPreviousData: true,
       // TODO : ERROR HANDLING
       onError: (error) => {
         if (axios.isAxiosError(error)) {

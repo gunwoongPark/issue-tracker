@@ -1,5 +1,6 @@
 import { isNil } from "lodash";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import InputView from "../components/InputView";
 import type { BookmarkListType } from "../types/bookmark";
 
@@ -23,7 +24,9 @@ const HomePage = () => {
       <ul>
         {bookmarkList.map((bookmark) => (
           <li key={`bookmark-list-item-${bookmark.id}`}>
-            {bookmark.owner}/{bookmark.repoName}
+            <Link to={`/issues/${bookmark.owner}/${bookmark.repoName}?page=1`}>
+              {bookmark.owner}/{bookmark.repoName}
+            </Link>
           </li>
         ))}
       </ul>
