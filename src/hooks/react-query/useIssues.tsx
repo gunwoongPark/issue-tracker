@@ -1,22 +1,26 @@
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
 import issuesApi from "../../lib/api/issues";
 import { queryKeys } from "../../react-query/queryKeys";
 
-const useIssues = (page: number) => {
-  const params = useParams();
-  const { owner, repoName } = params;
-
+const useIssues = ({
+  owner,
+  repoName,
+  page,
+}: {
+  owner: string;
+  repoName: string;
+  page: number;
+}) => {
   const {
-    data: issueList,
+    data: issueList = [],
     isLoading,
     isFetching,
   } = useQuery(
     [queryKeys.issues, owner, repoName, page],
     () =>
       issuesApi.fetchIssues({
-        owner: owner as string,
-        repo: repoName as string,
+        owner,
+        repo: repoName,
         page,
       }),
     {

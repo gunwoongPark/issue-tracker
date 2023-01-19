@@ -5,6 +5,7 @@ import InputView from "../components/InputView";
 import type { BookmarkListType } from "../types/bookmark";
 
 const HomePage = () => {
+  // state
   const [bookmarkList, setBookmarkList] = useState<BookmarkListType>([]);
 
   useEffect(() => {

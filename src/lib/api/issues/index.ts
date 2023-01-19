@@ -11,7 +11,7 @@ const issuesApi = {
    */
   fetchIssues: ({ owner, repo, page }: IssuesReq): Promise<IssuesRes> =>
     apiBase.get(
-      `/repos/${owner}/${repo}/issues?page=${page}&per_page=15&updated=updated`
+      `/repos/${owner}/${repo}/issues?page=${page}&per_page=5&updated=updated`
     ),
 };
 

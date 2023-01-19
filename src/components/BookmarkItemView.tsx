@@ -1,11 +1,19 @@
-import type { Dispatch, SetStateAction } from "react";
-import { Link } from "react-router-dom";
-import type { BookmarkListType, BookmarkType } from "../types/bookmark";
+import { Dispatch, SetStateAction, useState } from "react";
+import useIssues from "../hooks/react-query/useIssues";
+import { BookmarkListType, BookmarkType } from "../types/bookmark";
 
-const BookmarkItemView = (props: {
+const BookmarkItemView2 = (props: {
   bookmark: BookmarkType;
   setBookmarkList: Dispatch<SetStateAction<BookmarkListType>>;
 }) => {
+  const [page, setPage] = useState<number>(1);
+
+  const { issueList, isLoading, isFetching } = useIssues({
+    owner: props.bookmark.owner,
+    repoName: props.bookmark.repoName,
+    page,
+  });
+
   const onClickDeleteButton = () => {
     const bookmarkList: BookmarkListType = JSON.parse(
       localStorage.getItem("bookmarkList") as string
@@ -21,16 +29,24 @@ const BookmarkItemView = (props: {
 
   return (
     <li>
-      <Link
-        to={`/issues/${props.bookmark.owner}/${props.bookmark.repoName}?page=1`}
-      >
-        <span>
-          {props.bookmark.owner}/{props.bookmark.repoName}
-        </span>
-      </Link>
+      <p>
+        {props.bookmark.owner}/{props.bookmark.repoName}
+      </p>
       <button onClick={() => onClickDeleteButton()}>DELETE</button>
+      {isLoading || isFetching ? (
+        <p>Loading...</p>
+      ) : (
+        <ul>
+          {issueList.map((issue) => (
+            <li key={`repo-list-item-${issue.id}`}>{issue.title}</li>
+          ))}
+        </ul>
+      )}
+
+      <button onClick={() => setPage((prevPage) => prevPage - 1)}>Prev</button>
+      <button onClick={() => setPage((prevPage) => prevPage + 1)}>Next</button>
     </li>
   );
 };
 
-export default BookmarkItemView;
+export default BookmarkItemView2;
