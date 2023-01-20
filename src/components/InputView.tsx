@@ -57,7 +57,9 @@ const S = {
       width: 702px;
       height: 71px;
       border-radius: 71px;
-      border: 1px solid #4d6ab6;
+      border: 1px solid ${({ theme }) => theme.mainTextColor};
+      color: ${({ theme }) => theme.inputTextColor};
+      background-color: ${({ theme }) => theme.inputBackgroundColor};
       outline: none;
       font-size: 21px;
       padding: 0 16px;
@@ -68,12 +70,12 @@ const S = {
       width: 71px;
       height: 71px;
       border-radius: 50%;
-      border: 1px solid #4d6ab6;
+      border: 1px solid ${({ theme }) => theme.mainTextColor};
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      background-color: transparent;
+      background-color: ${({ theme }) => theme.cardBackgroundColor};
     }
   `,
 };

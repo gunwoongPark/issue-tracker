@@ -38,7 +38,7 @@ const S = {
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      background-color: #4d6ab6;
+      background-color: ${({ theme }) => theme.mainTextColor};
       display: flex;
       justify-content: center;
       align-items: center;

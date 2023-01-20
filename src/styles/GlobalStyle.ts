@@ -8,5 +8,7 @@ export const GlobalStyle = createGlobalStyle`
   
     width: 1320px;
     margin:0 auto;
+
+    background-color: ${({ theme }) => theme.backgroundColor};
   }
 `;

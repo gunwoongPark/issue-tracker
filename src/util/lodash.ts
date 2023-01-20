@@ -12,6 +12,10 @@ export const isBlank = (value: any) => {
   return false;
 };
 
+export const isNotBlank = (value: any) => {
+  return !isBlank(value);
+};
+
 export const isNotNil = (value: any) => {
   return !isNil(value);
 };

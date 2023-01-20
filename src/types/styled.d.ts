@@ -5,6 +5,12 @@ declare module "styled-components" {
   export interface DefaultTheme {
     mode: ThemeType;
     backgroundColor: string;
-    color: string;
+    mainTextColor: string;
+    subTextColor: string;
+    dividerColor: string;
+    cardBackgroundColor: string;
+    inputBackgroundColor: string;
+    inputTextColor: string;
+    iconColor: string;
   }
 }

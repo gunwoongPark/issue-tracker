@@ -1,13 +1,24 @@
 import { isNil } from "lodash";
 import { ChangeEvent, useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css, useTheme } from "styled-components";
 import type { Repository } from "../lib/api/search/schema";
 import type { BookmarkListType } from "../types/bookmark";
-import { isNotNil } from "../util/lodash";
+import { isNotBlank, isNotNil } from "../util/lodash";
 import { BsBookmarkCheckFill, BsBookmarkCheck } from "react-icons/bs";
+import { AiOutlineStar } from "react-icons/ai";
+import { TbGitFork } from "react-icons/tb";
+import { BiAlarm } from "react-icons/bi";
+import { TbLicense, TbLanguage } from "react-icons/tb";
 
 const RepoItemView = (props: { repo: Repository }) => {
+  // theme
+  const theme = useTheme();
+
   const [isBookmark, setIsBookmark] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(props.repo);
+  }, [props.repo]);
 
   useEffect(() => {
     const data = localStorage.getItem("bookmarkList");
@@ -118,20 +129,50 @@ const RepoItemView = (props: { repo: Repository }) => {
 
       <span className="repo-full-name">{props.repo.full_name}</span>
 
-      <div className="topic-container">
-        {props.repo.topics.map((topic, idx) => (
-          <div className="topic" key={idx}>
-            <span className="topic-name">{topic}</span>
-          </div>
-        ))}
-      </div>
+      {isNotBlank(props.repo.topics) && (
+        <div className="topic-container">
+          {props.repo.topics.map((topic, idx) => (
+            <div className="topic" key={idx}>
+              <span className="topic-name">{topic}</span>
+            </div>
+          ))}
+        </div>
+      )}
 
-      <span className="repo-description">{props.repo.description}</span>
-      <p>updated at {props.repo.updated_at}</p>
-      <p>star count {props.repo.stargazers_count}</p>
-      <p>fork count {props.repo.forks_count}</p>
-      <p>license {props.repo.license ? props.repo.license.name : ""}</p>
-      <p>language {props.repo.language}</p>
+      <p className="repo-description">{props.repo.description}</p>
+
+      <div className="divider" />
+
+      <div className="bottom-container">
+        <div className="repo-information">
+          <div className="star-container">
+            <AiOutlineStar size={24} color={theme.iconColor} />
+            <span>{props.repo.stargazers_count.toLocaleString("en")}</span>
+          </div>
+
+          <div className="language-container">
+            <TbLanguage size={24} color={theme.iconColor} />
+            <span>{props.repo.language}</span>
+          </div>
+
+          {props.repo.license && (
+            <div className="license-container">
+              <TbLicense size={24} color={theme.iconColor} />
+              <span>{props.repo.license.name}</span>
+            </div>
+          )}
+
+          <div className="fork-container">
+            <TbGitFork size={24} color={theme.iconColor} />
+            <span>{props.repo.forks_count.toLocaleString("en")}</span>
+          </div>
+        </div>
+
+        <div className="update-container">
+          <BiAlarm size={24} color={theme.iconColor} />
+          <span>updated at {props.repo.updated_at}</span>
+        </div>
+      </div>
     </S.Container>
   );
 };
@@ -141,8 +182,14 @@ export default RepoItemView;
 const S = {
   Container: styled.li`
     width: 100%;
-    height: 219px;
-    border: 1px solid #dedede;
+    // only light
+    ${({ theme }) =>
+      theme.mode === "LIGHT" &&
+      css`
+        border: 1px solid #dedede;
+      `}
+
+    background-color: ${({ theme }) => theme.cardBackgroundColor};
     border-radius: 10px;
     padding: 30px;
     box-sizing: border-box;
@@ -165,7 +212,7 @@ const S = {
       font-size: 21px;
       font-weight: 600;
       line-height: 31px;
-      color: #4d6ab6;
+      color: ${({ theme }) => theme.mainTextColor};
     }
 
     .topic-container {
@@ -174,13 +221,13 @@ const S = {
       flex-wrap: wrap;
       .topic {
         border-radius: 31px;
-        border: 1px solid #4d6ab6;
+        border: 1px solid ${({ theme }) => theme.mainTextColor};
         &:not(:first-child) {
           margin-left: 5px;
         }
 
         .topic-name {
-          color: #4d6ab6;
+          color: ${({ theme }) => theme.mainTextColor};
           font-size: 16px;
           line-height: 27px;
           font-weight: 400;
@@ -191,10 +238,52 @@ const S = {
 
     .repo-description {
       margin-top: 16px;
-      color: #444444;
+      color: ${({ theme }) => theme.subTextColor};
       font-weight: 400;
       font-size: 18px;
       line-height: 28px;
+    }
+
+    .divider {
+      margin-top: 14px;
+      border: 1px solid ${({ theme }) => theme.dividerColor};
+    }
+
+    .bottom-container {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      .repo-information {
+        display: flex;
+
+        div {
+          display: flex;
+          align-items: center;
+          &:not(:first-child) {
+            margin-left: 10px;
+          }
+
+          span {
+            margin-left: 3px;
+            font-size: 14px;
+            line-height: 24px;
+            font-weight: 400;
+            color: ${({ theme }) => theme.iconColor};
+          }
+        }
+      }
+
+      .update-container {
+        display: flex;
+        align-items: center;
+        span {
+          margin-left: 3px;
+          font-size: 14px;
+          line-height: 24px;
+          font-weight: 400;
+          color: ${({ theme }) => theme.iconColor};
+        }
+      }
     }
   `,
 };
