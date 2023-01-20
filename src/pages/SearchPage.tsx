@@ -17,6 +17,8 @@ const SearchPage = () => {
     page
   );
 
+  console.log(searchRepoList);
+
   const [isReloadButton, setIsReloadButton] = useState<boolean>(false);
 
   useEffect(() => {

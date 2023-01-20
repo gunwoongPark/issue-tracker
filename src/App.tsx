@@ -4,15 +4,18 @@ import Routes from "./Routes";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import { ReactQueryDevtools } from "react-query/devtools";
 import LayoutView from "./components/LayoutView";
+import CustomThemeProvider from "./context/CustomThemeProvider";
 
 function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
-        <LayoutView>
-          <Routes />
-        </LayoutView>
+        <CustomThemeProvider>
+          <GlobalStyle />
+          <LayoutView>
+            <Routes />
+          </LayoutView>
+        </CustomThemeProvider>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </>
