@@ -85,6 +85,7 @@ export interface Repository {
   disabled: boolean;
   visibility: string;
   license: License;
+  topics: Array<string>;
 }
 
 export interface Owner {

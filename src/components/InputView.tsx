@@ -59,7 +59,7 @@ const S = {
       border-radius: 71px;
       border: 1px solid #4d6ab6;
       outline: none;
-      font-size: 16px;
+      font-size: 21px;
       padding: 0 16px;
       font-family: Pretendard;
     }

@@ -2,6 +2,7 @@ import axios from "axios";
 import { isNil } from "lodash";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import styled from "styled-components";
 import RepoItemView from "../components/RepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
 
@@ -16,8 +17,6 @@ const SearchPage = () => {
     searchRepoName ?? "",
     page
   );
-
-  console.log(searchRepoList);
 
   const [isReloadButton, setIsReloadButton] = useState<boolean>(false);
 
@@ -38,7 +37,7 @@ const SearchPage = () => {
   };
 
   return (
-    <>
+    <S.Container>
       {(() => {
         if (isLoading || isFetching) {
           return <p>Loading...</p>;
@@ -83,8 +82,16 @@ const SearchPage = () => {
       >
         Next
       </button>
-    </>
+    </S.Container>
   );
 };
 
 export default SearchPage;
+
+const S = {
+  Container: styled.div`
+    ul {
+      margin-top: 40px;
+    }
+  `,
+};

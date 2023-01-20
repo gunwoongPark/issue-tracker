@@ -1,10 +1,15 @@
 import { isNil } from "lodash";
 import { ChangeEvent, useEffect, useState } from "react";
+import styled from "styled-components";
 import type { Repository } from "../lib/api/search/schema";
 import type { BookmarkListType } from "../types/bookmark";
 import { isNotNil } from "../util/lodash";
 
 const RepoItemView = (props: { repo: Repository }) => {
+  useEffect(() => {
+    console.log(props.repo);
+  }, [props.repo]);
+
   const [isBookmark, setIsBookmark] = useState<boolean>(false);
 
   // TODO : 데이터 할당 최적화
@@ -91,8 +96,24 @@ const RepoItemView = (props: { repo: Repository }) => {
   };
 
   return (
-    <li>
-      <span>{props.repo.full_name}</span>
+    <S.Container>
+      <span className="repo-full-name">{props.repo.full_name}</span>
+
+      <div className="topic-container">
+        {props.repo.topics.map((topic, idx) => (
+          <div className="topic" key={idx}>
+            <span>{topic}</span>
+          </div>
+        ))}
+      </div>
+
+      <p>{props.repo.description}</p>
+      <p>updated at {props.repo.updated_at}</p>
+      <p>star count {props.repo.stargazers_count}</p>
+      <p>fork count {props.repo.forks_count}</p>
+      <p>license {props.repo.license ? props.repo.license.name : ""}</p>
+      <p>language {props.repo.language}</p>
+
       {props.repo.visibility === "public" && (
         <input
           type="checkbox"
@@ -100,8 +121,50 @@ const RepoItemView = (props: { repo: Repository }) => {
           onChange={(e) => onChangeBookmark(e)}
         />
       )}
-    </li>
+    </S.Container>
   );
 };
 
 export default RepoItemView;
+
+const S = {
+  Container: styled.li`
+    width: 100%;
+    height: 219px;
+    border: 1px solid #dedede;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: border-box;
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+
+    .repo-full-name {
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 31px;
+      color: #4d6ab6;
+    }
+
+    .topic-container {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      .topic {
+        border-radius: 31px;
+        border: 1px solid #4d6ab6;
+        &:not(:first-child) {
+          margin-left: 5px;
+        }
+
+        span {
+          color: #4d6ab6;
+          font-size: 16px;
+          line-height: 27px;
+          font-weight: 400;
+          padding: 0 16px;
+        }
+      }
+    }
+  `,
+};
