@@ -48,7 +48,7 @@ export default InputView;
 
 const S = {
   Container: styled.div`
-    margin: 0 auto;
+    margin: 29px auto 0;
     display: flex;
     width: 818px;
     justify-content: space-between;
@@ -73,6 +73,7 @@ const S = {
       justify-content: center;
       align-items: center;
       cursor: pointer;
+      background-color: transparent;
     }
   `,
 };
