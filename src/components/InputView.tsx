@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import styled from "styled-components";
 import { isBlank } from "../util/lodash";
+import { BiSearch } from "react-icons/bi";
 
 const InputView = () => {
   // navigate
@@ -29,17 +31,48 @@ const InputView = () => {
   }, [input, navigate]);
 
   return (
-    <>
+    <S.Container>
       <input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
       <button onClick={() => onClickSearchButton()} disabled={isBlank(input)}>
-        SEARCH
+        <BiSearch color="#4d6ab6" fontSize={34} />
       </button>
-    </>
+    </S.Container>
   );
 };
 
 export default InputView;
+
+const S = {
+  Container: styled.div`
+    margin: 0 auto;
+    display: flex;
+    width: 818px;
+    justify-content: space-between;
+
+    input {
+      width: 702px;
+      height: 71px;
+      border-radius: 71px;
+      border: 1px solid #4d6ab6;
+      outline: none;
+      font-size: 16px;
+      padding: 0 16px;
+      font-family: Pretendard;
+    }
+
+    button {
+      width: 71px;
+      height: 71px;
+      border-radius: 50%;
+      border: 1px solid #4d6ab6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  `,
+};
