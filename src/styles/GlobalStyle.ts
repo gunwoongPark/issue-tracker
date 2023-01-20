@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
   body{
     font-family: Pretendard;
   
-    width: 1320px;
+    max-width: 1320px;
     margin:0 auto;
 
     background-color: ${({ theme }) => theme.backgroundColor};

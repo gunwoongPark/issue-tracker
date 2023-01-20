@@ -2,11 +2,15 @@ import axios from "axios";
 import { isNil } from "lodash";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import RepoItemView from "../components/RepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
+import { BiLeftArrowCircle, BiRightArrowCircle } from "react-icons/bi";
 
 const SearchPage = () => {
+  // theme
+  const theme = useTheme();
+
   // query string
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -64,24 +68,39 @@ const SearchPage = () => {
         );
       })()}
 
-      <button
-        onClick={() => {
-          searchParams.set("page", String(page - 1));
-          setSearchParams(searchParams);
-        }}
-        disabled={page === 1}
-      >
-        Prev
-      </button>
-      <button
-        onClick={() => {
-          searchParams.set("page", String(page + 1));
-          setSearchParams(searchParams);
-        }}
-        disabled={searchRepoList.length < 15}
-      >
-        Next
-      </button>
+      <div className="button-container">
+        <button
+          onClick={() => {
+            searchParams.set("page", String(page - 1));
+            setSearchParams(searchParams);
+          }}
+          disabled={page === 1}
+        >
+          <BiLeftArrowCircle
+            size={34}
+            color={
+              page === 1 ? theme.disabledArrowIconColor : theme.arrowIconColor
+            }
+          />
+        </button>
+        {/* TODO : disabled 조건 변경 */}
+        <button
+          onClick={() => {
+            searchParams.set("page", String(page + 1));
+            setSearchParams(searchParams);
+          }}
+          disabled={searchRepoList.length < 15}
+        >
+          <BiRightArrowCircle
+            size={34}
+            color={
+              searchRepoList.length < 15
+                ? theme.disabledArrowIconColor
+                : theme.arrowIconColor
+            }
+          />
+        </button>
+      </div>
     </S.Container>
   );
 };
@@ -92,6 +111,17 @@ const S = {
   Container: styled.div`
     ul {
       margin-top: 40px;
+    }
+
+    .button-container {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      button {
+        background: transparent;
+        cursor: pointer;
+        border: none;
+      }
     }
   `,
 };

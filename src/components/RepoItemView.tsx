@@ -7,18 +7,15 @@ import { isNotBlank, isNotNil } from "../util/lodash";
 import { BsBookmarkCheckFill, BsBookmarkCheck } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbGitFork } from "react-icons/tb";
-import { BiAlarm } from "react-icons/bi";
-import { TbLicense, TbLanguage } from "react-icons/tb";
+// import { BiAlarm } from "react-icons/bi";
+import { TbLanguage } from "react-icons/tb";
+import { HiOutlineScale } from "react-icons/hi";
 
 const RepoItemView = (props: { repo: Repository }) => {
   // theme
   const theme = useTheme();
 
   const [isBookmark, setIsBookmark] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log(props.repo);
-  }, [props.repo]);
 
   useEffect(() => {
     const data = localStorage.getItem("bookmarkList");
@@ -157,7 +154,7 @@ const RepoItemView = (props: { repo: Repository }) => {
 
           {props.repo.license && (
             <div className="license-container">
-              <TbLicense size={24} color={theme.iconColor} />
+              <HiOutlineScale size={24} color={theme.iconColor} />
               <span>{props.repo.license.name}</span>
             </div>
           )}
@@ -168,10 +165,10 @@ const RepoItemView = (props: { repo: Repository }) => {
           </div>
         </div>
 
-        <div className="update-container">
+        {/* <div className="update-container">
           <BiAlarm size={24} color={theme.iconColor} />
           <span>updated at {props.repo.updated_at}</span>
-        </div>
+        </div> */}
       </div>
     </S.Container>
   );
@@ -216,12 +213,13 @@ const S = {
     }
 
     .topic-container {
-      margin-top: 10px;
+      margin-top: 5px;
       display: flex;
       flex-wrap: wrap;
       .topic {
         border-radius: 31px;
         border: 1px solid ${({ theme }) => theme.mainTextColor};
+        margin-top: 5px;
         &:not(:first-child) {
           margin-left: 5px;
         }
