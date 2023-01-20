@@ -4,15 +4,11 @@ import styled from "styled-components";
 import type { Repository } from "../lib/api/search/schema";
 import type { BookmarkListType } from "../types/bookmark";
 import { isNotNil } from "../util/lodash";
+import { BsBookmarkCheckFill, BsBookmarkCheck } from "react-icons/bs";
 
 const RepoItemView = (props: { repo: Repository }) => {
-  useEffect(() => {
-    console.log(props.repo);
-  }, [props.repo]);
-
   const [isBookmark, setIsBookmark] = useState<boolean>(false);
 
-  // TODO : 데이터 할당 최적화
   useEffect(() => {
     const data = localStorage.getItem("bookmarkList");
 
@@ -77,6 +73,7 @@ const RepoItemView = (props: { repo: Repository }) => {
           },
         ])
       );
+
       setIsBookmark(true);
     } else {
       const bookmarkList: BookmarkListType = JSON.parse(
@@ -97,30 +94,44 @@ const RepoItemView = (props: { repo: Repository }) => {
 
   return (
     <S.Container>
+      {props.repo.visibility === "public" && (
+        <>
+          <label
+            className="bookmark-icon"
+            htmlFor={`bookmark-${props.repo.id}`}
+          >
+            {isBookmark ? (
+              <BsBookmarkCheckFill size={34} color="#4D6AB6" />
+            ) : (
+              <BsBookmarkCheck size={34} color="#4D6AB6" />
+            )}
+          </label>
+          <input
+            id={`bookmark-${props.repo.id}`}
+            className="bookmark"
+            type="checkbox"
+            checked={isBookmark}
+            onChange={(e) => onChangeBookmark(e)}
+          />
+        </>
+      )}
+
       <span className="repo-full-name">{props.repo.full_name}</span>
 
       <div className="topic-container">
         {props.repo.topics.map((topic, idx) => (
           <div className="topic" key={idx}>
-            <span>{topic}</span>
+            <span className="topic-name">{topic}</span>
           </div>
         ))}
       </div>
 
-      <p>{props.repo.description}</p>
+      <span className="repo-description">{props.repo.description}</span>
       <p>updated at {props.repo.updated_at}</p>
       <p>star count {props.repo.stargazers_count}</p>
       <p>fork count {props.repo.forks_count}</p>
       <p>license {props.repo.license ? props.repo.license.name : ""}</p>
       <p>language {props.repo.language}</p>
-
-      {props.repo.visibility === "public" && (
-        <input
-          type="checkbox"
-          checked={isBookmark}
-          onChange={(e) => onChangeBookmark(e)}
-        />
-      )}
     </S.Container>
   );
 };
@@ -135,8 +146,19 @@ const S = {
     border-radius: 10px;
     padding: 30px;
     box-sizing: border-box;
+    position: relative;
     &:not(:first-child) {
       margin-top: 20px;
+    }
+
+    .bookmark-icon {
+      position: absolute;
+      right: 30px;
+      top: 30px;
+      cursor: pointer;
+    }
+    .bookmark {
+      display: none;
     }
 
     .repo-full-name {
@@ -157,7 +179,7 @@ const S = {
           margin-left: 5px;
         }
 
-        span {
+        .topic-name {
           color: #4d6ab6;
           font-size: 16px;
           line-height: 27px;
@@ -165,6 +187,14 @@ const S = {
           padding: 0 16px;
         }
       }
+    }
+
+    .repo-description {
+      margin-top: 16px;
+      color: #444444;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
     }
   `,
 };
