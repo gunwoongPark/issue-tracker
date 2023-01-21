@@ -51,8 +51,7 @@ const S = {
     margin: 29px auto 0;
     display: flex;
     width: 100%;
-    max-width: 818px;
-    justify-content: space-between;
+    justify-content: center;
 
     input {
       width: 100%;
@@ -64,11 +63,12 @@ const S = {
       background-color: ${({ theme }) => theme.inputBackgroundColor};
       outline: none;
       font-size: 21px;
-      padding: 0 16px;
+      padding: 0 15px;
       font-family: Pretendard;
     }
 
     button {
+      margin-left: 12px;
       min-width: 71px;
       width: 71px;
       height: 71px;
