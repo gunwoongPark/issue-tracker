@@ -1,6 +1,6 @@
 import axios from "axios";
 import { isNil } from "lodash";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import RepoItemView from "../components/RepoItemView";
@@ -11,6 +11,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import RepoItemSkeletonView from "../components/RepoItemSkeletonView";
 import { useQueryClient } from "react-query";
 import { queryKeys } from "../react-query/queryKeys";
+import useToastMessage from "../hooks/custom/useToastMessage";
+import ToastMessageView from "../components/ToastMessageView";
 
 const SearchPage = () => {
   // theme
@@ -31,7 +33,12 @@ const SearchPage = () => {
   );
 
   const [isReloadButton, setIsReloadButton] = useState<boolean>(false);
-  const [isNextPage, setIsNextPage] = useState<boolean>(false);
+  const [toastMessageValue, setToastMessageValue] = useState<string>("");
+  const { isToastMessage, setIsToastMessage } = useToastMessage();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [searchParams]);
 
   useEffect(() => {
     if (isNil(error)) {
@@ -45,86 +52,89 @@ const SearchPage = () => {
     }
   }, [error]);
 
-  const onClickReloadButton = () => {
-    window.location.reload();
-  };
+  const onClickPageButton = useCallback(
+    (addPageValue: number) => {
+      if (addPageValue > 0) {
+        if (
+          isNil(
+            queryClient.getQueryData([
+              queryKeys.search,
+              searchRepoName,
+              page + addPageValue,
+            ])
+          )
+        ) {
+          setToastMessageValue("마지막 페이지입니다.");
+          setIsToastMessage(true);
+          return;
+        }
+      } else {
+        if (page === 1) {
+          setToastMessageValue("첫 페이지입니다.");
+          setIsToastMessage(true);
+          return;
+        }
+      }
 
-  useEffect(() => {
-    if (
-      isNil(
-        queryClient.getQueryData([queryKeys.search, searchRepoName, page + 1])
-      )
-    ) {
-      setIsNextPage(false);
-    } else {
-      setIsNextPage(true);
-    }
-  }, [page, queryClient, searchRepoName]);
+      searchParams.set("page", String(page + addPageValue));
+      setSearchParams(searchParams);
+    },
+    [
+      page,
+      queryClient,
+      searchParams,
+      searchRepoName,
+      setIsToastMessage,
+      setSearchParams,
+    ]
+  );
 
   return (
-    <S.Container>
-      {(() => {
-        if (isLoading || isFetching) {
+    <>
+      <S.Container>
+        {(() => {
+          if (isLoading || isFetching) {
+            return (
+              <ul>
+                <Skeleton wrapper={RepoItemSkeletonView} count={15} />
+              </ul>
+            );
+          }
+
+          if (isReloadButton) {
+            return (
+              <>
+                <p>please reload</p>
+                <button onClick={() => window.location.reload()}>RELOAD</button>
+              </>
+            );
+          }
+
           return (
             <ul>
-              <Skeleton wrapper={RepoItemSkeletonView} count={15} />
+              {searchRepoList.map((repo) => (
+                <RepoItemView
+                  key={`search-repo-list-item-${repo.id}`}
+                  repo={repo}
+                />
+              ))}
             </ul>
           );
-        }
+        })()}
 
-        if (isReloadButton) {
-          return (
-            <>
-              <p>please reload</p>
-              <button onClick={() => onClickReloadButton()}>RELOAD</button>
-            </>
-          );
-        }
+        <div className="button-container">
+          <button onClick={() => onClickPageButton(-1)}>
+            <BiLeftArrowCircle size={34} color={theme.arrowIconColor} />
+          </button>
 
-        return (
-          <ul>
-            {searchRepoList.map((repo) => (
-              <RepoItemView
-                key={`search-repo-list-item-${repo.id}`}
-                repo={repo}
-              />
-            ))}
-          </ul>
-        );
-      })()}
+          <button onClick={() => onClickPageButton(1)}>
+            <BiRightArrowCircle size={34} color={theme.arrowIconColor} />
+          </button>
+        </div>
+      </S.Container>
 
-      <div className="button-container">
-        <button
-          onClick={() => {
-            searchParams.set("page", String(page - 1));
-            setSearchParams(searchParams);
-          }}
-          disabled={page === 1}
-        >
-          <BiLeftArrowCircle
-            size={34}
-            color={
-              page === 1 ? theme.disabledArrowIconColor : theme.arrowIconColor
-            }
-          />
-        </button>
-
-        <button
-          onClick={() => {
-            searchParams.set("page", String(page + 1));
-            setSearchParams(searchParams);
-          }}
-          disabled={!isNextPage}
-        >
-          <BiRightArrowCircle
-            size={34}
-            color={
-              isNextPage ? theme.arrowIconColor : theme.disabledArrowIconColor
-            }
-          />
-        </button>
-      </div>
-    </S.Container>
+      {isToastMessage && <ToastMessageView message={toastMessageValue} />}
+    </>
   );
 };
 

@@ -14,6 +14,7 @@ const useSearch = (searchRepoName: string, page: number) => {
 
   useEffect(() => {
     const nextPage = page + 1;
+
     queryClient.prefetchQuery(
       [queryKeys.search, searchRepoName, nextPage],
       () => searchApi.searchRepo({ q: searchRepoName, page: nextPage })
