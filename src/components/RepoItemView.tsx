@@ -11,12 +11,15 @@ import { BiAlarm } from "react-icons/bi";
 import { TbLanguage } from "react-icons/tb";
 import { HiOutlineScale } from "react-icons/hi";
 import ReactTimeago from "react-timeago";
+import useToastMessage from "../hooks/custom/useToastMessage";
+import ToastMessageView from "./ToastMessageView";
 
 const RepoItemView = (props: { repo: Repository }) => {
   // theme
   const theme = useTheme();
 
   const [isBookmark, setIsBookmark] = useState<boolean>(false);
+  const { isToastMessage, setIsToastMessage } = useToastMessage();
 
   useEffect(() => {
     const data = localStorage.getItem("bookmarkList");
@@ -59,7 +62,7 @@ const RepoItemView = (props: { repo: Repository }) => {
       // 최대 북마크 수 초과
       if (bookmarkList.length === 4) {
         // TODO : 커스텀 모달로 연동
-        alert("더 이상 북마크를 추가할 수 없습니다.");
+        setIsToastMessage(true);
         return;
       }
 
@@ -102,79 +105,86 @@ const RepoItemView = (props: { repo: Repository }) => {
   };
 
   return (
-    <S.Container>
-      {props.repo.visibility === "public" && (
-        <>
-          <label
-            className="bookmark-icon"
-            htmlFor={`bookmark-${props.repo.id}`}
-          >
-            {isBookmark ? (
-              <BsBookmarkCheckFill size={34} color="#4D6AB6" />
-            ) : (
-              <BsBookmarkCheck size={34} color="#4D6AB6" />
-            )}
-          </label>
-          <input
-            id={`bookmark-${props.repo.id}`}
-            className="bookmark"
-            type="checkbox"
-            checked={isBookmark}
-            onChange={(e) => onChangeBookmark(e)}
-          />
-        </>
-      )}
-
-      <span className="repo-full-name">{props.repo.full_name}</span>
-
-      {isNotBlank(props.repo.topics) && (
-        <div className="topic-container">
-          {props.repo.topics.map((topic, idx) => (
-            <div className="topic" key={idx}>
-              <span className="topic-name">{topic}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <p className="repo-description">{props.repo.description}</p>
-
-      <div className="divider" />
-
-      <div className="bottom-container">
-        <div className="repo-information">
-          <div className="star-container">
-            <AiOutlineStar size={24} color={theme.iconColor} />
-            <span>{props.repo.stargazers_count.toLocaleString("en")}</span>
-          </div>
-
-          <div className="language-container">
-            <TbLanguage size={24} color={theme.iconColor} />
-            <span>{props.repo.language}</span>
-          </div>
-
-          {props.repo.license && (
-            <div className="license-container">
-              <HiOutlineScale size={24} color={theme.iconColor} />
-              <span>{props.repo.license.name}</span>
-            </div>
+    <>
+      <S.Container>
+        <div className="title-container">
+          <span className="repo-full-name">{props.repo.full_name}</span>
+          {props.repo.visibility === "public" && (
+            <>
+              <label
+                className="bookmark-icon"
+                htmlFor={`bookmark-${props.repo.id}`}
+              >
+                {isBookmark ? (
+                  <BsBookmarkCheckFill size={34} color="#4D6AB6" />
+                ) : (
+                  <BsBookmarkCheck size={34} color="#4D6AB6" />
+                )}
+              </label>
+              <input
+                id={`bookmark-${props.repo.id}`}
+                className="bookmark"
+                type="checkbox"
+                checked={isBookmark}
+                onChange={(e) => onChangeBookmark(e)}
+              />
+            </>
           )}
+        </div>
 
-          <div className="fork-container">
-            <TbGitFork size={24} color={theme.iconColor} />
-            <span>{props.repo.forks_count.toLocaleString("en")}</span>
+        {isNotBlank(props.repo.topics) && (
+          <div className="topic-container">
+            {props.repo.topics.map((topic, idx) => (
+              <div className="topic" key={idx}>
+                <span className="topic-name">{topic}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <p className="repo-description">{props.repo.description}</p>
+
+        <div className="divider" />
+
+        <div className="bottom-container">
+          <div className="repo-information">
+            <div className="star-container">
+              <AiOutlineStar size={24} color={theme.iconColor} />
+              <span>{props.repo.stargazers_count.toLocaleString("en")}</span>
+            </div>
+
+            <div className="language-container">
+              <TbLanguage size={24} color={theme.iconColor} />
+              <span>{props.repo.language}</span>
+            </div>
+
+            {props.repo.license && (
+              <div className="license-container">
+                <HiOutlineScale size={24} color={theme.iconColor} />
+                <span>{props.repo.license.name}</span>
+              </div>
+            )}
+
+            <div className="fork-container">
+              <TbGitFork size={24} color={theme.iconColor} />
+              <span>{props.repo.forks_count.toLocaleString("en")}</span>
+            </div>
+          </div>
+
+          <div className="update-container">
+            <BiAlarm size={24} color={theme.iconColor} />
+
+            <span>
+              <ReactTimeago date={props.repo.updated_at} />
+            </span>
           </div>
         </div>
+      </S.Container>
 
-        <div className="update-container">
-          <BiAlarm size={24} color={theme.iconColor} />
-
-          <span>
-            <ReactTimeago date={props.repo.updated_at} />
-          </span>
-        </div>
-      </div>
-    </S.Container>
+      {isToastMessage && (
+        <ToastMessageView message="등록 가능한 최대 레포지토리 수를 초과했습니다." />
+      )}
+    </>
   );
 };
 
@@ -199,21 +209,23 @@ const S = {
       margin-top: 20px;
     }
 
-    .bookmark-icon {
-      position: absolute;
-      right: 30px;
-      top: 30px;
-      cursor: pointer;
-    }
-    .bookmark {
-      display: none;
-    }
+    .title-container {
+      display: flex;
+      justify-content: space-between;
 
-    .repo-full-name {
-      font-size: 21px;
-      font-weight: 600;
-      line-height: 31px;
-      color: ${({ theme }) => theme.mainTextColor};
+      .bookmark-icon {
+        cursor: pointer;
+      }
+      .bookmark {
+        display: none;
+      }
+
+      .repo-full-name {
+        font-size: 21px;
+        font-weight: 600;
+        line-height: 31px;
+        color: ${({ theme }) => theme.mainTextColor};
+      }
     }
 
     .topic-container {
