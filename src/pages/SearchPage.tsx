@@ -9,10 +9,15 @@ import { BiLeftArrowCircle, BiRightArrowCircle } from "react-icons/bi";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import RepoItemSkeletonView from "../components/RepoItemSkeletonView";
+import { useQueryClient } from "react-query";
+import { queryKeys } from "../react-query/queryKeys";
 
 const SearchPage = () => {
   // theme
   const theme = useTheme();
+
+  // queryClient
+  const queryClient = useQueryClient();
 
   // query string
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,6 +31,7 @@ const SearchPage = () => {
   );
 
   const [isReloadButton, setIsReloadButton] = useState<boolean>(false);
+  const [isNextPage, setIsNextPage] = useState<boolean>(false);
 
   useEffect(() => {
     if (isNil(error)) {
@@ -42,6 +48,18 @@ const SearchPage = () => {
   const onClickReloadButton = () => {
     window.location.reload();
   };
+
+  useEffect(() => {
+    if (
+      isNil(
+        queryClient.getQueryData([queryKeys.search, searchRepoName, page + 1])
+      )
+    ) {
+      setIsNextPage(false);
+    } else {
+      setIsNextPage(true);
+    }
+  }, [page, queryClient, searchRepoName]);
 
   return (
     <S.Container>
@@ -90,20 +108,18 @@ const SearchPage = () => {
             }
           />
         </button>
-        {/* TODO : disabled 조건 변경 */}
+
         <button
           onClick={() => {
             searchParams.set("page", String(page + 1));
             setSearchParams(searchParams);
           }}
-          disabled={searchRepoList.length < 15}
+          disabled={!isNextPage}
         >
           <BiRightArrowCircle
             size={34}
             color={
-              searchRepoList.length < 15
-                ? theme.disabledArrowIconColor
-                : theme.arrowIconColor
+              isNextPage ? theme.arrowIconColor : theme.disabledArrowIconColor
             }
           />
         </button>

@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useEffect } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import searchApi from "../../lib/api/search";
 import { queryKeys } from "../../react-query/queryKeys";
@@ -7,6 +8,17 @@ import { queryKeys } from "../../react-query/queryKeys";
 const useSearch = (searchRepoName: string, page: number) => {
   // navigate
   const navigate = useNavigate();
+
+  // queryClient
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const nextPage = page + 1;
+    queryClient.prefetchQuery(
+      [queryKeys.search, searchRepoName, nextPage],
+      () => searchApi.searchRepo({ q: searchRepoName, page: nextPage })
+    );
+  }, [page, queryClient, searchRepoName]);
 
   const {
     data: searchRepoList = [],

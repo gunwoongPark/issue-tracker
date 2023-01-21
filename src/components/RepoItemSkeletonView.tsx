@@ -17,7 +17,7 @@ const RepoItemSkeletonView = () => {
 export default RepoItemSkeletonView;
 
 const S = {
-  Container: styled.div`
+  Container: styled.li`
     width: 100%;
     background-color: ${({ theme }) => theme.cardBackgroundColor};
     border-radius: 10px;
