@@ -50,11 +50,13 @@ const S = {
   Container: styled.div`
     margin: 29px auto 0;
     display: flex;
-    width: 818px;
+    width: 100%;
+    max-width: 818px;
     justify-content: space-between;
 
     input {
-      width: 702px;
+      width: 100%;
+      max-width: 702px;
       height: 71px;
       border-radius: 71px;
       border: 1px solid ${({ theme }) => theme.mainTextColor};
@@ -67,6 +69,7 @@ const S = {
     }
 
     button {
+      min-width: 71px;
       width: 71px;
       height: 71px;
       border-radius: 50%;

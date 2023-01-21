@@ -253,6 +253,7 @@ const S = {
       justify-content: space-between;
       .repo-information {
         display: flex;
+        flex-wrap: wrap;
 
         div {
           display: flex;
