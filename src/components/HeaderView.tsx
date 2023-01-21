@@ -2,7 +2,7 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { themeContext } from "../context/CustomThemeProvider";
 import InputView from "./InputView";
-import { BiMoon } from "react-icons/bi";
+import { BiMoon, BiSun } from "react-icons/bi";
 
 const HeaderView = () => {
   // context
@@ -11,7 +11,11 @@ const HeaderView = () => {
   return (
     <S.Container>
       <label htmlFor="theme-toggle-button">
-        <BiMoon size={24} color="#fff" />
+        {context?.theme.mode === "DARK" ? (
+          <BiSun size={24} color="#fff" />
+        ) : (
+          <BiMoon size={24} color="#fff" />
+        )}
       </label>
       <input
         id="theme-toggle-button"

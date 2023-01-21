@@ -7,9 +7,10 @@ import { isNotBlank, isNotNil } from "../util/lodash";
 import { BsBookmarkCheckFill, BsBookmarkCheck } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbGitFork } from "react-icons/tb";
-// import { BiAlarm } from "react-icons/bi";
+import { BiAlarm } from "react-icons/bi";
 import { TbLanguage } from "react-icons/tb";
 import { HiOutlineScale } from "react-icons/hi";
+import ReactTimeago from "react-timeago";
 
 const RepoItemView = (props: { repo: Repository }) => {
   // theme
@@ -165,10 +166,13 @@ const RepoItemView = (props: { repo: Repository }) => {
           </div>
         </div>
 
-        {/* <div className="update-container">
+        <div className="update-container">
           <BiAlarm size={24} color={theme.iconColor} />
-          <span>updated at {props.repo.updated_at}</span>
-        </div> */}
+
+          <span>
+            <ReactTimeago date={props.repo.updated_at} />
+          </span>
+        </div>
       </div>
     </S.Container>
   );
@@ -179,7 +183,7 @@ export default RepoItemView;
 const S = {
   Container: styled.li`
     width: 100%;
-    // only light
+
     ${({ theme }) =>
       theme.mode === "LIGHT" &&
       css`
@@ -255,11 +259,18 @@ const S = {
         display: flex;
         flex-wrap: wrap;
 
+        @media (max-width: 767px) {
+          flex-direction: column;
+        }
+
         div {
           display: flex;
           align-items: center;
-          &:not(:first-child) {
-            margin-left: 10px;
+
+          @media (min-width: 768px) {
+            &:not(:first-child) {
+              margin-left: 10px;
+            }
           }
 
           span {
@@ -275,6 +286,10 @@ const S = {
       .update-container {
         display: flex;
         align-items: center;
+        @media (max-width: 767px) {
+          align-items: flex-end;
+        }
+
         span {
           margin-left: 3px;
           font-size: 14px;
