@@ -22,6 +22,13 @@ const S = {
     align-items: center;
     background-color: ${({ theme }) => theme.mainTextColor};
     width: 632px;
+
+    @media (max-width: 632px) {
+      width: 350px;
+      font-size: 14px;
+      height: 38px;
+    }
+
     height: 51px;
     border-radius: 51px;
     opacity: 0.9;
