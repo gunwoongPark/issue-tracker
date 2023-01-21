@@ -6,6 +6,9 @@ import styled, { useTheme } from "styled-components";
 import RepoItemView from "../components/RepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
 import { BiLeftArrowCircle, BiRightArrowCircle } from "react-icons/bi";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import RepoItemSkeletonView from "../components/RepoItemSkeletonView";
 
 const SearchPage = () => {
   // theme
@@ -44,7 +47,11 @@ const SearchPage = () => {
     <S.Container>
       {(() => {
         if (isLoading || isFetching) {
-          return <p>Loading...</p>;
+          return (
+            <ul>
+              <Skeleton wrapper={RepoItemSkeletonView} count={15} />
+            </ul>
+          );
         }
 
         if (isReloadButton) {
