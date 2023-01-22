@@ -13,7 +13,7 @@ import IssueItemView from "./IssueItemView";
 import { AiFillStar } from "react-icons/ai";
 import PaginationView from "./PaginationView";
 
-const PER_PAGE = 5;
+const PER_PAGE = 4;
 
 const BookmarkItemView = (props: {
   bookmark: BookmarkType;

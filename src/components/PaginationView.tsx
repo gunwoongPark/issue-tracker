@@ -14,7 +14,7 @@ import {
   FiChevronsRight,
 } from "react-icons/fi";
 
-const PER_PAGE = 5;
+const PER_PAGINATION = 5;
 
 const PaginationView = (props: {
   openIssuesCount: number;
@@ -27,25 +27,26 @@ const PaginationView = (props: {
   useEffect(() => {
     let tempPaginationList = [];
 
-    if (PER_PAGE + 1 > props.page) {
-      if (PER_PAGE > props.totalPage) {
+    if (PER_PAGINATION + 1 > props.page) {
+      if (PER_PAGINATION > props.totalPage) {
         for (let idx = 1; props.totalPage >= idx; ++idx) {
           tempPaginationList.push(idx);
         }
       } else {
-        for (let idx = 1; PER_PAGE >= idx; ++idx) {
+        for (let idx = 1; PER_PAGINATION >= idx; ++idx) {
           tempPaginationList.push(idx);
         }
       }
     } else {
-      const pivot = (Math.ceil(props.page / PER_PAGE) - 1) * PER_PAGE;
+      const pivot =
+        (Math.ceil(props.page / PER_PAGINATION) - 1) * PER_PAGINATION;
 
-      if (pivot + 1 + PER_PAGE > props.totalPage) {
+      if (pivot + 1 + PER_PAGINATION > props.totalPage) {
         for (let idx = pivot + 1; props.totalPage >= idx; ++idx) {
           tempPaginationList.push(idx);
         }
       } else {
-        for (let idx = pivot + 1; pivot + PER_PAGE >= idx; ++idx) {
+        for (let idx = pivot + 1; pivot + PER_PAGINATION >= idx; ++idx) {
           tempPaginationList.push(idx);
         }
       }
