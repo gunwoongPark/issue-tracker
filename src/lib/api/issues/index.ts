@@ -1,7 +1,7 @@
 import apiBase from "..";
 import { IssuesReq, IssuesRes } from "./schema";
 
-const PER_PAGE = 4;
+const PER_PAGE = 3;
 
 const issuesApi = {
   /**

@@ -39,9 +39,16 @@ export default HomePage;
 const S = {
   Container: styled.ul`
     margin-top: 60px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
-    row-gap: 20px;
+    @media (min-width: 1320px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 20px;
+      row-gap: 20px;
+    }
+    @media (max-width: 1319px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   `,
 };

@@ -13,7 +13,7 @@ import IssueItemView from "./IssueItemView";
 import { AiFillStar } from "react-icons/ai";
 import PaginationView from "./PaginationView";
 
-const PER_PAGE = 4;
+const PER_PAGE = 3;
 
 const BookmarkItemView = (props: {
   bookmark: BookmarkType;
@@ -94,13 +94,19 @@ const S = {
   Container: styled.li`
     display: flex;
     flex-direction: column;
-
     width: 650px;
     height: 347px;
     background-color: ${({ theme }) => theme.cardBackgroundColor};
     box-sizing: border-box;
     border-radius: 10px;
     padding: 30px 30px 20px 30px;
+
+    @media (max-width: 1319px) {
+      width: 100%;
+      &:not(:first-child) {
+        margin-top: 20px;
+      }
+    }
 
     ${({ theme }) =>
       theme.mode === "LIGHT" &&
