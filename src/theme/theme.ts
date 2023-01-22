@@ -11,7 +11,6 @@ export const darkTheme: DefaultTheme = {
   inputTextColor: "#dddddd",
   iconColor: "#888888",
   arrowIconColor: "#AAAAAA",
-  disabledArrowIconColor: "#666666",
 };
 
 export const lightTheme: DefaultTheme = {
@@ -25,5 +24,4 @@ export const lightTheme: DefaultTheme = {
   inputTextColor: "#444444",
   iconColor: "#666666",
   arrowIconColor: "#666666",
-  disabledArrowIconColor: "#AAAAAA",
 };

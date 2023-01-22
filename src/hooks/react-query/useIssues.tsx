@@ -1,4 +1,5 @@
-import { useQuery } from "react-query";
+import { useEffect } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import issuesApi from "../../lib/api/issues";
 import { queryKeys } from "../../react-query/queryKeys";
 
@@ -11,6 +12,22 @@ const useIssues = ({
   repoName: string;
   page: number;
 }) => {
+  // queryClient
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const nextPage = page + 1;
+    queryClient.prefetchQuery(
+      [queryKeys.issues, owner, repoName, nextPage],
+      () =>
+        issuesApi.fetchIssues({
+          owner,
+          repo: repoName,
+          page: nextPage,
+        })
+    );
+  }, [owner, page, queryClient, repoName]);
+
   const {
     data: issueList = [],
     isLoading,

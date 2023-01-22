@@ -13,6 +13,5 @@ declare module "styled-components" {
     inputTextColor: string;
     iconColor: string;
     arrowIconColor: string;
-    disabledArrowIconColor: string;
   }
 }
