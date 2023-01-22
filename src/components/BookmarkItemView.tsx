@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, useMemo, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useState,
+  memo,
+} from "react";
 import styled, { css, useTheme } from "styled-components";
 import useIssues from "../hooks/react-query/useIssues";
 import type { BookmarkListType, BookmarkType } from "../types/bookmark";
@@ -15,11 +22,11 @@ const BookmarkItemView = (props: {
   // theme
   const theme = useTheme();
 
-  const [page, setPage] = useState<number>(1);
   const totalPage = useMemo(
     () => Math.ceil(props.bookmark.openIssuesCount / PER_PAGE),
     [props.bookmark.openIssuesCount]
   );
+  const [page, setPage] = useState<number>(1);
 
   const { issueList, isLoading, isFetching } = useIssues({
     owner: props.bookmark.owner,
@@ -27,7 +34,7 @@ const BookmarkItemView = (props: {
     page,
   });
 
-  const onClickDeleteButton = () => {
+  const onClickDeleteButton = useCallback(() => {
     const bookmarkList: BookmarkListType = JSON.parse(
       localStorage.getItem("bookmarkList") as string
     );
@@ -38,7 +45,7 @@ const BookmarkItemView = (props: {
 
     props.setBookmarkList(filteredBookmarkList);
     localStorage.setItem("bookmarkList", JSON.stringify(filteredBookmarkList));
-  };
+  }, [props]);
 
   return (
     <>
@@ -81,7 +88,7 @@ const BookmarkItemView = (props: {
   );
 };
 
-export default BookmarkItemView;
+export default memo(BookmarkItemView);
 
 const S = {
   Container: styled.li`

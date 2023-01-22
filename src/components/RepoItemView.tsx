@@ -1,5 +1,5 @@
 import { isNil } from "lodash";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, memo, useCallback, useEffect, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import type { Repository } from "../lib/api/search/schema";
 import type { BookmarkListType } from "../types/bookmark";
@@ -37,14 +37,51 @@ const RepoItemView = (props: { repo: Repository }) => {
     }
   }, [props.repo.id]);
 
-  const onChangeBookmark = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      const data = localStorage.getItem("bookmarkList");
+  const onChangeBookmark = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.checked) {
+        const data = localStorage.getItem("bookmarkList");
 
-      if (isNil(data)) {
+        if (isNil(data)) {
+          localStorage.setItem(
+            "bookmarkList",
+            JSON.stringify([
+              {
+                id: props.repo.id,
+                owner: props.repo.owner?.login ?? "",
+                repoName: props.repo.name,
+                openIssuesCount: props.repo.open_issues_count,
+              },
+            ])
+          );
+
+          setIsBookmark(true);
+          return;
+        }
+
+        const bookmarkList: BookmarkListType = JSON.parse(data);
+
+        // 최대 북마크 수 초과
+        if (bookmarkList.length === 4) {
+          // TODO : 커스텀 모달로 연동
+          setIsToastMessage(true);
+          return;
+        }
+
+        // 중복 데이터 존재
+        if (
+          isNotNil(
+            bookmarkList.find((bookmark) => bookmark.id === props.repo.id)
+          )
+        ) {
+          alert("이미 추가된 레포지토리입니다.");
+          return;
+        }
+
         localStorage.setItem(
           "bookmarkList",
           JSON.stringify([
+            ...bookmarkList,
             {
               id: props.repo.id,
               owner: props.repo.owner?.login ?? "",
@@ -55,56 +92,30 @@ const RepoItemView = (props: { repo: Repository }) => {
         );
 
         setIsBookmark(true);
-        return;
+      } else {
+        const bookmarkList: BookmarkListType = JSON.parse(
+          localStorage.getItem("bookmarkList") as string
+        );
+
+        const filteredBookmarkList = bookmarkList.filter(
+          (bookmark) => bookmark.id !== props.repo.id
+        );
+
+        localStorage.setItem(
+          "bookmarkList",
+          JSON.stringify(filteredBookmarkList)
+        );
+        setIsBookmark(false);
       }
-
-      const bookmarkList: BookmarkListType = JSON.parse(data);
-
-      // 최대 북마크 수 초과
-      if (bookmarkList.length === 4) {
-        // TODO : 커스텀 모달로 연동
-        setIsToastMessage(true);
-        return;
-      }
-
-      // 중복 데이터 존재
-      if (
-        isNotNil(bookmarkList.find((bookmark) => bookmark.id === props.repo.id))
-      ) {
-        alert("이미 추가된 레포지토리입니다.");
-        return;
-      }
-
-      localStorage.setItem(
-        "bookmarkList",
-        JSON.stringify([
-          ...bookmarkList,
-          {
-            id: props.repo.id,
-            owner: props.repo.owner?.login ?? "",
-            repoName: props.repo.name,
-            openIssuesCount: props.repo.open_issues_count,
-          },
-        ])
-      );
-
-      setIsBookmark(true);
-    } else {
-      const bookmarkList: BookmarkListType = JSON.parse(
-        localStorage.getItem("bookmarkList") as string
-      );
-
-      const filteredBookmarkList = bookmarkList.filter(
-        (bookmark) => bookmark.id !== props.repo.id
-      );
-
-      localStorage.setItem(
-        "bookmarkList",
-        JSON.stringify(filteredBookmarkList)
-      );
-      setIsBookmark(false);
-    }
-  };
+    },
+    [
+      props.repo.id,
+      props.repo.name,
+      props.repo.open_issues_count,
+      props.repo.owner?.login,
+      setIsToastMessage,
+    ]
+  );
 
   return (
     <>
@@ -190,7 +201,7 @@ const RepoItemView = (props: { repo: Repository }) => {
   );
 };
 
-export default RepoItemView;
+export default memo(RepoItemView);
 
 const S = {
   Container: styled.li`

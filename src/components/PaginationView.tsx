@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+  memo,
+} from "react";
 import styled from "styled-components";
 import {
   FiChevronsLeft,
@@ -47,30 +54,33 @@ const PaginationView = (props: {
     setPaginationList(tempPaginationList);
   }, [props.page, props.totalPage]);
 
-  const onClickPaginationButton = (addPageValue: number) => {
-    if (addPageValue > 0 && props.totalPage === props.page) {
-      return;
-    } else if (0 > addPageValue && props.page === 1) {
-      return;
-    }
+  const onClickPaginationButton = useCallback(
+    (addPageValue: number) => {
+      if (addPageValue > 0 && props.totalPage === props.page) {
+        return;
+      } else if (0 > addPageValue && props.page === 1) {
+        return;
+      }
 
-    props.setPage((prevPage) => prevPage + addPageValue);
-  };
+      props.setPage((prevPage) => prevPage + addPageValue);
+    },
+    [props]
+  );
 
   return (
     <S.Container>
-      <ul>
-        {props.totalPage > 5 && (
-          <>
-            <li onClick={() => props.setPage(1)}>
-              <FiChevronsLeft />
-            </li>
-            <li onClick={() => onClickPaginationButton(-1)}>
-              <FiChevronLeft />
-            </li>
-          </>
-        )}
+      {props.totalPage > 5 && (
+        <div className="prev-container">
+          <span onClick={() => props.setPage(1)}>
+            <FiChevronsLeft />
+          </span>
+          <span onClick={() => onClickPaginationButton(-1)}>
+            <FiChevronLeft />
+          </span>
+        </div>
+      )}
 
+      <ul>
         {paginationList.map((pagination, idx) => (
           <li
             className={
@@ -82,39 +92,64 @@ const PaginationView = (props: {
             {pagination}
           </li>
         ))}
-
-        {props.totalPage > 5 && (
-          <>
-            <li onClick={() => onClickPaginationButton(1)}>
-              <FiChevronRight />
-            </li>
-            <li onClick={() => props.setPage(props.totalPage)}>
-              <FiChevronsRight />
-            </li>
-          </>
-        )}
       </ul>
+
+      {props.totalPage > 5 && (
+        <div className="next-container">
+          <span onClick={() => onClickPaginationButton(1)}>
+            <FiChevronRight />
+          </span>
+          <span onClick={() => props.setPage(props.totalPage)}>
+            <FiChevronsRight />
+          </span>
+        </div>
+      )}
     </S.Container>
   );
 };
 
-export default PaginationView;
+export default memo(PaginationView);
 
 const S = {
   Container: styled.div`
-    ul {
-      margin-top: 5px;
-      display: flex;
-      justify-content: space-between;
+    margin-top: 5px;
 
+    display: flex;
+    justify-content: space-between;
+
+    .prev-container {
+      display: flex;
+      span {
+        cursor: pointer;
+        color: ${({ theme }) => theme.arrowIconColor};
+        font-size: 18px;
+      }
+    }
+
+    ul {
+      display: flex;
+      justify-content: center;
       li {
+        &:not(:first-child) {
+          margin-left: 20px;
+        }
         cursor: pointer;
         font-size: 18px;
-        color: ${({ theme }) => theme.arrowIconColor};
+        &.current-page-index {
+          color: ${({ theme }) => theme.mainTextColor};
+        }
+        &.page-index {
+          color: ${({ theme }) => theme.arrowIconColor};
+        }
       }
+    }
 
-      .current-page-index {
-        color: ${({ theme }) => theme.mainTextColor};
+    .next-container {
+      display: flex;
+      span {
+        cursor: pointer;
+        color: ${({ theme }) => theme.arrowIconColor};
+        font-size: 18px;
       }
     }
   `,
