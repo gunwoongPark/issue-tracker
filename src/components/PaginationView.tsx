@@ -46,10 +46,20 @@ const PaginationView = (props: {
     setPaginationList(tempPaginationList);
   }, [props.page, totalPage]);
 
+  const onClickPaginationButton = (addPageValue: number) => {
+    if (addPageValue > 0 && totalPage === props.page) {
+      return;
+    } else if (0 > addPageValue && props.page === 1) {
+      return;
+    }
+
+    props.setPage((prevPage) => prevPage + addPageValue);
+  };
+
   return (
     <S.Container>
       <ul>
-        <li onClick={() => props.setPage((prevPage) => prevPage - 1)}>
+        <li onClick={() => onClickPaginationButton(-1)}>
           <BiLeftArrowCircle />
         </li>
         {paginationList.map((pagination, idx) => (
@@ -63,7 +73,7 @@ const PaginationView = (props: {
             {pagination}
           </li>
         ))}
-        <li onClick={() => props.setPage((prevPage) => prevPage + 1)}>
+        <li onClick={() => onClickPaginationButton(1)}>
           <BiRightArrowCircle />
         </li>
       </ul>

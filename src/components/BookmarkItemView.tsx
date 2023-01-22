@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import useIssues from "../hooks/react-query/useIssues";
 import type { BookmarkListType, BookmarkType } from "../types/bookmark";
@@ -20,6 +20,10 @@ const BookmarkItemView = (props: {
     repoName: props.bookmark.repoName,
     page,
   });
+
+  useEffect(() => {
+    console.log(issueList);
+  }, [issueList]);
 
   const onClickDeleteButton = () => {
     const bookmarkList: BookmarkListType = JSON.parse(
@@ -53,7 +57,11 @@ const BookmarkItemView = (props: {
         ) : (
           <ul className="issue-list">
             {issueList.map((issue) => (
-              <IssueItemView key={`repo-list-item-${issue.id}`} issue={issue} />
+              <IssueItemView
+                key={`repo-list-item-${issue.id}`}
+                repoName={props.bookmark.repoName}
+                issue={issue}
+              />
             ))}
           </ul>
         )}

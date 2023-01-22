@@ -10,7 +10,7 @@ const issuesApi = {
    * @returns Promise
    */
   fetchIssues: ({ owner, repo, page }: IssuesReq): Promise<IssuesRes> =>
-    apiBase.get(`/repos/${owner}/${repo}/issues?page=${page}&per_page=5`),
+    apiBase.get(`/repos/${owner}/${repo}/issues?page=${page}&per_page=4`),
 };
 
 export default issuesApi;
