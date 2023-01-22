@@ -1,10 +1,12 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import useIssues from "../hooks/react-query/useIssues";
 import type { BookmarkListType, BookmarkType } from "../types/bookmark";
 import IssueItemView from "./IssueItemView";
 import { AiFillStar } from "react-icons/ai";
 import PaginationView from "./PaginationView";
+
+const PER_PAGE = 5;
 
 const BookmarkItemView = (props: {
   bookmark: BookmarkType;
@@ -14,6 +16,10 @@ const BookmarkItemView = (props: {
   const theme = useTheme();
 
   const [page, setPage] = useState<number>(1);
+  const totalPage = useMemo(
+    () => Math.ceil(props.bookmark.openIssuesCount / PER_PAGE),
+    [props.bookmark.openIssuesCount]
+  );
 
   const { issueList, isLoading, isFetching } = useIssues({
     owner: props.bookmark.owner,
@@ -62,11 +68,14 @@ const BookmarkItemView = (props: {
           </ul>
         )}
 
-        <PaginationView
-          openIssuesCount={props.bookmark.openIssuesCount}
-          page={page}
-          setPage={setPage}
-        />
+        {totalPage > 1 && (
+          <PaginationView
+            openIssuesCount={props.bookmark.openIssuesCount}
+            page={page}
+            setPage={setPage}
+            totalPage={totalPage}
+          />
+        )}
       </S.Container>
     </>
   );
