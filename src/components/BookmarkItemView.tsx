@@ -37,31 +37,26 @@ const BookmarkItemView = (props: {
   return (
     <>
       <S.Container>
-        <div>
-          <div className="title-container">
-            <span className="repo-full-name">
-              {props.bookmark.owner}/{props.bookmark.repoName}
-            </span>
-            <i className="delete-button" onClick={() => onClickDeleteButton()}>
-              <AiFillStar size={24} color={theme.mainTextColor} />
-            </i>
-          </div>
-
-          <div className="divider" />
-
-          {isLoading || isFetching ? (
-            <p>Loading...</p>
-          ) : (
-            <ul>
-              {issueList.map((issue) => (
-                <IssueItemView
-                  key={`repo-list-item-${issue.id}`}
-                  issue={issue}
-                />
-              ))}
-            </ul>
-          )}
+        <div className="title-container">
+          <span className="repo-full-name">
+            {props.bookmark.owner}/{props.bookmark.repoName}
+          </span>
+          <i className="delete-button" onClick={() => onClickDeleteButton()}>
+            <AiFillStar size={24} color={theme.mainTextColor} />
+          </i>
         </div>
+
+        <div className="divider" />
+
+        {isLoading || isFetching ? (
+          <p>Loading...</p>
+        ) : (
+          <ul className="issue-list">
+            {issueList.map((issue) => (
+              <IssueItemView key={`repo-list-item-${issue.id}`} issue={issue} />
+            ))}
+          </ul>
+        )}
 
         <PaginationView
           openIssuesCount={props.bookmark.openIssuesCount}
@@ -79,7 +74,7 @@ const S = {
   Container: styled.li`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+
     width: 650px;
     height: 347px;
     background-color: ${({ theme }) => theme.cardBackgroundColor};
@@ -110,6 +105,11 @@ const S = {
     .divider {
       margin-top: 10px;
       border: 1px solid ${({ theme }) => theme.dividerColor};
+    }
+
+    .issue-list {
+      height: 100%;
+      overflow-y: auto;
     }
 
     .button-container {
