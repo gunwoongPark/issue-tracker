@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import { BiLeftArrowCircle, BiRightArrowCircle } from "react-icons/bi";
 import styled from "styled-components";
 
 const PER_PAGE = 5;
@@ -48,11 +49,23 @@ const PaginationView = (props: {
   return (
     <S.Container>
       <ul>
+        <li onClick={() => props.setPage((prevPage) => prevPage - 1)}>
+          <BiLeftArrowCircle />
+        </li>
         {paginationList.map((pagination, idx) => (
-          <li key={idx} onClick={() => props.setPage(pagination)}>
+          <li
+            key={idx}
+            onClick={() => props.setPage(pagination)}
+            style={
+              props.page === pagination ? { color: "red" } : { color: "black" }
+            }
+          >
             {pagination}
           </li>
         ))}
+        <li onClick={() => props.setPage((prevPage) => prevPage + 1)}>
+          <BiRightArrowCircle />
+        </li>
       </ul>
     </S.Container>
   );
