@@ -10,10 +10,17 @@ const IssueItemView = (props: { repoName: string; issue: Issue }) => {
 
   return (
     <S.Container>
-      <span className="repo-name">{props.repoName} </span>
-      <a href={props.issue.html_url} target="_blank" rel="noopener noreferrer">
-        {props.issue.title}
-      </a>
+      <div className="head-container">
+        <span className="repo-name">{props.repoName} </span>
+        <a
+          className="issue-title"
+          href={props.issue.html_url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {props.issue.title}
+        </a>
+      </div>
 
       <div className="label-container">
         {props.issue.labels.map((label) => (
@@ -53,25 +60,35 @@ export default IssueItemView;
 
 const S = {
   Container: styled.li`
-    .repo-name {
-      color: ${({ theme }) => theme.mainTextColor};
-    }
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 
-    a {
-      text-decoration: none;
-      color: ${({ theme }) => theme.subTextColor};
-      font-size: 16px;
-      line-height: 28px;
-      font-weight: 400;
+    .head-container {
+      display: flex;
+      align-items: baseline;
+      .repo-name {
+        color: ${({ theme }) => theme.mainTextColor};
+      }
+
+      .issue-title {
+        margin-left: 5px;
+        text-decoration: none;
+        color: ${({ theme }) => theme.subTextColor};
+        font-size: 16px;
+        line-height: 28px;
+        font-weight: 400;
+      }
     }
 
     .label-container {
-      display: inline-block;
+      display: flex;
     }
 
     .bottom-container {
       display: flex;
       justify-content: space-between;
+      margin-top: 5px;
       .user-container {
         display: flex;
         align-items: center;
