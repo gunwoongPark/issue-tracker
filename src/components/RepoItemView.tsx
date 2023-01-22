@@ -49,6 +49,7 @@ const RepoItemView = (props: { repo: Repository }) => {
               id: props.repo.id,
               owner: props.repo.owner?.login ?? "",
               repoName: props.repo.name,
+              openIssuesCount: props.repo.open_issues_count,
             },
           ])
         );
@@ -82,6 +83,7 @@ const RepoItemView = (props: { repo: Repository }) => {
             id: props.repo.id,
             owner: props.repo.owner?.login ?? "",
             repoName: props.repo.name,
+            openIssuesCount: props.repo.open_issues_count,
           },
         ])
       );

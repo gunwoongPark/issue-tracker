@@ -4,12 +4,7 @@ import useIssues from "../hooks/react-query/useIssues";
 import type { BookmarkListType, BookmarkType } from "../types/bookmark";
 import IssueItemView from "./IssueItemView";
 import { AiFillStar } from "react-icons/ai";
-import { BiLeftArrowCircle, BiRightArrowCircle } from "react-icons/bi";
-import { useQueryClient } from "react-query";
-import { queryKeys } from "../react-query/queryKeys";
-import useToastMessage from "../hooks/custom/useToastMessage";
-import { isBlank } from "../util/lodash";
-import ToastMessageView from "./ToastMessageView";
+import PaginationView from "./PaginationView";
 
 const BookmarkItemView = (props: {
   bookmark: BookmarkType;
@@ -18,12 +13,7 @@ const BookmarkItemView = (props: {
   // theme
   const theme = useTheme();
 
-  // queryClient
-  const queryClient = useQueryClient();
-
   const [page, setPage] = useState<number>(1);
-  const [toastMessageValue, setToastMessageValue] = useState<string>("");
-  const { isToastMessage, setIsToastMessage } = useToastMessage();
 
   const { issueList, isLoading, isFetching } = useIssues({
     owner: props.bookmark.owner,
@@ -42,37 +32,6 @@ const BookmarkItemView = (props: {
 
     props.setBookmarkList(filteredBookmarkList);
     localStorage.setItem("bookmarkList", JSON.stringify(filteredBookmarkList));
-  };
-
-  const onClickPageButton = (addPageValue: number) => {
-    if (isLoading || isFetching) {
-      return;
-    }
-
-    if (addPageValue > 0) {
-      if (
-        isBlank(
-          queryClient.getQueryData([
-            queryKeys.issues,
-            props.bookmark.owner,
-            props.bookmark.repoName,
-            page + addPageValue,
-          ])
-        )
-      ) {
-        setToastMessageValue("마지막 페이지입니다.");
-        setIsToastMessage(true);
-        return;
-      }
-    } else {
-      if (page === 1) {
-        setToastMessageValue("첫 페이지입니다.");
-        setIsToastMessage(true);
-        return;
-      }
-    }
-
-    setPage(page + addPageValue);
   };
 
   return (
@@ -104,17 +63,12 @@ const BookmarkItemView = (props: {
           )}
         </div>
 
-        <div className="button-container">
-          <button onClick={() => onClickPageButton(-1)}>
-            <BiLeftArrowCircle size={34} color={theme.arrowIconColor} />
-          </button>
-          <button onClick={() => onClickPageButton(1)}>
-            <BiRightArrowCircle size={34} color={theme.arrowIconColor} />
-          </button>
-        </div>
+        <PaginationView
+          openIssuesCount={props.bookmark.openIssuesCount}
+          page={page}
+          setPage={setPage}
+        />
       </S.Container>
-
-      {isToastMessage && <ToastMessageView message={toastMessageValue} />}
     </>
   );
 };
@@ -154,7 +108,7 @@ const S = {
     }
 
     .divider {
-      margin-top: 20px;
+      margin-top: 10px;
       border: 1px solid ${({ theme }) => theme.dividerColor};
     }
 
