@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import styled, { css } from "styled-components";
 import useIssues from "../hooks/react-query/useIssues";
 import type { BookmarkListType, BookmarkType } from "../types/bookmark";
 import IssueItemView from "./IssueItemView";
@@ -29,7 +30,7 @@ const BookmarkItemView = (props: {
   };
 
   return (
-    <li>
+    <S.Container>
       <p>
         {props.bookmark.owner}/{props.bookmark.repoName}
       </p>
@@ -56,8 +57,24 @@ const BookmarkItemView = (props: {
       >
         Next
       </button>
-    </li>
+    </S.Container>
   );
 };
 
 export default BookmarkItemView;
+
+const S = {
+  Container: styled.li`
+    width: 650px;
+    height: 347px;
+    background-color: ${({ theme }) => theme.cardBackgroundColor};
+    box-sizing: border-box;
+    border-radius: 10px;
+
+    ${({ theme }) =>
+      theme.mode === "LIGHT" &&
+      css`
+        border: 1px solid ${({ theme }) => theme.dividerColor};
+      `}
+  `,
+};

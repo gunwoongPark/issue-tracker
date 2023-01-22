@@ -1,5 +1,6 @@
 import { isNil } from "lodash";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import BookmarkItemView from "../components/BookmarkItemView";
 import type { BookmarkListType } from "../types/bookmark";
 
@@ -20,7 +21,7 @@ const HomePage = () => {
 
   return (
     <>
-      <ul>
+      <S.Container>
         {bookmarkList.map((bookmark) => (
           <BookmarkItemView
             key={`bookmark-list-item-${bookmark.id}`}
@@ -28,9 +29,19 @@ const HomePage = () => {
             setBookmarkList={setBookmarkList}
           />
         ))}
-      </ul>
+      </S.Container>
     </>
   );
 };
 
 export default HomePage;
+
+const S = {
+  Container: styled.ul`
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
+  `,
+};
