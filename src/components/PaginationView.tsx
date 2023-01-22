@@ -88,6 +88,7 @@ const S = {
     ul {
       display: flex;
       justify-content: space-between;
+      font-size: 14px;
       li {
       }
     }

@@ -2,6 +2,7 @@ import { BiAlarm } from "react-icons/bi";
 import ReactTimeago from "react-timeago";
 import styled, { css, useTheme } from "styled-components";
 import type { Issue } from "../lib/api/issues/schema";
+import { calcTextColor } from "../util/calcTextColor";
 
 const IssueItemView = (props: { repoName: string; issue: Issue }) => {
   // theme
@@ -16,7 +17,12 @@ const IssueItemView = (props: { repoName: string; issue: Issue }) => {
 
       <div className="label-container">
         {props.issue.labels.map((label) => (
-          <S.Label className="label" color={label.color}>
+          <S.Label
+            key={label.id}
+            className="label"
+            color={label.color}
+            textColor={calcTextColor(label.color)}
+          >
             {label.name}
           </S.Label>
         ))}
@@ -93,8 +99,9 @@ const S = {
     }
   `,
 
-  Label: styled.span<{ color: string }>`
+  Label: styled.span<{ color: string; textColor: string }>`
     background-color: ${({ color }) => css`#${color}`};
+    color: ${({ textColor }) => textColor};
     font-size: 12px;
     border-radius: 16px;
     padding: 0 2px;

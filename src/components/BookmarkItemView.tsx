@@ -21,10 +21,6 @@ const BookmarkItemView = (props: {
     page,
   });
 
-  useEffect(() => {
-    console.log(issueList);
-  }, [issueList]);
-
   const onClickDeleteButton = () => {
     const bookmarkList: BookmarkListType = JSON.parse(
       localStorage.getItem("bookmarkList") as string
