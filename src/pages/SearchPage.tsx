@@ -2,7 +2,7 @@ import axios from "axios";
 import { isNil } from "lodash";
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import styled, { useTheme } from "styled-components";
+import styled, { css, useTheme } from "styled-components";
 import RepoItemView from "../components/RepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
 import { BiLeftArrowCircle, BiRightArrowCircle } from "react-icons/bi";
@@ -146,19 +146,22 @@ const SearchPage = () => {
 
   return (
     <>
-      <select value={order as string} onChange={(e) => onChangeOrder(e)}>
-        <option value="desc">desc</option>
-        <option value="asc">asc</option>
-      </select>
-
-      <select value={sort as string} onChange={(e) => onChangeSort(e)}>
-        <option value="best-match">best match</option>
-        <option value="updated">updated</option>
-        <option value="stars">stars</option>
-        <option value="forks">forks</option>
-        <option value="help-wanted-issues">help wanted issues</option>
-      </select>
       <S.Container>
+        <div className="filter-container">
+          <select value={order as string} onChange={(e) => onChangeOrder(e)}>
+            <option value="desc">desc</option>
+            <option value="asc">asc</option>
+          </select>
+
+          <select value={sort as string} onChange={(e) => onChangeSort(e)}>
+            <option value="best-match">best match</option>
+            <option value="updated">updated</option>
+            <option value="stars">stars</option>
+            <option value="forks">forks</option>
+            <option value="help-wanted-issues">help wanted issues</option>
+          </select>
+        </div>
+
         {(() => {
           if (isLoading || isFetching) {
             return (
@@ -209,8 +212,47 @@ export default SearchPage;
 
 const S = {
   Container: styled.div`
-    ul {
+    .filter-container {
       margin-top: 40px;
+      display: flex;
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+      }
+
+      select {
+        ${({ theme }) =>
+          theme.mode === "LIGHT"
+            ? css`
+                border: 1px solid #dedede;
+              `
+            : css`
+                border: none;
+              `}
+        width: 169px;
+        height: 32px;
+        background-color: ${({ theme }) => theme.selectBackgroundColor};
+        color: ${({ theme }) => theme.selectTextColor};
+        border-radius: 6px;
+        font-size: 16px;
+        padding: 0 14px;
+
+        @media (max-width: 480px) {
+          &:not(:first-child) {
+            margin-top: 8px;
+          }
+        }
+
+        @media (min-width: 481px) {
+          &:not(:first-child) {
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+
+    ul {
+      margin-top: 14px;
     }
 
     .button-container {

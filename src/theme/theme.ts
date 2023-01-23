@@ -13,6 +13,8 @@ export const darkTheme: DefaultTheme = {
   arrowIconColor: "#AAAAAA",
   skeletonBaseColor: "#474747",
   skeletonHighlightColor: "#606060",
+  selectBackgroundColor: "#363636",
+  selectTextColor: "#AAAAAA",
 };
 
 export const lightTheme: DefaultTheme = {
@@ -28,4 +30,6 @@ export const lightTheme: DefaultTheme = {
   arrowIconColor: "#666666",
   skeletonBaseColor: "#F6F9FF",
   skeletonHighlightColor: "#E1EAFF",
+  selectBackgroundColor: "#FFFFFF",
+  selectTextColor: "#444444",
 };

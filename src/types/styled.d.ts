@@ -15,5 +15,7 @@ declare module "styled-components" {
     arrowIconColor: string;
     skeletonBaseColor: string;
     skeletonHighlightColor: string;
+    selectBackgroundColor: string;
+    selectTextColor: string;
   }
 }
