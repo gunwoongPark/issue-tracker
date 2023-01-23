@@ -7,11 +7,13 @@ const searchApi = {
   searchRepo: ({
     q,
     page,
-    // sort,
+    sort,
     order,
   }: SearchRepoReq): Promise<SearchRepoRes> =>
     apiBase.get(
-      `/search/repositories?q=${q}+in:name&page=${page}&per_page=${PER_PAGE}&order=${order}`
+      `/search/repositories?q=${q}+in:name&page=${page}&per_page=${PER_PAGE}&order=${order}${
+        sort !== "best-match" ? `&sort=${sort}` : ""
+      }`
     ),
 };
 

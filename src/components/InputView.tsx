@@ -29,7 +29,7 @@ const InputView = () => {
   const onClickSearchButton = useCallback(() => {
     navigate({
       pathname: "/search",
-      search: `?q=${input}&page=1&order=desc`,
+      search: `?q=${input}&page=1&order=desc&sort=best-match`,
     });
   }, [input, navigate]);
 

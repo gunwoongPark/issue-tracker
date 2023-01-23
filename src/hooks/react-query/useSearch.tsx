@@ -3,10 +3,15 @@ import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import searchApi from "../../lib/api/search";
-import { OrderType } from "../../lib/api/search/schema";
+import { OrderType, SortType } from "../../lib/api/search/schema";
 import { queryKeys } from "../../react-query/queryKeys";
 
-const useSearch = (searchRepoName: string, page: number, order: OrderType) => {
+const useSearch = (
+  searchRepoName: string,
+  page: number,
+  order: OrderType,
+  sort: SortType
+) => {
   // navigate
   const navigate = useNavigate();
 
@@ -17,10 +22,11 @@ const useSearch = (searchRepoName: string, page: number, order: OrderType) => {
     const nextPage = page + 1;
 
     queryClient.prefetchQuery(
-      [queryKeys.search, searchRepoName, nextPage, order],
-      () => searchApi.searchRepo({ q: searchRepoName, page: nextPage, order })
+      [queryKeys.search, searchRepoName, nextPage, order, sort],
+      () =>
+        searchApi.searchRepo({ q: searchRepoName, page: nextPage, order, sort })
     );
-  }, [page, queryClient, searchRepoName, order]);
+  }, [page, queryClient, searchRepoName, order, sort]);
 
   const {
     data: searchRepoList = [],
@@ -28,8 +34,8 @@ const useSearch = (searchRepoName: string, page: number, order: OrderType) => {
     isFetching,
     error,
   } = useQuery(
-    [queryKeys.search, searchRepoName, page, order],
-    () => searchApi.searchRepo({ q: searchRepoName, page, order }),
+    [queryKeys.search, searchRepoName, page, order, sort],
+    () => searchApi.searchRepo({ q: searchRepoName, page, order, sort }),
     {
       select: (response) => response.items,
       keepPreviousData: true,

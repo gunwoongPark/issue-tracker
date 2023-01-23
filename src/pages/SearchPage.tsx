@@ -13,7 +13,7 @@ import { useQueryClient } from "react-query";
 import { queryKeys } from "../react-query/queryKeys";
 import useToastMessage from "../hooks/custom/useToastMessage";
 import ToastMessageView from "../components/ToastMessageView";
-import { OrderType } from "../lib/api/search/schema";
+import { OrderType, SortType } from "../lib/api/search/schema";
 
 const SearchPage = () => {
   // theme
@@ -36,11 +36,27 @@ const SearchPage = () => {
 
     return "desc";
   }, [searchParams]);
+  const sort = useMemo(() => {
+    const sort = searchParams.get("sort");
+
+    if (
+      sort === "updated" ||
+      sort === "forks" ||
+      sort === "stars" ||
+      sort === "help-wanted-issues" ||
+      sort === "best-match"
+    ) {
+      return sort;
+    }
+
+    return "best-match";
+  }, [searchParams]);
 
   const { searchRepoList, isLoading, isFetching, error } = useSearch(
     searchRepoName ?? "",
     page,
-    order as OrderType
+    order as OrderType,
+    sort as SortType
   );
 
   const [isReloadButton, setIsReloadButton] = useState<boolean>(false);
@@ -73,6 +89,7 @@ const SearchPage = () => {
               searchRepoName,
               page + addPageValue,
               order,
+              sort,
             ])
           )
         ) {
@@ -89,6 +106,8 @@ const SearchPage = () => {
       }
 
       searchParams.set("page", String(page + addPageValue));
+      searchParams.set("order", order);
+      searchParams.set("sort", sort);
       setSearchParams(searchParams);
     },
     [
@@ -99,15 +118,30 @@ const SearchPage = () => {
       setIsToastMessage,
       setSearchParams,
       order,
+      sort,
     ]
   );
 
+  // order 변경
   const onChangeOrder = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
+      searchParams.set("page", String(page));
       searchParams.set("order", e.target.value);
+      searchParams.set("sort", sort);
       setSearchParams(searchParams);
     },
-    [searchParams, setSearchParams]
+    [page, searchParams, setSearchParams, sort]
+  );
+
+  // sort 변경
+  const onChangeSort = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      searchParams.set("page", String(page));
+      searchParams.set("order", order);
+      searchParams.set("sort", e.target.value);
+      setSearchParams(searchParams);
+    },
+    [order, page, searchParams, setSearchParams]
   );
 
   return (
@@ -115,6 +149,14 @@ const SearchPage = () => {
       <select value={order as string} onChange={(e) => onChangeOrder(e)}>
         <option value="desc">desc</option>
         <option value="asc">asc</option>
+      </select>
+
+      <select value={sort as string} onChange={(e) => onChangeSort(e)}>
+        <option value="best-match">best match</option>
+        <option value="updated">updated</option>
+        <option value="stars">stars</option>
+        <option value="forks">forks</option>
+        <option value="help-wanted-issues">help wanted issues</option>
       </select>
       <S.Container>
         {(() => {
