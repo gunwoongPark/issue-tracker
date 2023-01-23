@@ -13,7 +13,13 @@ import { useQueryClient } from "react-query";
 import { queryKeys } from "../react-query/queryKeys";
 import useToastMessage from "../hooks/custom/useToastMessage";
 import ToastMessageView from "../components/ToastMessageView";
-import { OrderType, SortType } from "../lib/api/search/schema";
+import {
+  OrderType,
+  SortType,
+  Repository,
+  SearchRepoRes,
+} from "../lib/api/search/schema";
+import { isBlank } from "../util/lodash";
 
 const SearchPage = () => {
   // theme
@@ -82,17 +88,15 @@ const SearchPage = () => {
   const onClickPageButton = useCallback(
     (addPageValue: number) => {
       if (addPageValue > 0) {
-        if (
-          isNil(
-            queryClient.getQueryData([
-              queryKeys.search,
-              searchRepoName,
-              page + addPageValue,
-              order,
-              sort,
-            ])
-          )
-        ) {
+        const prefetchData = queryClient.getQueryData([
+          queryKeys.search,
+          searchRepoName,
+          page + addPageValue,
+          order,
+          sort,
+        ]) as SearchRepoRes | undefined;
+
+        if (isNil(prefetchData) || isBlank(prefetchData.items)) {
           setToastMessageValue("마지막 페이지입니다.");
           setIsToastMessage(true);
           return;
