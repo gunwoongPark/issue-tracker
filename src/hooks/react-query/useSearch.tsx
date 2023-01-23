@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import searchApi from "../../lib/api/search";
+import { OrderType } from "../../lib/api/search/schema";
 import { queryKeys } from "../../react-query/queryKeys";
 
-const useSearch = (searchRepoName: string, page: number) => {
+const useSearch = (searchRepoName: string, page: number, order: OrderType) => {
   // navigate
   const navigate = useNavigate();
 
@@ -16,10 +17,10 @@ const useSearch = (searchRepoName: string, page: number) => {
     const nextPage = page + 1;
 
     queryClient.prefetchQuery(
-      [queryKeys.search, searchRepoName, nextPage],
-      () => searchApi.searchRepo({ q: searchRepoName, page: nextPage })
+      [queryKeys.search, searchRepoName, nextPage, order],
+      () => searchApi.searchRepo({ q: searchRepoName, page: nextPage, order })
     );
-  }, [page, queryClient, searchRepoName]);
+  }, [page, queryClient, searchRepoName, order]);
 
   const {
     data: searchRepoList = [],
@@ -27,8 +28,8 @@ const useSearch = (searchRepoName: string, page: number) => {
     isFetching,
     error,
   } = useQuery(
-    [queryKeys.search, searchRepoName, page],
-    () => searchApi.searchRepo({ q: searchRepoName, page }),
+    [queryKeys.search, searchRepoName, page, order],
+    () => searchApi.searchRepo({ q: searchRepoName, page, order }),
     {
       select: (response) => response.items,
       keepPreviousData: true,

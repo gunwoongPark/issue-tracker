@@ -1,6 +1,11 @@
+// export type SortType = "stars" | "forks" | "help-wanted-issues" | "updated";
+export type OrderType = "desc" | "asc";
+
 export interface SearchRepoReq {
   q: string;
   page: number;
+  // sort: SortType;
+  order: OrderType;
 }
 export interface SearchRepoRes {
   total_count: number;

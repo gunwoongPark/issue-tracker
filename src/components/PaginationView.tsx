@@ -4,7 +4,6 @@ import {
   useCallback,
   useEffect,
   useState,
-  memo,
 } from "react";
 import styled from "styled-components";
 import {
@@ -109,7 +108,7 @@ const PaginationView = (props: {
   );
 };
 
-export default memo(PaginationView);
+export default PaginationView;
 
 const S = {
   Container: styled.div`

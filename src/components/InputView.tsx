@@ -27,7 +27,10 @@ const InputView = () => {
   }, [location.pathname, searchParams]);
 
   const onClickSearchButton = useCallback(() => {
-    navigate({ pathname: "/search", search: `?q=${input}&page=1` });
+    navigate({
+      pathname: "/search",
+      search: `?q=${input}&page=1&order=desc`,
+    });
   }, [input, navigate]);
 
   return (

@@ -4,7 +4,6 @@ import {
   useCallback,
   useMemo,
   useState,
-  memo,
 } from "react";
 import styled, { css, useTheme } from "styled-components";
 import useIssues from "../hooks/react-query/useIssues";
@@ -88,7 +87,7 @@ const BookmarkItemView = (props: {
   );
 };
 
-export default memo(BookmarkItemView);
+export default BookmarkItemView;
 
 const S = {
   Container: styled.li`

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { isNil } from "lodash";
-import { useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import RepoItemView from "../components/RepoItemView";
@@ -13,6 +13,7 @@ import { useQueryClient } from "react-query";
 import { queryKeys } from "../react-query/queryKeys";
 import useToastMessage from "../hooks/custom/useToastMessage";
 import ToastMessageView from "../components/ToastMessageView";
+import { OrderType } from "../lib/api/search/schema";
 
 const SearchPage = () => {
   // theme
@@ -26,10 +27,20 @@ const SearchPage = () => {
 
   const searchRepoName = searchParams.get("q");
   const page = Number(searchParams.get("page")) || 1;
+  const order = useMemo(() => {
+    const order = searchParams.get("order");
+
+    if (order === "desc" || order === "asc") {
+      return order;
+    }
+
+    return "desc";
+  }, [searchParams]);
 
   const { searchRepoList, isLoading, isFetching, error } = useSearch(
     searchRepoName ?? "",
-    page
+    page,
+    order as OrderType
   );
 
   const [isReloadButton, setIsReloadButton] = useState<boolean>(false);
@@ -61,6 +72,7 @@ const SearchPage = () => {
               queryKeys.search,
               searchRepoName,
               page + addPageValue,
+              order,
             ])
           )
         ) {
@@ -86,11 +98,24 @@ const SearchPage = () => {
       searchRepoName,
       setIsToastMessage,
       setSearchParams,
+      order,
     ]
+  );
+
+  const onChangeOrder = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      searchParams.set("order", e.target.value);
+      setSearchParams(searchParams);
+    },
+    [searchParams, setSearchParams]
   );
 
   return (
     <>
+      <select value={order as string} onChange={(e) => onChangeOrder(e)}>
+        <option value="desc">desc</option>
+        <option value="asc">asc</option>
+      </select>
       <S.Container>
         {(() => {
           if (isLoading || isFetching) {
