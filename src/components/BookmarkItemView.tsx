@@ -11,6 +11,9 @@ import type { BookmarkListType, BookmarkType } from "../types/bookmark";
 import IssueItemView from "./IssueItemView";
 import { AiFillStar } from "react-icons/ai";
 import PaginationView from "./PaginationView";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import IssueItemSkeletonView from "./IssueItemSkeletonView";
 
 const PER_PAGE = 3;
 
@@ -61,7 +64,9 @@ const BookmarkItemView = (props: {
         <div className="divider" />
 
         {isLoading || isFetching ? (
-          <p>Loading...</p>
+          <ul>
+            <Skeleton wrapper={IssueItemSkeletonView} count={3} />
+          </ul>
         ) : (
           <ul className="issue-list">
             {issueList.map((issue) => (
