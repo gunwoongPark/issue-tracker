@@ -41,7 +41,7 @@ const InputView = () => {
         onChange={(e) => setInput(e.target.value)}
       />
       <button onClick={() => onClickSearchButton()} disabled={isBlank(input)}>
-        <BiSearch color="#4d6ab6" fontSize={34} />
+        <BiSearch color="#4d6ab6" />
       </button>
     </S.Container>
   );
@@ -68,6 +68,12 @@ const S = {
       font-size: 21px;
       padding: 0 15px;
       font-family: Pretendard;
+
+      @media (max-width: 480px) {
+        height: 51px;
+        border-radius: 51px;
+        font-size: 16px;
+      }
     }
 
     button {
@@ -82,6 +88,15 @@ const S = {
       align-items: center;
       cursor: pointer;
       background-color: ${({ theme }) => theme.cardBackgroundColor};
+      font-size: 34px;
+
+      @media (max-width: 480px) {
+        width: 51px;
+        height: 51px;
+        min-width: 51px;
+        margin-left: 8px;
+        font-size: 24px;
+      }
     }
   `,
 };

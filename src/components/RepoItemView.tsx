@@ -129,9 +129,9 @@ const RepoItemView = (props: { repo: Repository }) => {
                 htmlFor={`bookmark-${props.repo.id}`}
               >
                 {isBookmark ? (
-                  <BsBookmarkCheckFill size={34} color="#4D6AB6" />
+                  <BsBookmarkCheckFill size={28} color="#4D6AB6" />
                 ) : (
-                  <BsBookmarkCheck size={34} color="#4D6AB6" />
+                  <BsBookmarkCheck size={28} color="#4D6AB6" />
                 )}
               </label>
               <input
