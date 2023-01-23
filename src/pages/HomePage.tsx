@@ -20,17 +20,15 @@ const HomePage = () => {
   }, []);
 
   return (
-    <>
-      <S.Container>
-        {bookmarkList.map((bookmark) => (
-          <BookmarkItemView
-            key={`bookmark-list-item-${bookmark.id}`}
-            bookmark={bookmark}
-            setBookmarkList={setBookmarkList}
-          />
-        ))}
-      </S.Container>
-    </>
+    <S.Container>
+      {bookmarkList.map((bookmark) => (
+        <BookmarkItemView
+          key={`bookmark-list-item-${bookmark.id}`}
+          bookmark={bookmark}
+          setBookmarkList={setBookmarkList}
+        />
+      ))}
+    </S.Container>
   );
 };
 

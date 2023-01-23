@@ -13,5 +13,7 @@ declare module "styled-components" {
     inputTextColor: string;
     iconColor: string;
     arrowIconColor: string;
+    skeletonBaseColor: string;
+    skeletonHighlightColor: string;
   }
 }

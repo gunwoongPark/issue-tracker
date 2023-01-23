@@ -1,15 +1,34 @@
 import Skeleton from "react-loading-skeleton";
-import styled, { css } from "styled-components";
+import styled, { css, useTheme } from "styled-components";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const RepoItemSkeletonView = () => {
+  // theme
+  const theme = useTheme();
+
   return (
     <S.Container>
-      <Skeleton className="repo-full-name" baseColor="#000" />
-      <Skeleton className="topics" />
-      <Skeleton className="repo-description" />
+      <Skeleton
+        className="repo-full-name"
+        baseColor={theme.skeletonBaseColor}
+        highlightColor={theme.skeletonHighlightColor}
+      />
+      <Skeleton
+        className="topics"
+        baseColor={theme.skeletonBaseColor}
+        highlightColor={theme.skeletonHighlightColor}
+      />
+      <Skeleton
+        className="repo-description"
+        baseColor={theme.skeletonBaseColor}
+        highlightColor={theme.skeletonHighlightColor}
+      />
       <div className="divider" />
-      <Skeleton className="repo-information" />
+      <Skeleton
+        className="repo-information"
+        baseColor={theme.skeletonBaseColor}
+        highlightColor={theme.skeletonHighlightColor}
+      />
     </S.Container>
   );
 };
