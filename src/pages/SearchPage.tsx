@@ -19,6 +19,8 @@ import type {
   SearchRepoRes,
 } from "../lib/api/search/schema";
 import { isBlank, isNotBlank } from "../util/lodash";
+import PlzReloadView from "../components/PlzReloadView";
+import NoneDataView from "../components/NoneDataView";
 
 const SearchPage = () => {
   // theme
@@ -175,16 +177,11 @@ const SearchPage = () => {
           }
 
           if (isReloadButton) {
-            return (
-              <>
-                <p>please reload</p>
-                <button onClick={() => window.location.reload()}>RELOAD</button>
-              </>
-            );
+            return <PlzReloadView />;
           }
 
           if (isBlank(searchRepoList)) {
-            return <p>None Data</p>;
+            return <NoneDataView />;
           }
 
           return (
