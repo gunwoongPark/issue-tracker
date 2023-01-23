@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { isBlank } from "../util/lodash";
@@ -26,21 +26,26 @@ const InputView = () => {
     }
   }, [location.pathname, searchParams]);
 
-  const onClickSearchButton = useCallback(() => {
-    navigate({
-      pathname: "/search",
-      search: `?q=${input}&page=1&order=desc&sort=best-match`,
-    });
-  }, [input, navigate]);
+  const onClickSearchButton = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      navigate({
+        pathname: "/search",
+        search: `?q=${input}&page=1&order=desc&sort=best-match`,
+      });
+    },
+    [input, navigate]
+  );
 
   return (
-    <S.Container>
+    <S.Container onSubmit={(e) => onClickSearchButton(e)}>
       <input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button onClick={() => onClickSearchButton()} disabled={isBlank(input)}>
+      <button type="submit" disabled={isBlank(input)}>
         <BiSearch color="#4d6ab6" />
       </button>
     </S.Container>
@@ -50,7 +55,7 @@ const InputView = () => {
 export default InputView;
 
 const S = {
-  Container: styled.div`
+  Container: styled.form`
     margin: 29px auto 0;
     display: flex;
     width: 100%;

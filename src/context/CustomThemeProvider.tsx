@@ -10,7 +10,6 @@ const CustomThemeProvider = (props: PropsWithChildren<Record<never, any>>) => {
   const [theme, setTheme] = useState<DefaultTheme>(getTheme());
 
   const toggleTheme = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("hi");
     if (e.target.checked) {
       localStorage.setItem("theme", "DARK");
       setTheme(darkTheme);

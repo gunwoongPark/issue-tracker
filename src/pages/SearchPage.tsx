@@ -13,13 +13,12 @@ import { useQueryClient } from "react-query";
 import { queryKeys } from "../react-query/queryKeys";
 import useToastMessage from "../hooks/custom/useToastMessage";
 import ToastMessageView from "../components/ToastMessageView";
-import {
+import type {
   OrderType,
   SortType,
-  Repository,
   SearchRepoRes,
 } from "../lib/api/search/schema";
-import { isBlank } from "../util/lodash";
+import { isBlank, isNotBlank } from "../util/lodash";
 
 const SearchPage = () => {
   // theme
@@ -184,6 +183,10 @@ const SearchPage = () => {
             );
           }
 
+          if (isBlank(searchRepoList)) {
+            return <p>None Data</p>;
+          }
+
           return (
             <ul>
               {searchRepoList.map((repo) => (
@@ -196,15 +199,17 @@ const SearchPage = () => {
           );
         })()}
 
-        <div className="button-container">
-          <button onClick={() => onClickPageButton(-1)}>
-            <BiLeftArrowCircle size={34} color={theme.arrowIconColor} />
-          </button>
+        {isNotBlank(searchRepoList) && (
+          <div className="button-container">
+            <button onClick={() => onClickPageButton(-1)}>
+              <BiLeftArrowCircle size={34} color={theme.arrowIconColor} />
+            </button>
 
-          <button onClick={() => onClickPageButton(1)}>
-            <BiRightArrowCircle size={34} color={theme.arrowIconColor} />
-          </button>
-        </div>
+            <button onClick={() => onClickPageButton(1)}>
+              <BiRightArrowCircle size={34} color={theme.arrowIconColor} />
+            </button>
+          </div>
+        )}
       </S.Container>
 
       {isToastMessage && <ToastMessageView message={toastMessageValue} />}
