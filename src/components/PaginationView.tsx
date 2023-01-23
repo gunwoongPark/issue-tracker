@@ -5,13 +5,13 @@ import {
   useEffect,
   useState,
 } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import {
-  FiChevronsLeft,
-  FiChevronLeft,
-  FiChevronRight,
-  FiChevronsRight,
-} from "react-icons/fi";
+  BiChevronsLeft,
+  BiChevronLeft,
+  BiChevronRight,
+  BiChevronsRight,
+} from "react-icons/bi";
 
 const PER_PAGINATION = 5;
 
@@ -21,6 +21,9 @@ const PaginationView = (props: {
   setPage: Dispatch<SetStateAction<number>>;
   totalPage: number;
 }) => {
+  // theme
+  const theme = useTheme();
+
   const [paginationList, setPaginationList] = useState<Array<number>>([]);
 
   useEffect(() => {
@@ -72,10 +75,10 @@ const PaginationView = (props: {
       {props.totalPage > 5 && (
         <div className="prev-container">
           <span onClick={() => props.setPage(1)}>
-            <FiChevronsLeft />
+            <BiChevronsLeft size={24} color={theme.paginationIndexColor} />
           </span>
           <span onClick={() => onClickPaginationButton(-1)}>
-            <FiChevronLeft />
+            <BiChevronLeft size={24} color={theme.paginationIndexColor} />
           </span>
         </div>
       )}
@@ -97,10 +100,10 @@ const PaginationView = (props: {
       {props.totalPage > 5 && (
         <div className="next-container">
           <span onClick={() => onClickPaginationButton(1)}>
-            <FiChevronRight />
+            <BiChevronRight size={24} color={theme.paginationIndexColor} />
           </span>
           <span onClick={() => props.setPage(props.totalPage)}>
-            <FiChevronsRight />
+            <BiChevronsRight size={24} color={theme.paginationIndexColor} />
           </span>
         </div>
       )}
@@ -112,17 +115,14 @@ export default PaginationView;
 
 const S = {
   Container: styled.div`
-    margin-top: 5px;
-
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
 
-    .prev-container {
-      display: flex;
+    .prev-container,
+    .next-container {
       span {
         cursor: pointer;
-        color: ${({ theme }) => theme.arrowIconColor};
-        font-size: 18px;
       }
     }
 
@@ -130,26 +130,20 @@ const S = {
       display: flex;
       justify-content: center;
       li {
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 26px;
         &:not(:first-child) {
           margin-left: 20px;
         }
-        cursor: pointer;
-        font-size: 18px;
         &.current-page-index {
-          color: ${({ theme }) => theme.mainTextColor};
+          color: ${({ theme }) => theme.paginationCurrentIndexColor};
+          text-decoration: underline;
         }
         &.page-index {
-          color: ${({ theme }) => theme.arrowIconColor};
+          color: ${({ theme }) => theme.paginationIndexColor};
         }
-      }
-    }
-
-    .next-container {
-      display: flex;
-      span {
-        cursor: pointer;
-        color: ${({ theme }) => theme.arrowIconColor};
-        font-size: 18px;
       }
     }
   `,

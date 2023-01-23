@@ -20,5 +20,7 @@ declare module "styled-components" {
     selectTextColor: string;
     issueItemColor: string;
     issueItemSubTextColor: string;
+    paginationIndexColor: string;
+    paginationCurrentIndexColor: string;
   }
 }
