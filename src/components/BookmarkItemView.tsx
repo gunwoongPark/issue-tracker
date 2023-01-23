@@ -99,7 +99,7 @@ const S = {
     display: flex;
     flex-direction: column;
     width: 650px;
-    height: 347px;
+    height: 456px;
     background-color: ${({ theme }) => theme.cardBackgroundColor};
     box-sizing: border-box;
     border-radius: 10px;

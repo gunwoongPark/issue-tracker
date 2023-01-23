@@ -1,39 +1,40 @@
+import { useCallback } from "react";
 import { BiAlarm } from "react-icons/bi";
 import ReactTimeago from "react-timeago";
 import styled, { css, useTheme } from "styled-components";
 import type { Issue } from "../lib/api/issues/schema";
 import { calcTextColor } from "../util/calcTextColor";
+import { isNotBlank } from "../util/lodash";
 
 const IssueItemView = (props: { repoName: string; issue: Issue }) => {
   // theme
   const theme = useTheme();
 
+  const onClickIssue = useCallback(() => {
+    window.open(props.issue.html_url, "_blank");
+  }, [props.issue.html_url]);
+
   return (
-    <S.Container>
+    <S.Container onClick={() => onClickIssue()}>
       <div className="head-container">
         <span className="repo-name">{props.repoName} </span>
-        <a
-          className="issue-title"
-          href={props.issue.html_url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {props.issue.title}
-        </a>
+        <span className="issue-title">{props.issue.title}</span>
       </div>
 
-      <div className="label-container">
-        {props.issue.labels.map((label) => (
-          <S.Label
-            key={label.id}
-            className="label"
-            color={label.color}
-            textColor={calcTextColor(label.color)}
-          >
-            {label.name}
-          </S.Label>
-        ))}
-      </div>
+      {isNotBlank(props.issue.labels) && (
+        <div className="label-container">
+          {props.issue.labels.map((label) => (
+            <S.Label
+              key={label.id}
+              className="label"
+              color={label.color}
+              textColor={calcTextColor(label.color)}
+            >
+              {label.name}
+            </S.Label>
+          ))}
+        </div>
+      )}
 
       <div className="bottom-container">
         <div className="user-container">
@@ -46,7 +47,7 @@ const IssueItemView = (props: { repoName: string; issue: Issue }) => {
         </div>
 
         <div className="update-container">
-          <BiAlarm color={theme.iconColor} />
+          <BiAlarm color={theme.iconColor} size={24} />
           <span>
             <ReactTimeago date={props.issue.updated_at} />
           </span>
@@ -60,35 +61,45 @@ export default IssueItemView;
 
 const S = {
   Container: styled.li`
+    margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    background: ${({ theme }) => theme.issueItemColor};
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
 
     .head-container {
       display: flex;
       align-items: baseline;
       .repo-name {
+        font-size: 16px;
+        line-height: 26px;
+        font-weight: 400;
         color: ${({ theme }) => theme.mainTextColor};
       }
 
       .issue-title {
-        margin-left: 5px;
+        margin-left: 16px;
         text-decoration: none;
         color: ${({ theme }) => theme.subTextColor};
         font-size: 16px;
-        line-height: 28px;
+        line-height: 26px;
         font-weight: 400;
       }
     }
 
     .label-container {
+      margin-top: 4px;
       display: flex;
     }
 
     .bottom-container {
       display: flex;
       justify-content: space-between;
-      margin-top: 5px;
+      margin-top: 4px;
+
       .user-container {
         display: flex;
         align-items: center;
@@ -98,9 +109,10 @@ const S = {
           border-radius: 50%;
         }
         .user-login {
-          margin-left: 5px;
-          font-size: 14px;
-          color: ${({ theme }) => theme.iconColor};
+          margin-left: 6px;
+          font-size: 12px;
+          line-height: 22px;
+          color: ${({ theme }) => theme.issueItemSubTextColor};
         }
       }
 
@@ -108,9 +120,11 @@ const S = {
         display: flex;
         align-items: center;
         span {
-          margin-left: 3px;
-          font-size: 14px;
-          color: ${({ theme }) => theme.iconColor};
+          font-weight: 400;
+          margin-left: 6px;
+          font-size: 12px;
+          line-height: 22px;
+          color: ${({ theme }) => theme.issueItemSubTextColor};
         }
       }
     }
@@ -119,9 +133,10 @@ const S = {
   Label: styled.span<{ color: string; textColor: string }>`
     background-color: ${({ color }) => css`#${color}`};
     color: ${({ textColor }) => textColor};
-    font-size: 12px;
-    border-radius: 16px;
-    padding: 0 2px;
+    font-size: 10px;
+    line-height: 12px;
+    border-radius: 12px;
+    padding: 0 3px;
     &:not(:first-child) {
       margin-left: 5px;
     }

@@ -13,9 +13,12 @@ declare module "styled-components" {
     inputTextColor: string;
     iconColor: string;
     arrowIconColor: string;
+
     skeletonBaseColor: string;
     skeletonHighlightColor: string;
     selectBackgroundColor: string;
     selectTextColor: string;
+    issueItemColor: string;
+    issueItemSubTextColor: string;
   }
 }

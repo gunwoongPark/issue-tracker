@@ -15,6 +15,8 @@ export const darkTheme: DefaultTheme = {
   skeletonHighlightColor: "#606060",
   selectBackgroundColor: "#363636",
   selectTextColor: "#AAAAAA",
+  issueItemColor: "#222222",
+  issueItemSubTextColor: "#AAAAAA",
 };
 
 export const lightTheme: DefaultTheme = {
@@ -32,4 +34,6 @@ export const lightTheme: DefaultTheme = {
   skeletonHighlightColor: "#E1EAFF",
   selectBackgroundColor: "#FFFFFF",
   selectTextColor: "#444444",
+  issueItemColor: "#EBF1FF",
+  issueItemSubTextColor: "#444444",
 };
