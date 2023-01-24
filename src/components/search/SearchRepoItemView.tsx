@@ -138,13 +138,13 @@ const SearchRepoItemView = (props: { repo: Repository }) => {
         </div>
 
         {isNotBlank(props.repo.topics) && (
-          <div className="topic-container">
+          <ul className="topic-container">
             {props.repo.topics.map((topic, idx) => (
-              <div className="topic" key={idx}>
+              <li className="topic" key={idx}>
                 <span className="topic-name">{topic}</span>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
 
         <span className="repo-description">{props.repo.description}</span>

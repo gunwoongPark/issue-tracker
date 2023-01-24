@@ -8,12 +8,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 const HeaderView = () => {
   // context
   const context = useContext(themeContext);
-
   // navigate
   const navigate = useNavigate();
   // location
   const location = useLocation();
 
+  // 홈인지 여부
   const isHomePage = useMemo(
     () => location.pathname === "/",
     [location.pathname],
@@ -52,6 +52,10 @@ export default HeaderView;
 
 const S = {
   Container: styled.div<{ isHomePage: boolean }>`
+    @media (max-width: 1319px) {
+      margin: 0 20px;
+    }
+
     display: flex;
     flex-direction: column;
     align-items: flex-end;

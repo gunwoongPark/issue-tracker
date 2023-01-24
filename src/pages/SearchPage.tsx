@@ -244,6 +244,10 @@ export default SearchPage;
 const S = {
   Container: styled.div`
     .filter-container {
+      @media (max-width: 1319px) {
+        margin: 40px 20px 0;
+      }
+
       margin-top: 40px;
       display: flex;
 
@@ -287,8 +291,12 @@ const S = {
     }
 
     .button-container {
-      margin-top: 30px;
-      margin-bottom: 30px;
+      margin: 30px 0 30px;
+
+      @media (max-width: 1319px) {
+        margin: 30px 20px;
+      }
+
       display: flex;
       justify-content: space-between;
       button {
