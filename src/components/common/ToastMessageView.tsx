@@ -1,4 +1,3 @@
-import { memo } from "react";
 import styled from "styled-components";
 import Portal from "./Portal";
 
@@ -10,7 +9,7 @@ const ToastMessageView = (props: { message: string }) => {
   );
 };
 
-export default memo(ToastMessageView);
+export default ToastMessageView;
 
 const S = {
   Container: styled.div`

@@ -1,5 +1,5 @@
 import { isNil } from "lodash";
-import { memo, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import { isNotBlank, isNotNil } from "../../util/lodash";
 import { BsBookmarkCheckFill, BsBookmarkCheck } from "react-icons/bs";
@@ -194,7 +194,7 @@ const SearchRepoItemView = (props: { repo: Repository }) => {
   );
 };
 
-export default memo(SearchRepoItemView);
+export default SearchRepoItemView;
 
 const S = {
   Container: styled.li`

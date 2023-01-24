@@ -17,8 +17,6 @@ const BookmarkRepoItemView = (props: {
   bookmark: BookmarkType;
   setBookmarkList: Dispatch<SetStateAction<BookmarkListType>>;
 }) => {
-  console.log("BookmarkRepoItemView Render!!");
-
   // theme
   const theme = useTheme();
 
