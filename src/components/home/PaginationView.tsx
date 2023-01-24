@@ -1,11 +1,4 @@
-import {
-  Dispatch,
-  memo,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import {
   BiChevronsLeft,
@@ -18,9 +11,9 @@ const PER_PAGINATION = 5;
 
 const PaginationView = (props: {
   openIssuesCount: number;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
   totalPage: number;
+  page: number;
+  changePage: (page: number) => void;
 }) => {
   // theme
   const theme = useTheme();
@@ -59,7 +52,7 @@ const PaginationView = (props: {
     setPageList(tempPageList);
   }, [props.page, props.totalPage]);
 
-  // page 클릭시
+  // 한 페이지 이동 클릭시
   const onClickPage = useCallback(
     (addPageValue: number) => {
       if (addPageValue > 0 && props.totalPage === props.page) {
@@ -68,7 +61,7 @@ const PaginationView = (props: {
         return;
       }
 
-      props.setPage((prevPage) => prevPage + addPageValue);
+      props.changePage(props.page + addPageValue);
     },
     [props],
   );
@@ -77,7 +70,7 @@ const PaginationView = (props: {
     <S.Container isOnlyNumber={props.totalPage <= 5}>
       {props.totalPage > 5 && (
         <div className="prev-container">
-          <span onClick={() => props.setPage(1)}>
+          <span onClick={() => props.changePage(1)}>
             <BiChevronsLeft size={24} color={theme.paginationIndexColor} />
           </span>
           <span onClick={() => onClickPage(-1)}>
@@ -93,7 +86,7 @@ const PaginationView = (props: {
               props.page === page ? "current-page-index" : "page-index"
             }
             key={`page-${page}`}
-            onClick={() => props.setPage(page)}
+            onClick={() => props.changePage(page)}
           >
             {page}
           </li>
@@ -105,7 +98,7 @@ const PaginationView = (props: {
           <span onClick={() => onClickPage(1)}>
             <BiChevronRight size={24} color={theme.paginationIndexColor} />
           </span>
-          <span onClick={() => props.setPage(props.totalPage)}>
+          <span onClick={() => props.changePage(props.totalPage)}>
             <BiChevronsRight size={24} color={theme.paginationIndexColor} />
           </span>
         </div>

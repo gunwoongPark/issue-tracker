@@ -48,6 +48,10 @@ const BookmarkRepoItemView = (props: {
     localStorage.setItem("bookmarkList", JSON.stringify(filteredBookmarkList));
   }, [props]);
 
+  const changePage = useCallback((page: number) => {
+    setPage(page);
+  }, []);
+
   return (
     <>
       <S.Container>
@@ -97,9 +101,9 @@ const BookmarkRepoItemView = (props: {
           // component: pagination
           <PaginationView
             openIssuesCount={props.bookmark.openIssuesCount}
-            page={page}
-            setPage={setPage}
             totalPage={totalPage}
+            page={page}
+            changePage={changePage}
           />
         )}
       </S.Container>
