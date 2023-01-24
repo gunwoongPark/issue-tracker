@@ -8,14 +8,13 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import IssueItemSkeletonView from "./IssueItemSkeletonView";
 import NoneIssueView from "./NoneIssueView";
-import type { Dispatch, SetStateAction } from "react";
-import type { BookmarkListType, BookmarkType } from "../../types/bookmark";
+import type { BookmarkType } from "../../types/bookmark";
 
 const PER_PAGE = 3;
 
 const BookmarkRepoItemView = (props: {
   bookmark: BookmarkType;
-  setBookmarkList: Dispatch<SetStateAction<BookmarkListType>>;
+  deleteBookmarkRepo: (deleteBookmarkId: number) => void;
 }) => {
   // theme
   const theme = useTheme();
@@ -34,23 +33,10 @@ const BookmarkRepoItemView = (props: {
     page,
   });
 
-  // 북마크 삭제시
-  const onClickDeleteButton = useCallback(() => {
-    const bookmarkList: BookmarkListType = JSON.parse(
-      localStorage.getItem("bookmarkList") as string,
-    );
-
-    const filteredBookmarkList = bookmarkList.filter(
-      (bookmark) => bookmark.id !== props.bookmark.id,
-    );
-
-    props.setBookmarkList(filteredBookmarkList);
-    localStorage.setItem("bookmarkList", JSON.stringify(filteredBookmarkList));
-  }, [props]);
-
-  const changePage = useCallback((page: number) => {
+  // 페이지 변경
+  const changePage = (page: number) => {
     setPage(page);
-  }, []);
+  };
 
   return (
     <>
@@ -60,7 +46,10 @@ const BookmarkRepoItemView = (props: {
             <span className="repo-full-name">
               {props.bookmark.owner}/{props.bookmark.repoName}
             </span>
-            <i className="delete-button" onClick={() => onClickDeleteButton()}>
+            <i
+              className="delete-button"
+              onClick={() => props.deleteBookmarkRepo(props.bookmark.id)}
+            >
               <AiFillStar size={24} color={theme.mainColor} />
             </i>
           </div>

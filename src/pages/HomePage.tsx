@@ -21,6 +21,20 @@ const HomePage = () => {
     setBookmarkList(localStorageBookmarkList);
   }, []);
 
+  // 북마크 repository 삭제시
+  const deleteBookmarkRepo = (deleteBookmarkId: number) => {
+    const bookmarkList: BookmarkListType = JSON.parse(
+      localStorage.getItem("bookmarkList") as string,
+    );
+
+    const filteredBookmarkList = bookmarkList.filter(
+      (bookmark) => bookmark.id !== deleteBookmarkId,
+    );
+
+    setBookmarkList(filteredBookmarkList);
+    localStorage.setItem("bookmarkList", JSON.stringify(filteredBookmarkList));
+  };
+
   return (
     <S.Container>
       {bookmarkList.map((bookmark) => (
@@ -28,7 +42,7 @@ const HomePage = () => {
         <BookmarkRepoItemView
           key={`bookmark-list-item-${bookmark.id}`}
           bookmark={bookmark}
-          setBookmarkList={setBookmarkList}
+          deleteBookmarkRepo={deleteBookmarkRepo}
         />
       ))}
       {Array(4 - bookmarkList.length)
