@@ -26,7 +26,7 @@ const BookmarkItemView = (props: {
 
   const totalPage = useMemo(
     () => Math.ceil(props.bookmark.openIssuesCount / PER_PAGE),
-    [props.bookmark.openIssuesCount]
+    [props.bookmark.openIssuesCount],
   );
   const [page, setPage] = useState<number>(1);
 
@@ -38,11 +38,11 @@ const BookmarkItemView = (props: {
 
   const onClickDeleteButton = useCallback(() => {
     const bookmarkList: BookmarkListType = JSON.parse(
-      localStorage.getItem("bookmarkList") as string
+      localStorage.getItem("bookmarkList") as string,
     );
 
     const filteredBookmarkList = bookmarkList.filter(
-      (bookmark) => bookmark.id !== props.bookmark.id
+      (bookmark) => bookmark.id !== props.bookmark.id,
     );
 
     props.setBookmarkList(filteredBookmarkList);

@@ -8,7 +8,7 @@ const useSearch = (
   searchRepoName: string,
   page: number,
   order: OrderType,
-  sort: SortType
+  sort: SortType,
 ) => {
   // queryClient
   const queryClient = useQueryClient();
@@ -19,7 +19,12 @@ const useSearch = (
     queryClient.prefetchQuery(
       [queryKeys.search, searchRepoName, nextPage, order, sort],
       () =>
-        searchApi.searchRepo({ q: searchRepoName, page: nextPage, order, sort })
+        searchApi.searchRepo({
+          q: searchRepoName,
+          page: nextPage,
+          order,
+          sort,
+        }),
     );
   }, [page, queryClient, searchRepoName, order, sort]);
 
@@ -34,7 +39,7 @@ const useSearch = (
     {
       select: (response) => response.items,
       keepPreviousData: true,
-    }
+    },
   );
 
   return { searchRepoList, isLoading, isFetching, error };

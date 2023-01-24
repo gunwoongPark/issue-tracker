@@ -16,7 +16,7 @@ const HeaderView = () => {
 
   const isHomePage = useMemo(
     () => location.pathname === "/",
-    [location.pathname]
+    [location.pathname],
   );
 
   return (

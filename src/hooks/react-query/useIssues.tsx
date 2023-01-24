@@ -25,7 +25,7 @@ const useIssues = ({
       }),
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return { issueList, isLoading, isFetching };

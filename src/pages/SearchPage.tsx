@@ -64,7 +64,7 @@ const SearchPage = () => {
     searchRepoName ?? "",
     page,
     order as OrderType,
-    sort as SortType
+    sort as SortType,
   );
 
   useEffect(() => {
@@ -133,7 +133,7 @@ const SearchPage = () => {
       setIsToastMessage,
       setSearchParams,
       sort,
-    ]
+    ],
   );
 
   // order 변경
@@ -144,7 +144,7 @@ const SearchPage = () => {
       searchParams.set("sort", sort);
       setSearchParams(searchParams);
     },
-    [page, searchParams, setSearchParams, sort]
+    [page, searchParams, setSearchParams, sort],
   );
 
   // sort 변경
@@ -155,7 +155,7 @@ const SearchPage = () => {
       searchParams.set("sort", e.target.value);
       setSearchParams(searchParams);
     },
-    [order, page, searchParams, setSearchParams]
+    [order, page, searchParams, setSearchParams],
   );
 
   return (

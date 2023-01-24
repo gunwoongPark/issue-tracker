@@ -6,7 +6,7 @@ const useToastMessage = () => {
   useEffect(() => {
     const timeout = setTimeout(
       () => setIsToastMessage((prevState) => prevState && false),
-      1500
+      1500,
     );
     return () => clearTimeout(timeout);
   }, [isToastMessage]);

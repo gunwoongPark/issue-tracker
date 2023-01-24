@@ -35,7 +35,7 @@ const InputView = () => {
         search: `?q=${input}&page=1&order=desc&sort=best-match`,
       });
     },
-    [input, navigate]
+    [input, navigate],
   );
 
   return (

@@ -4,7 +4,7 @@ import { ThemeType } from "../types/theme";
 
 export const getTheme = () => {
   const localStorageTheme: ThemeType | null = localStorage.getItem(
-    "theme"
+    "theme",
   ) as ThemeType | null;
 
   if (isNil(localStorageTheme)) {

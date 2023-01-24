@@ -67,7 +67,7 @@ const PaginationView = (props: {
 
       props.setPage((prevPage) => prevPage + addPageValue);
     },
-    [props]
+    [props],
   );
 
   return (

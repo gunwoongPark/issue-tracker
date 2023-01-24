@@ -52,7 +52,7 @@ const RepoItemView = (props: { repo: Repository }) => {
                 repoName: props.repo.name,
                 openIssuesCount: props.repo.open_issues_count,
               },
-            ])
+            ]),
           );
 
           setIsBookmark(true);
@@ -71,7 +71,7 @@ const RepoItemView = (props: { repo: Repository }) => {
         // 중복 데이터 존재
         if (
           isNotNil(
-            bookmarkList.find((bookmark) => bookmark.id === props.repo.id)
+            bookmarkList.find((bookmark) => bookmark.id === props.repo.id),
           )
         ) {
           alert("이미 추가된 레포지토리입니다.");
@@ -88,22 +88,22 @@ const RepoItemView = (props: { repo: Repository }) => {
               repoName: props.repo.name,
               openIssuesCount: props.repo.open_issues_count,
             },
-          ])
+          ]),
         );
 
         setIsBookmark(true);
       } else {
         const bookmarkList: BookmarkListType = JSON.parse(
-          localStorage.getItem("bookmarkList") as string
+          localStorage.getItem("bookmarkList") as string,
         );
 
         const filteredBookmarkList = bookmarkList.filter(
-          (bookmark) => bookmark.id !== props.repo.id
+          (bookmark) => bookmark.id !== props.repo.id,
         );
 
         localStorage.setItem(
           "bookmarkList",
-          JSON.stringify(filteredBookmarkList)
+          JSON.stringify(filteredBookmarkList),
         );
         setIsBookmark(false);
       }
@@ -114,7 +114,7 @@ const RepoItemView = (props: { repo: Repository }) => {
       props.repo.open_issues_count,
       props.repo.owner?.login,
       setIsToastMessage,
-    ]
+    ],
   );
 
   return (
