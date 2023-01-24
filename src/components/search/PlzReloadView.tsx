@@ -27,6 +27,7 @@ const S = {
     }
 
     span {
+      margin-top: 43px;
       text-align: center;
       font-weight: 400;
       font-size: 18px;
