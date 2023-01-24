@@ -3,19 +3,19 @@ import { isNil } from "lodash";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled, { css, useTheme } from "styled-components";
-import RepoItemView from "../components/search/RepoItemView";
+import SearchRepoItemView from "../components/search/SearchRepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
 import { BiLeftArrowCircle, BiRightArrowCircle } from "react-icons/bi";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import RepoItemSkeletonView from "../components/search/RepoItemSkeletonView";
+import SearchRepoItemSkeletonView from "../components/search/SearchRepoItemSkeletonView";
 import { useQueryClient } from "react-query";
 import { queryKeys } from "../react-query/queryKeys";
 import useToastMessage from "../hooks/custom/useToastMessage";
 import ToastMessageView from "../components/common/ToastMessageView";
 import { isBlank } from "../util/lodash";
 import PlzReloadView from "../components/search/PlzReloadView";
-import NoneRepoView from "../components/search/NoneRepoView";
+import NoneSearchRepoView from "../components/search/NoneSearchRepoView";
 import ValidationFailedView from "../components/search/ValidationFailedView";
 import type { ChangeEvent } from "react";
 import type {
@@ -66,6 +66,7 @@ const SearchPage = () => {
     return "best-match";
   }, [searchParams]);
 
+  // search repository data fetching
   const { searchRepoList, isLoading, isFetching, error } = useSearch(
     searchRepoName ?? "",
     page,
@@ -184,7 +185,7 @@ const SearchPage = () => {
             return (
               <ul>
                 {/* component: skeleton ui */}
-                <Skeleton wrapper={RepoItemSkeletonView} count={15} />
+                <Skeleton wrapper={SearchRepoItemSkeletonView} count={15} />
               </ul>
             );
           }
@@ -201,14 +202,14 @@ const SearchPage = () => {
 
           if (isBlank(searchRepoList)) {
             // component: 검색시 repository가 없을 때
-            return <NoneRepoView />;
+            return <NoneSearchRepoView />;
           }
 
           return (
             <ul>
               {searchRepoList.map((repo) => (
                 // component: repository item
-                <RepoItemView
+                <SearchRepoItemView
                   key={`search-repo-list-item-${repo.id}`}
                   repo={repo}
                 />

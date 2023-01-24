@@ -1,8 +1,6 @@
 import { isNil } from "lodash";
-import { ChangeEvent, memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
-import type { Repository } from "../../lib/api/search/schema";
-import type { BookmarkListType } from "../../types/bookmark";
 import { isNotBlank, isNotNil } from "../../util/lodash";
 import { BsBookmarkCheckFill, BsBookmarkCheck } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
@@ -13,14 +11,18 @@ import { HiOutlineScale } from "react-icons/hi";
 import ReactTimeago from "react-timeago";
 import useToastMessage from "../../hooks/custom/useToastMessage";
 import ToastMessageView from "../common/ToastMessageView";
+import type { ChangeEvent } from "react";
+import type { Repository } from "../../lib/api/search/schema";
+import type { BookmarkListType } from "../../types/bookmark";
 
-const RepoItemView = (props: { repo: Repository }) => {
+const SearchRepoItemView = (props: { repo: Repository }) => {
   // theme
   const theme = useTheme();
 
-  const [isBookmark, setIsBookmark] = useState<boolean>(false);
+  const [isBookmark, setIsBookmark] = useState<boolean>(false); // 북마크 체크 여부
   const { isToastMessage, setIsToastMessage } = useToastMessage();
 
+  // 북마크 체크 여부 초기화
   useEffect(() => {
     const data = localStorage.getItem("bookmarkList");
 
@@ -37,6 +39,7 @@ const RepoItemView = (props: { repo: Repository }) => {
     }
   }, [props.repo.id]);
 
+  // 북마크 아이콘 클릭시
   const onChangeBookmark = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       if (e.target.checked) {
@@ -63,18 +66,7 @@ const RepoItemView = (props: { repo: Repository }) => {
 
         // 최대 북마크 수 초과
         if (bookmarkList.length === 4) {
-          // TODO : 커스텀 모달로 연동
           setIsToastMessage(true);
-          return;
-        }
-
-        // 중복 데이터 존재
-        if (
-          isNotNil(
-            bookmarkList.find((bookmark) => bookmark.id === props.repo.id),
-          )
-        ) {
-          alert("이미 추가된 레포지토리입니다.");
           return;
         }
 
@@ -195,13 +187,14 @@ const RepoItemView = (props: { repo: Repository }) => {
       </S.Container>
 
       {isToastMessage && (
+        // component: 토스트 메시지
         <ToastMessageView message="등록 가능한 최대 레포지토리 수를 초과했습니다." />
       )}
     </>
   );
 };
 
-export default memo(RepoItemView);
+export default memo(SearchRepoItemView);
 
 const S = {
   Container: styled.li`

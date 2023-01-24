@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import GhostImage from "../../assets/ghost.svg";
 
-const NoneRepoView = () => {
+const NoneSearchRepoView = () => {
   return (
     <S.Container>
       <img src={GhostImage} alt="유령 이미지" />
@@ -10,7 +10,7 @@ const NoneRepoView = () => {
   );
 };
 
-export default NoneRepoView;
+export default NoneSearchRepoView;
 
 const S = {
   Container: styled.div`
