@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import FileQuestion from "../assets/file-question.svg";
+import FileQuestion from "../../assets/file-question.svg";
 
 const NoneBookmarkItemView = () => {
   return (

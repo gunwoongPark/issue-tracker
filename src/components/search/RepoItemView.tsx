@@ -1,9 +1,9 @@
 import { isNil } from "lodash";
 import { ChangeEvent, memo, useCallback, useEffect, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
-import type { Repository } from "../lib/api/search/schema";
-import type { BookmarkListType } from "../types/bookmark";
-import { isNotBlank, isNotNil } from "../util/lodash";
+import type { Repository } from "../../lib/api/search/schema";
+import type { BookmarkListType } from "../../types/bookmark";
+import { isNotBlank, isNotNil } from "../../util/lodash";
 import { BsBookmarkCheckFill, BsBookmarkCheck } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
 import { TbGitFork } from "react-icons/tb";
@@ -11,8 +11,8 @@ import { BiAlarm } from "react-icons/bi";
 import { TbLanguage } from "react-icons/tb";
 import { HiOutlineScale } from "react-icons/hi";
 import ReactTimeago from "react-timeago";
-import useToastMessage from "../hooks/custom/useToastMessage";
-import ToastMessageView from "./ToastMessageView";
+import useToastMessage from "../../hooks/custom/useToastMessage";
+import ToastMessageView from "../common/ToastMessageView";
 
 const RepoItemView = (props: { repo: Repository }) => {
   // theme

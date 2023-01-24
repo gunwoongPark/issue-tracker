@@ -3,25 +3,25 @@ import { isNil } from "lodash";
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled, { css, useTheme } from "styled-components";
-import RepoItemView from "../components/RepoItemView";
+import RepoItemView from "../components/search/RepoItemView";
 import useSearch from "../hooks/react-query/useSearch";
 import { BiLeftArrowCircle, BiRightArrowCircle } from "react-icons/bi";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import RepoItemSkeletonView from "../components/RepoItemSkeletonView";
+import RepoItemSkeletonView from "../components/search/RepoItemSkeletonView";
 import { useQueryClient } from "react-query";
 import { queryKeys } from "../react-query/queryKeys";
 import useToastMessage from "../hooks/custom/useToastMessage";
-import ToastMessageView from "../components/ToastMessageView";
+import ToastMessageView from "../components/common/ToastMessageView";
 import type {
   OrderType,
   SortType,
   SearchRepoRes,
 } from "../lib/api/search/schema";
 import { isBlank } from "../util/lodash";
-import PlzReloadView from "../components/PlzReloadView";
-import NoneRepoView from "../components/NoneRepoView";
-import ValidationFailedView from "../components/ValidationFailedView";
+import PlzReloadView from "../components/search/PlzReloadView";
+import NoneRepoView from "../components/search/NoneRepoView";
+import ValidationFailedView from "../components/search/ValidationFailedView";
 
 const SearchPage = () => {
   // theme

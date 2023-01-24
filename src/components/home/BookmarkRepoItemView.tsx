@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
-import useIssues from "../hooks/react-query/useIssues";
+import useIssues from "../../hooks/react-query/useIssues";
 import IssueItemView from "./IssueItemView";
 import { AiFillStar } from "react-icons/ai";
 import PaginationView from "./PaginationView";
@@ -9,7 +9,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import IssueItemSkeletonView from "./IssueItemSkeletonView";
 import NoneIssueView from "./NoneIssueView";
 import type { Dispatch, SetStateAction } from "react";
-import type { BookmarkListType, BookmarkType } from "../types/bookmark";
+import type { BookmarkListType, BookmarkType } from "../../types/bookmark";
 
 const PER_PAGE = 3;
 

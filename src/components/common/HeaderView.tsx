@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react";
 import styled, { css } from "styled-components";
-import { themeContext } from "../context/CustomThemeProvider";
+import { themeContext } from "../../context/CustomThemeProvider";
 import InputView from "./InputView";
 import { BiMoon, BiSun, BiHomeAlt } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";

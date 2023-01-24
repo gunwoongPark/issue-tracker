@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import GhostImage from "../assets/ghost.svg";
+import GhostImage from "../../assets/ghost.svg";
 
-const ValidationFailedView = () => {
+const NoneRepoView = () => {
   return (
     <S.Container>
       <img src={GhostImage} alt="유령 이미지" />
-      <span>유효성 검사에 실패했거나 엔드포인트가 스팸 처리되었습니다.</span>
+      <span>일치하는 검색 결과가 없습니다.</span>
     </S.Container>
   );
 };
 
-export default ValidationFailedView;
+export default NoneRepoView;
 
 const S = {
   Container: styled.div`

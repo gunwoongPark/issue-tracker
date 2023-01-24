@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GhostImage from "../assets/ghost.svg";
+import GhostImage from "../../assets/ghost.svg";
 
 const PlzReloadView = () => {
   return (

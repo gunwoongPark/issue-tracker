@@ -1,8 +1,8 @@
 import { isNil } from "lodash";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import BookmarkRepoItemView from "../components/BookmarkRepoItemView";
-import NoneBookmarkItemView from "../components/NoneBookmarkItemView";
+import BookmarkRepoItemView from "../components/home/BookmarkRepoItemView";
+import NoneBookmarkItemView from "../components/home/NoneBookmarkItemView";
 import type { BookmarkListType } from "../types/bookmark";
 
 const HomePage = () => {
