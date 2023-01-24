@@ -14,6 +14,7 @@ import PaginationView from "./PaginationView";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import IssueItemSkeletonView from "./IssueItemSkeletonView";
+import NoneIssueView from "./NoneIssueView";
 
 const PER_PAGE = 3;
 
@@ -63,21 +64,31 @@ const BookmarkItemView = (props: {
 
         <div className="divider" />
 
-        {isLoading || isFetching ? (
-          <ul>
-            <Skeleton wrapper={IssueItemSkeletonView} count={3} />
-          </ul>
-        ) : (
-          <ul className="issue-list">
-            {issueList.map((issue) => (
-              <IssueItemView
-                key={`repo-list-item-${issue.id}`}
-                repoName={props.bookmark.repoName}
-                issue={issue}
-              />
-            ))}
-          </ul>
-        )}
+        {(() => {
+          if (isLoading || isFetching) {
+            return (
+              <ul>
+                <Skeleton wrapper={IssueItemSkeletonView} count={3} />
+              </ul>
+            );
+          }
+
+          if (!totalPage) {
+            return <NoneIssueView />;
+          }
+
+          return (
+            <ul className="issue-list">
+              {issueList.map((issue) => (
+                <IssueItemView
+                  key={`repo-list-item-${issue.id}`}
+                  repoName={props.bookmark.repoName}
+                  issue={issue}
+                />
+              ))}
+            </ul>
+          );
+        })()}
 
         {totalPage > 1 && (
           <PaginationView
