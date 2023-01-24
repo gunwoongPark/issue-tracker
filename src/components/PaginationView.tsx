@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import styled, { useTheme } from "styled-components";
+import styled, { css, useTheme } from "styled-components";
 import {
   BiChevronsLeft,
   BiChevronLeft,
@@ -71,7 +71,7 @@ const PaginationView = (props: {
   );
 
   return (
-    <S.Container>
+    <S.Container isOnlyNumber={props.totalPage <= 5}>
       {props.totalPage > 5 && (
         <div className="prev-container">
           <span onClick={() => props.setPage(1)}>
@@ -114,10 +114,17 @@ const PaginationView = (props: {
 export default PaginationView;
 
 const S = {
-  Container: styled.div`
+  Container: styled.div<{ isOnlyNumber: boolean }>`
     margin-top: 20px;
     display: flex;
-    justify-content: space-between;
+    ${({ isOnlyNumber }) =>
+      isOnlyNumber
+        ? css`
+            justify-content: center;
+          `
+        : css`
+            justify-content: space-between;
+          `}
 
     .prev-container,
     .next-container {

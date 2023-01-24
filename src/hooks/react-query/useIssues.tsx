@@ -12,21 +12,21 @@ const useIssues = ({
   repoName: string;
   page: number;
 }) => {
-  // queryClient
-  const queryClient = useQueryClient();
+  // // queryClient
+  // const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const nextPage = page + 1;
-    queryClient.prefetchQuery(
-      [queryKeys.issues, owner, repoName, nextPage],
-      () =>
-        issuesApi.fetchIssues({
-          owner,
-          repo: repoName,
-          page: nextPage,
-        })
-    );
-  }, [owner, page, queryClient, repoName]);
+  // useEffect(() => {
+  //   const nextPage = page + 1;
+  //   queryClient.prefetchQuery(
+  //     [queryKeys.issues, owner, repoName, nextPage],
+  //     () =>
+  //       issuesApi.fetchIssues({
+  //         owner,
+  //         repo: repoName,
+  //         page: nextPage,
+  //       })
+  //   );
+  // }, [owner, page, queryClient, repoName]);
 
   const {
     data: issueList = [],
