@@ -65,7 +65,7 @@ const S = {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    background: ${({ theme }) => theme.issueItemColor};
+    background-color: ${({ theme }) => theme.issueItemColor};
     border-radius: 6px;
     padding: 10px;
     cursor: pointer;
