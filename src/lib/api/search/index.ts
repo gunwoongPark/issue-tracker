@@ -1,7 +1,7 @@
 import apiBase from "..";
 import { SearchRepoReq, SearchRepoRes } from "./schema";
 
-const PER_PAGE = 15;
+const PER_PAGE = 20;
 
 const searchApi = {
   searchRepo: ({

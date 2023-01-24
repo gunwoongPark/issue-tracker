@@ -1,7 +1,5 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
 import searchApi from "../../lib/api/search";
 import { OrderType, SortType } from "../../lib/api/search/schema";
 import { queryKeys } from "../../react-query/queryKeys";
@@ -12,9 +10,6 @@ const useSearch = (
   order: OrderType,
   sort: SortType
 ) => {
-  // navigate
-  const navigate = useNavigate();
-
   // queryClient
   const queryClient = useQueryClient();
 
@@ -39,15 +34,6 @@ const useSearch = (
     {
       select: (response) => response.items,
       keepPreviousData: true,
-      // TODO : ERROR HANDLING
-      onError: (error) => {
-        if (axios.isAxiosError(error)) {
-          if (error.response?.status === 422) {
-            alert("올바르지 않은 접근입니다.");
-            navigate("/");
-          }
-        }
-      },
     }
   );
 

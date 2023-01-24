@@ -20,7 +20,8 @@ import type {
 } from "../lib/api/search/schema";
 import { isBlank, isNotBlank } from "../util/lodash";
 import PlzReloadView from "../components/PlzReloadView";
-import NoneDataView from "../components/NoneDataView";
+import NoneRepoView from "../components/NoneRepoView";
+import ValidationFailedView from "../components/ValidationFailedView";
 
 const SearchPage = () => {
   // theme
@@ -66,7 +67,8 @@ const SearchPage = () => {
     sort as SortType
   );
 
-  const [isReloadButton, setIsReloadButton] = useState<boolean>(false);
+  const [isReload, setIsReload] = useState<boolean>(false);
+  const [isValidationFailed, setIsValidationFailed] = useState<boolean>(false);
   const [toastMessageValue, setToastMessageValue] = useState<string>("");
   const { isToastMessage, setIsToastMessage } = useToastMessage();
 
@@ -74,18 +76,23 @@ const SearchPage = () => {
     window.scrollTo(0, 0);
   }, [searchParams]);
 
+  // error handling
   useEffect(() => {
     if (isNil(error)) {
-      setIsReloadButton(false);
+      setIsReload(false);
+      setIsValidationFailed(false);
     }
 
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 403) {
-        setIsReloadButton(true);
+        setIsReload(true);
+      } else if (error.response?.status === 422) {
+        setIsValidationFailed(true);
       }
     }
   }, [error]);
 
+  // 페이지 변경
   const onClickPageButton = useCallback(
     (addPageValue: number) => {
       if (addPageValue > 0) {
@@ -97,17 +104,15 @@ const SearchPage = () => {
           sort,
         ]) as SearchRepoRes | undefined;
 
-        if (isNil(prefetchData) || isBlank(prefetchData.items)) {
+        if (isBlank(prefetchData?.items)) {
           setToastMessageValue("마지막 페이지입니다.");
           setIsToastMessage(true);
           return;
         }
-      } else {
-        if (page === 1) {
-          setToastMessageValue("첫 페이지입니다.");
-          setIsToastMessage(true);
-          return;
-        }
+      } else if (page === 1) {
+        setToastMessageValue("첫 페이지입니다.");
+        setIsToastMessage(true);
+        return;
       }
 
       searchParams.set("page", String(page + addPageValue));
@@ -116,13 +121,13 @@ const SearchPage = () => {
       setSearchParams(searchParams);
     },
     [
+      order,
       page,
       queryClient,
       searchParams,
       searchRepoName,
       setIsToastMessage,
       setSearchParams,
-      order,
       sort,
     ]
   );
@@ -176,12 +181,16 @@ const SearchPage = () => {
             );
           }
 
-          if (isReloadButton) {
+          if (isReload) {
             return <PlzReloadView />;
           }
 
+          if (isValidationFailed) {
+            return <ValidationFailedView />;
+          }
+
           if (isBlank(searchRepoList)) {
-            return <NoneDataView />;
+            return <NoneRepoView />;
           }
 
           return (
@@ -263,6 +272,7 @@ const S = {
 
     .button-container {
       margin-top: 30px;
+      margin-bottom: 30px;
       display: flex;
       justify-content: space-between;
       button {
