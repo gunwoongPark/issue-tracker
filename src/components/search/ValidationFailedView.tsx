@@ -24,6 +24,7 @@ const S = {
     }
 
     span {
+      text-align: center;
       font-weight: 400;
       font-size: 18px;
       line-height: 28px;
