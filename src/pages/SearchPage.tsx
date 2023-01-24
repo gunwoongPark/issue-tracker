@@ -18,7 +18,7 @@ import type {
   SortType,
   SearchRepoRes,
 } from "../lib/api/search/schema";
-import { isBlank, isNotBlank } from "../util/lodash";
+import { isBlank } from "../util/lodash";
 import PlzReloadView from "../components/PlzReloadView";
 import NoneRepoView from "../components/NoneRepoView";
 import ValidationFailedView from "../components/ValidationFailedView";
@@ -205,15 +205,17 @@ const SearchPage = () => {
           );
         })()}
 
-        {isNotBlank(searchRepoList) && (
+        {isReload || (
           <div className="button-container">
             <button onClick={() => onClickPageButton(-1)}>
               <BiLeftArrowCircle size={34} color={theme.arrowIconColor} />
             </button>
 
-            <button onClick={() => onClickPageButton(1)}>
-              <BiRightArrowCircle size={34} color={theme.arrowIconColor} />
-            </button>
+            {isValidationFailed || (
+              <button onClick={() => onClickPageButton(1)}>
+                <BiRightArrowCircle size={34} color={theme.arrowIconColor} />
+              </button>
+            )}
           </div>
         )}
       </S.Container>

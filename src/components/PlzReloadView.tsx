@@ -5,7 +5,9 @@ const PlzReloadView = () => {
   return (
     <S.Container>
       <img src={GhostImage} alt="유령 이미지" />
-      <span>Please reload</span>
+      <span>
+        보조 요금 제한을 초과했습니다. 다시 시도하기 전에 잠시 기다려 주십시오.
+      </span>
       <button onClick={() => window.location.reload()}>Reload</button>
     </S.Container>
   );
