@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import {
   BiChevronsLeft,
@@ -107,7 +107,7 @@ const PaginationView = (props: {
   );
 };
 
-export default memo(PaginationView);
+export default PaginationView;
 
 const S = {
   Container: styled.div<{ isOnlyNumber: boolean }>`

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import useIssues from "../../hooks/react-query/useIssues";
 import IssueItemView from "./IssueItemView";
