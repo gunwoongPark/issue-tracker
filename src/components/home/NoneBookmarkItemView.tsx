@@ -5,7 +5,7 @@ const NoneBookmarkItemView = () => {
   return (
     <S.Container>
       <img src={FileQuestion} alt="파일 아이콘" />
-      <span>북마크 된 항목이 없습니다.</span>
+      <span>북마크 된 저장소가 없습니다.</span>
     </S.Container>
   );
 };
