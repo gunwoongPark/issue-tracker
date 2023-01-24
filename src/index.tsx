@@ -10,10 +10,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <BrowserRouter>
-    <React.StrictMode>
-      <App />
-      <div id="portal" />
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <App />
+    <div id="portal" />
+    {/* </React.StrictMode> */}
   </BrowserRouter>,
 );
 

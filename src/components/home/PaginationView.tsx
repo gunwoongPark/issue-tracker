@@ -1,5 +1,6 @@
 import {
   Dispatch,
+  memo,
   SetStateAction,
   useCallback,
   useEffect,
@@ -113,7 +114,7 @@ const PaginationView = (props: {
   );
 };
 
-export default PaginationView;
+export default memo(PaginationView);
 
 const S = {
   Container: styled.div<{ isOnlyNumber: boolean }>`

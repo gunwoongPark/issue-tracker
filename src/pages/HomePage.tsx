@@ -35,7 +35,7 @@ const HomePage = () => {
         .fill("")
         .map((_, index) => (
           // component: 북마크된 repository가 없을 때
-          <NoneBookmarkItemView key={index} />
+          <NoneBookmarkItemView key={`bookmark-list-item-fallback-${index}`} />
         ))}
     </S.Container>
   );

@@ -17,8 +17,6 @@ const LayoutView = (props: PropsWithChildren<Record<never, any>>) => {
     return false;
   }, [location.pathname]);
 
-  console.log(isValidPage);
-
   return (
     <>
       {isValidPage && <HeaderView />}
