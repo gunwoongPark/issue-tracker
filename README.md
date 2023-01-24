@@ -10,7 +10,7 @@ url : https://payhere-fe-challenge.netlify.app/
 
 ```env
 REACT_APP_API_BASE_URI=https://api.github.com
-REACT_APP_API_TOKEN=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
+REACT_APP_API_TOKEN={토큰은 필요시 전달드리겠습니다.}
 ```
 
 2. `npm install` 커맨드 실행
