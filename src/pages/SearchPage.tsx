@@ -1,6 +1,6 @@
 import axios from "axios";
 import { isNil } from "lodash";
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled, { css, useTheme } from "styled-components";
 import RepoItemView from "../components/search/RepoItemView";
@@ -13,15 +13,16 @@ import { useQueryClient } from "react-query";
 import { queryKeys } from "../react-query/queryKeys";
 import useToastMessage from "../hooks/custom/useToastMessage";
 import ToastMessageView from "../components/common/ToastMessageView";
+import { isBlank } from "../util/lodash";
+import PlzReloadView from "../components/search/PlzReloadView";
+import NoneRepoView from "../components/search/NoneRepoView";
+import ValidationFailedView from "../components/search/ValidationFailedView";
+import type { ChangeEvent } from "react";
 import type {
   OrderType,
   SortType,
   SearchRepoRes,
 } from "../lib/api/search/schema";
-import { isBlank } from "../util/lodash";
-import PlzReloadView from "../components/search/PlzReloadView";
-import NoneRepoView from "../components/search/NoneRepoView";
-import ValidationFailedView from "../components/search/ValidationFailedView";
 
 const SearchPage = () => {
   // theme
@@ -30,11 +31,15 @@ const SearchPage = () => {
   // queryClient
   const queryClient = useQueryClient();
 
-  // query string
+  // searchParams
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // query string
+  // search repo name
   const searchRepoName = searchParams.get("q");
+  // page
   const page = Number(searchParams.get("page")) || 1;
+  // order
   const order = useMemo(() => {
     const order = searchParams.get("order");
 
@@ -44,6 +49,7 @@ const SearchPage = () => {
 
     return "desc";
   }, [searchParams]);
+  // sort
   const sort = useMemo(() => {
     const sort = searchParams.get("sort");
 
@@ -67,15 +73,12 @@ const SearchPage = () => {
     sort as SortType,
   );
 
-  useEffect(() => {
-    console.log(searchRepoList);
-  }, [searchRepoList]);
-
   const [isReload, setIsReload] = useState<boolean>(false);
   const [isValidationFailed, setIsValidationFailed] = useState<boolean>(false);
   const [toastMessageValue, setToastMessageValue] = useState<string>("");
   const { isToastMessage, setIsToastMessage } = useToastMessage();
 
+  // 페이지 이동시 스크롤 최 상단으로
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [searchParams]);
@@ -96,7 +99,7 @@ const SearchPage = () => {
     }
   }, [error]);
 
-  // 페이지 변경
+  // 페이지 변경시
   const onClickPageButton = useCallback(
     (addPageValue: number) => {
       if (addPageValue > 0) {
@@ -136,7 +139,7 @@ const SearchPage = () => {
     ],
   );
 
-  // order 변경
+  // order 변경시
   const onChangeOrder = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
       searchParams.set("page", String(page));
@@ -147,7 +150,7 @@ const SearchPage = () => {
     [page, searchParams, setSearchParams, sort],
   );
 
-  // sort 변경
+  // sort 변경시
   const onChangeSort = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
       searchParams.set("page", String(page));
@@ -180,26 +183,31 @@ const SearchPage = () => {
           if (isLoading || isFetching) {
             return (
               <ul>
+                {/* component: skeleton ui */}
                 <Skeleton wrapper={RepoItemSkeletonView} count={15} />
               </ul>
             );
           }
 
           if (isReload) {
+            // component: 잦은 fetching => 403 에러
             return <PlzReloadView />;
           }
 
           if (isValidationFailed) {
+            // component: 422 에러
             return <ValidationFailedView />;
           }
 
           if (isBlank(searchRepoList)) {
+            // component: 검색시 repository가 없을 때
             return <NoneRepoView />;
           }
 
           return (
             <ul>
               {searchRepoList.map((repo) => (
+                // component: repository item
                 <RepoItemView
                   key={`search-repo-list-item-${repo.id}`}
                   repo={repo}
@@ -224,6 +232,7 @@ const SearchPage = () => {
         )}
       </S.Container>
 
+      {/* component: 토스트 메시지 (첫 & 마지막 페이지) */}
       {isToastMessage && <ToastMessageView message={toastMessageValue} />}
     </>
   );

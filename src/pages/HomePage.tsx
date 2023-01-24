@@ -9,6 +9,7 @@ const HomePage = () => {
   // state
   const [bookmarkList, setBookmarkList] = useState<BookmarkListType>([]);
 
+  // setting bookmark list
   useEffect(() => {
     const data = localStorage.getItem("bookmarkList");
 
@@ -23,6 +24,7 @@ const HomePage = () => {
   return (
     <S.Container>
       {bookmarkList.map((bookmark) => (
+        // component: 북마크된 repository
         <BookmarkRepoItemView
           key={`bookmark-list-item-${bookmark.id}`}
           bookmark={bookmark}
@@ -32,6 +34,7 @@ const HomePage = () => {
       {Array(4 - bookmarkList.length)
         .fill("")
         .map((_, index) => (
+          // component: 북마크된 repository가 없을 때
           <NoneBookmarkItemView key={index} />
         ))}
     </S.Container>

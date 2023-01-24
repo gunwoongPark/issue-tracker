@@ -20,12 +20,14 @@ const BookmarkRepoItemView = (props: {
   // theme
   const theme = useTheme();
 
+  // pagination 전체 페이지 수
   const totalPage = useMemo(
     () => Math.ceil(props.bookmark.openIssuesCount / PER_PAGE),
     [props.bookmark.openIssuesCount],
   );
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(1); // pagination 현재 페이지
 
+  // issue data fetching
   const { issueList, isLoading, isFetching } = useIssues({
     owner: props.bookmark.owner,
     repoName: props.bookmark.repoName,
@@ -65,18 +67,21 @@ const BookmarkRepoItemView = (props: {
             if (isLoading || isFetching) {
               return (
                 <ul>
+                  {/* component: skeleton ui */}
                   <Skeleton wrapper={IssueItemSkeletonView} count={3} />
                 </ul>
               );
             }
 
             if (!totalPage) {
+              // component: repository에 이슈가 없을 때
               return <NoneIssueView />;
             }
 
             return (
               <ul className="issue-list">
                 {issueList.map((issue) => (
+                  // component: issue item
                   <IssueItemView
                     key={`repo-list-item-${issue.id}`}
                     repoName={props.bookmark.repoName}
@@ -89,6 +94,7 @@ const BookmarkRepoItemView = (props: {
         </div>
 
         {totalPage > 1 && (
+          // component: pagination
           <PaginationView
             openIssuesCount={props.bookmark.openIssuesCount}
             page={page}
