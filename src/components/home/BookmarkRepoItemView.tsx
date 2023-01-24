@@ -51,7 +51,7 @@ const BookmarkRepoItemView = (props: {
   return (
     <>
       <S.Container>
-        <div>
+        <div className="body-container">
           <div className="title-container">
             <span className="repo-full-name">
               {props.bookmark.owner}/{props.bookmark.repoName}
@@ -133,6 +133,10 @@ const S = {
       css`
         border: 1px solid #dedede;
       `}
+
+    .body-container {
+      height: 100%;
+    }
 
     .title-container {
       display: flex;

@@ -15,7 +15,7 @@ const NoneIssueView = () => {
 export default NoneIssueView;
 
 const S = {
-  Container: styled.li`
+  Container: styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
