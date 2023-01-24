@@ -2,6 +2,7 @@ import { isNil } from "lodash";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import BookmarkItemView from "../components/BookmarkItemView";
+import NoneBookmarkItemView from "../components/NoneBookmarkItemView";
 import type { BookmarkListType } from "../types/bookmark";
 
 const HomePage = () => {
@@ -28,6 +29,11 @@ const HomePage = () => {
           setBookmarkList={setBookmarkList}
         />
       ))}
+      {Array(4 - bookmarkList.length)
+        .fill("")
+        .map((_, index) => (
+          <NoneBookmarkItemView key={index} />
+        ))}
     </S.Container>
   );
 };
