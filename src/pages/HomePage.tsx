@@ -1,7 +1,7 @@
 import { isNil } from "lodash";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import BookmarkItemView from "../components/BookmarkItemView";
+import BookmarkRepoItemView from "../components/BookmarkRepoItemView";
 import NoneBookmarkItemView from "../components/NoneBookmarkItemView";
 import type { BookmarkListType } from "../types/bookmark";
 
@@ -23,7 +23,7 @@ const HomePage = () => {
   return (
     <S.Container>
       {bookmarkList.map((bookmark) => (
-        <BookmarkItemView
+        <BookmarkRepoItemView
           key={`bookmark-list-item-${bookmark.id}`}
           bookmark={bookmark}
           setBookmarkList={setBookmarkList}

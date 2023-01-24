@@ -2,14 +2,15 @@ import { useCallback } from "react";
 import { BiAlarm } from "react-icons/bi";
 import ReactTimeago from "react-timeago";
 import styled, { css, useTheme } from "styled-components";
-import type { Issue } from "../lib/api/issues/schema";
 import { calcTextColor } from "../util/calcTextColor";
 import { isNotBlank } from "../util/lodash";
+import type { Issue } from "../lib/api/issues/schema";
 
 const IssueItemView = (props: { repoName: string; issue: Issue }) => {
   // theme
   const theme = useTheme();
 
+  // 이슈 클릭시
   const onClickIssue = useCallback(() => {
     window.open(props.issue.html_url, "_blank");
   }, [props.issue.html_url]);

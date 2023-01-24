@@ -1,13 +1,6 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useMemo, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import useIssues from "../hooks/react-query/useIssues";
-import type { BookmarkListType, BookmarkType } from "../types/bookmark";
 import IssueItemView from "./IssueItemView";
 import { AiFillStar } from "react-icons/ai";
 import PaginationView from "./PaginationView";
@@ -15,10 +8,12 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import IssueItemSkeletonView from "./IssueItemSkeletonView";
 import NoneIssueView from "./NoneIssueView";
+import type { Dispatch, SetStateAction } from "react";
+import type { BookmarkListType, BookmarkType } from "../types/bookmark";
 
 const PER_PAGE = 3;
 
-const BookmarkItemView = (props: {
+const BookmarkRepoItemView = (props: {
   bookmark: BookmarkType;
   setBookmarkList: Dispatch<SetStateAction<BookmarkListType>>;
 }) => {
@@ -37,6 +32,7 @@ const BookmarkItemView = (props: {
     page,
   });
 
+  // 북마크 삭제시
   const onClickDeleteButton = useCallback(() => {
     const bookmarkList: BookmarkListType = JSON.parse(
       localStorage.getItem("bookmarkList") as string,
@@ -53,42 +49,44 @@ const BookmarkItemView = (props: {
   return (
     <>
       <S.Container>
-        <div className="title-container">
-          <span className="repo-full-name">
-            {props.bookmark.owner}/{props.bookmark.repoName}
-          </span>
-          <i className="delete-button" onClick={() => onClickDeleteButton()}>
-            <AiFillStar size={24} color={theme.mainTextColor} />
-          </i>
-        </div>
+        <div>
+          <div className="title-container">
+            <span className="repo-full-name">
+              {props.bookmark.owner}/{props.bookmark.repoName}
+            </span>
+            <i className="delete-button" onClick={() => onClickDeleteButton()}>
+              <AiFillStar size={24} color={theme.mainTextColor} />
+            </i>
+          </div>
 
-        <div className="divider" />
+          <div className="divider" />
 
-        {(() => {
-          if (isLoading || isFetching) {
+          {(() => {
+            if (isLoading || isFetching) {
+              return (
+                <ul>
+                  <Skeleton wrapper={IssueItemSkeletonView} count={3} />
+                </ul>
+              );
+            }
+
+            if (!totalPage) {
+              return <NoneIssueView />;
+            }
+
             return (
-              <ul>
-                <Skeleton wrapper={IssueItemSkeletonView} count={3} />
+              <ul className="issue-list">
+                {issueList.map((issue) => (
+                  <IssueItemView
+                    key={`repo-list-item-${issue.id}`}
+                    repoName={props.bookmark.repoName}
+                    issue={issue}
+                  />
+                ))}
               </ul>
             );
-          }
-
-          if (!totalPage) {
-            return <NoneIssueView />;
-          }
-
-          return (
-            <ul className="issue-list">
-              {issueList.map((issue) => (
-                <IssueItemView
-                  key={`repo-list-item-${issue.id}`}
-                  repoName={props.bookmark.repoName}
-                  issue={issue}
-                />
-              ))}
-            </ul>
-          );
-        })()}
+          })()}
+        </div>
 
         {totalPage > 1 && (
           <PaginationView
@@ -103,12 +101,13 @@ const BookmarkItemView = (props: {
   );
 };
 
-export default BookmarkItemView;
+export default BookmarkRepoItemView;
 
 const S = {
   Container: styled.li`
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 650px;
     height: 456px;
     background-color: ${({ theme }) => theme.cardBackgroundColor};
@@ -149,7 +148,7 @@ const S = {
     }
 
     .issue-list {
-      height: 100%;
+      height: 316px;
       overflow-y: auto;
     }
 

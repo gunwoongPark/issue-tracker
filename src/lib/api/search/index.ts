@@ -4,6 +4,15 @@ import { SearchRepoReq, SearchRepoRes } from "./schema";
 const PER_PAGE = 20;
 
 const searchApi = {
+  /**
+   * repository 검색
+   * @param  {} {q
+   * @param  {} page
+   * @param  {} sort
+   * @param  {} order
+   * @param  {SearchRepoReq} }
+   * @returns Promise
+   */
   searchRepo: ({
     q,
     page,

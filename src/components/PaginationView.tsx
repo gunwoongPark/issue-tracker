@@ -24,19 +24,20 @@ const PaginationView = (props: {
   // theme
   const theme = useTheme();
 
-  const [paginationList, setPaginationList] = useState<Array<number>>([]);
+  const [pageList, setPageList] = useState<Array<number>>([]);
 
+  // setting pagination
   useEffect(() => {
-    let tempPaginationList = [];
+    let tempPageList = [];
 
     if (PER_PAGINATION + 1 > props.page) {
       if (PER_PAGINATION > props.totalPage) {
         for (let idx = 1; props.totalPage >= idx; ++idx) {
-          tempPaginationList.push(idx);
+          tempPageList.push(idx);
         }
       } else {
         for (let idx = 1; PER_PAGINATION >= idx; ++idx) {
-          tempPaginationList.push(idx);
+          tempPageList.push(idx);
         }
       }
     } else {
@@ -45,19 +46,20 @@ const PaginationView = (props: {
 
       if (pivot + 1 + PER_PAGINATION > props.totalPage) {
         for (let idx = pivot + 1; props.totalPage >= idx; ++idx) {
-          tempPaginationList.push(idx);
+          tempPageList.push(idx);
         }
       } else {
         for (let idx = pivot + 1; pivot + PER_PAGINATION >= idx; ++idx) {
-          tempPaginationList.push(idx);
+          tempPageList.push(idx);
         }
       }
     }
 
-    setPaginationList(tempPaginationList);
+    setPageList(tempPageList);
   }, [props.page, props.totalPage]);
 
-  const onClickPaginationButton = useCallback(
+  // page 클릭시
+  const onClickPage = useCallback(
     (addPageValue: number) => {
       if (addPageValue > 0 && props.totalPage === props.page) {
         return;
@@ -77,29 +79,29 @@ const PaginationView = (props: {
           <span onClick={() => props.setPage(1)}>
             <BiChevronsLeft size={24} color={theme.paginationIndexColor} />
           </span>
-          <span onClick={() => onClickPaginationButton(-1)}>
+          <span onClick={() => onClickPage(-1)}>
             <BiChevronLeft size={24} color={theme.paginationIndexColor} />
           </span>
         </div>
       )}
 
       <ul>
-        {paginationList.map((pagination, idx) => (
+        {pageList.map((page) => (
           <li
             className={
-              props.page === pagination ? "current-page-index" : "page-index"
+              props.page === page ? "current-page-index" : "page-index"
             }
-            key={idx}
-            onClick={() => props.setPage(pagination)}
+            key={`page-${page}`}
+            onClick={() => props.setPage(page)}
           >
-            {pagination}
+            {page}
           </li>
         ))}
       </ul>
 
       {props.totalPage > 5 && (
         <div className="next-container">
-          <span onClick={() => onClickPaginationButton(1)}>
+          <span onClick={() => onClickPage(1)}>
             <BiChevronRight size={24} color={theme.paginationIndexColor} />
           </span>
           <span onClick={() => props.setPage(props.totalPage)}>
