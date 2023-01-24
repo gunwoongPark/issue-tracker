@@ -67,6 +67,10 @@ const SearchPage = () => {
     sort as SortType
   );
 
+  useEffect(() => {
+    console.log(searchRepoList);
+  }, [searchRepoList]);
+
   const [isReload, setIsReload] = useState<boolean>(false);
   const [isValidationFailed, setIsValidationFailed] = useState<boolean>(false);
   const [toastMessageValue, setToastMessageValue] = useState<string>("");
@@ -205,7 +209,7 @@ const SearchPage = () => {
           );
         })()}
 
-        {isReload || (
+        {(isNil(error) && isBlank(searchRepoList)) || isReload || (
           <div className="button-container">
             <button onClick={() => onClickPageButton(-1)}>
               <BiLeftArrowCircle size={34} color={theme.arrowIconColor} />
