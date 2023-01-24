@@ -63,6 +63,8 @@ const S = {
     .button-container {
       margin-top: 9px;
       display: flex;
+      width: 100%;
+
       ${({ isHomePage }) =>
         isHomePage
           ? css`
@@ -71,8 +73,6 @@ const S = {
           : css`
               justify-content: space-between;
             `}
-
-      width: 100%;
 
       .button {
         width: 42px;

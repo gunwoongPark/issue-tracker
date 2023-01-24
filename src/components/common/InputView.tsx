@@ -17,6 +17,7 @@ const InputView = () => {
   // state
   const [input, setInput] = useState<string>("");
 
+  // input 초기화
   useEffect(() => {
     if (location.pathname === "/search") {
       const searchRepoName = searchParams.get("q");
@@ -26,7 +27,8 @@ const InputView = () => {
     }
   }, [location.pathname, searchParams]);
 
-  const onClickSearchButton = useCallback(
+  // submit
+  const onSubmitRepoSearch = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
@@ -39,7 +41,7 @@ const InputView = () => {
   );
 
   return (
-    <S.Container onSubmit={(e) => onClickSearchButton(e)}>
+    <S.Container onSubmit={(e) => onSubmitRepoSearch(e)}>
       <input
         type="text"
         value={input}
