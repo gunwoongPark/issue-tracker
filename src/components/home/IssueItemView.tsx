@@ -82,6 +82,7 @@ const S = {
       }
 
       .issue-title {
+        word-break: break-word;
         margin-left: 16px;
         text-decoration: none;
         color: ${({ theme }) => theme.textColor1};

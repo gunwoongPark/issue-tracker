@@ -147,7 +147,7 @@ const SearchRepoItemView = (props: { repo: Repository }) => {
           </div>
         )}
 
-        <p className="repo-description">{props.repo.description}</p>
+        <span className="repo-description">{props.repo.description}</span>
 
         <div className="divider" />
 
@@ -257,6 +257,8 @@ const S = {
     }
 
     .repo-description {
+      display: inline-block;
+      word-break: break-word;
       margin-top: 16px;
       color: ${({ theme }) => theme.textColor1};
       font-weight: 400;
