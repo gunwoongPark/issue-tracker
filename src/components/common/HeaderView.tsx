@@ -74,7 +74,7 @@ const S = {
         width: 42px;
         height: 42px;
         border-radius: 50%;
-        background-color: ${({ theme }) => theme.mainTextColor};
+        background-color: ${({ theme }) => theme.mainColor};
         display: flex;
         justify-content: center;
         align-items: center;

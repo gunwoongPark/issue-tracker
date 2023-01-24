@@ -66,7 +66,7 @@ const S = {
       max-width: 702px;
       height: 71px;
       border-radius: 71px;
-      border: 1px solid ${({ theme }) => theme.mainTextColor};
+      border: 1px solid ${({ theme }) => theme.mainColor};
       color: ${({ theme }) => theme.inputTextColor};
       background-color: ${({ theme }) => theme.inputBackgroundColor};
       outline: none;
@@ -87,7 +87,7 @@ const S = {
       width: 71px;
       height: 71px;
       border-radius: 50%;
-      border: 1px solid ${({ theme }) => theme.mainTextColor};
+      border: 1px solid ${({ theme }) => theme.mainColor};
       display: flex;
       justify-content: center;
       align-items: center;

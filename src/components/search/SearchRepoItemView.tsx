@@ -230,7 +230,7 @@ const S = {
         font-size: 21px;
         font-weight: 600;
         line-height: 31px;
-        color: ${({ theme }) => theme.mainTextColor};
+        color: ${({ theme }) => theme.mainColor};
       }
     }
 
@@ -240,14 +240,14 @@ const S = {
       flex-wrap: wrap;
       .topic {
         border-radius: 31px;
-        border: 1px solid ${({ theme }) => theme.mainTextColor};
+        border: 1px solid ${({ theme }) => theme.mainColor};
         margin-top: 5px;
         &:not(:first-child) {
           margin-left: 5px;
         }
 
         .topic-name {
-          color: ${({ theme }) => theme.mainTextColor};
+          color: ${({ theme }) => theme.mainColor};
           font-size: 16px;
           line-height: 27px;
           font-weight: 400;

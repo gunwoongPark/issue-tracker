@@ -39,7 +39,7 @@ const S = {
       height: 40px;
       border-radius: 2px;
       background: #d0dcfa;
-      color: ${({ theme }) => theme.mainTextColor};
+      color: ${({ theme }) => theme.mainColor};
       font-size: 21px;
       border: none;
       cursor: pointer;

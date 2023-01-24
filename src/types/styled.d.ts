@@ -4,10 +4,11 @@ import { ThemeType } from "./theme";
 declare module "styled-components" {
   export interface DefaultTheme {
     mode: ThemeType;
+    mainColor: string;
     backgroundColor: string;
-    mainTextColor: string;
-    subTextColor: string;
     dividerColor: string;
+
+    subTextColor: string;
     cardBackgroundColor: string;
     inputBackgroundColor: string;
     inputTextColor: string;

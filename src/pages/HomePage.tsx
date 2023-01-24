@@ -46,6 +46,7 @@ export default HomePage;
 const S = {
   Container: styled.ul`
     margin-top: 60px;
+    margin-bottom: 30px;
     @media (min-width: 1320px) {
       display: grid;
       grid-template-columns: 1fr 1fr;

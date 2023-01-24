@@ -21,7 +21,7 @@ const S = {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${({ theme }) => theme.mainTextColor};
+    background-color: ${({ theme }) => theme.mainColor};
     width: 632px;
 
     @media (max-width: 632px) {

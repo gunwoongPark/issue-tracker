@@ -6,7 +6,7 @@ const NoneIssueView = () => {
 
   return (
     <S.Container>
-      <BsEmojiSmile size={48} color={theme.mainTextColor} />
+      <BsEmojiSmile size={48} color={theme.mainColor} />
       <span>이슈가 없습니다 :)</span>
     </S.Container>
   );

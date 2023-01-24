@@ -34,7 +34,7 @@ const S = {
     ${({ theme }) =>
       theme.mode === "LIGHT" &&
       css`
-        border: 1px solid ${({ theme }) => theme.dividerColor};
+        border: 1px solid #dedede;
       `}
 
     img {

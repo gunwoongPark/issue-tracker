@@ -57,7 +57,7 @@ const BookmarkRepoItemView = (props: {
               {props.bookmark.owner}/{props.bookmark.repoName}
             </span>
             <i className="delete-button" onClick={() => onClickDeleteButton()}>
-              <AiFillStar size={24} color={theme.mainTextColor} />
+              <AiFillStar size={24} color={theme.mainColor} />
             </i>
           </div>
 
@@ -131,7 +131,7 @@ const S = {
     ${({ theme }) =>
       theme.mode === "LIGHT" &&
       css`
-        border: 1px solid ${({ theme }) => theme.dividerColor};
+        border: 1px solid #dedede;
       `}
 
     .title-container {
@@ -141,7 +141,7 @@ const S = {
         font-size: 21px;
         font-weight: 600;
         line-height: 31px;
-        color: ${({ theme }) => theme.mainTextColor};
+        color: ${({ theme }) => theme.mainColor};
       }
       .delete-button {
         cursor: pointer;

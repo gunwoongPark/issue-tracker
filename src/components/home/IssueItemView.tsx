@@ -78,7 +78,7 @@ const S = {
         font-size: 16px;
         line-height: 26px;
         font-weight: 400;
-        color: ${({ theme }) => theme.mainTextColor};
+        color: ${({ theme }) => theme.mainColor};
       }
 
       .issue-title {
