@@ -27,7 +27,7 @@ const S = {
       font-weight: 400;
       font-size: 18px;
       line-height: 28px;
-      color: ${({ theme }) => theme.subTextColor};
+      color: ${({ theme }) => theme.textColor1};
     }
   `,
 };

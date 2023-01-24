@@ -38,7 +38,7 @@ export default SearchRepoItemSkeletonView;
 const S = {
   Container: styled.li`
     width: 100%;
-    background-color: ${({ theme }) => theme.cardBackgroundColor};
+    background-color: ${({ theme }) => theme.insideColor};
     border-radius: 10px;
     padding: 30px;
     box-sizing: border-box;

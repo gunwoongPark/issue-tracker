@@ -116,7 +116,7 @@ const S = {
     justify-content: space-between;
     width: 650px;
     height: 456px;
-    background-color: ${({ theme }) => theme.cardBackgroundColor};
+    background-color: ${({ theme }) => theme.insideColor};
     box-sizing: border-box;
     border-radius: 10px;
     padding: 30px 30px 20px 30px;

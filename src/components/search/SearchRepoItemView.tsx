@@ -206,7 +206,7 @@ const S = {
         border: 1px solid #dedede;
       `}
 
-    background-color: ${({ theme }) => theme.cardBackgroundColor};
+    background-color: ${({ theme }) => theme.insideColor};
     border-radius: 10px;
     padding: 30px;
     box-sizing: border-box;
@@ -258,7 +258,7 @@ const S = {
 
     .repo-description {
       margin-top: 16px;
-      color: ${({ theme }) => theme.subTextColor};
+      color: ${({ theme }) => theme.textColor1};
       font-weight: 400;
       font-size: 18px;
       line-height: 28px;

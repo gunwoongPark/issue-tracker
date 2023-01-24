@@ -20,7 +20,7 @@ const S = {
     align-items: center;
     width: 650px;
     height: 456px;
-    background-color: ${({ theme }) => theme.cardBackgroundColor};
+    background-color: ${({ theme }) => theme.insideColor};
     box-sizing: border-box;
     border-radius: 10px;
 
@@ -46,7 +46,7 @@ const S = {
       font-weight: 400;
       font-size: 18px;
       line-height: 28px;
-      color: ${({ theme }) => theme.subTextColor};
+      color: ${({ theme }) => theme.textColor1};
     }
   `,
 };

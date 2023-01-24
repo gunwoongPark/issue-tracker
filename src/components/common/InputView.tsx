@@ -67,8 +67,8 @@ const S = {
       height: 71px;
       border-radius: 71px;
       border: 1px solid ${({ theme }) => theme.mainColor};
-      color: ${({ theme }) => theme.inputTextColor};
-      background-color: ${({ theme }) => theme.inputBackgroundColor};
+      color: ${({ theme }) => theme.textColor1};
+      background-color: ${({ theme }) => theme.insideColor};
       outline: none;
       font-size: 21px;
       padding: 0 15px;
@@ -92,7 +92,7 @@ const S = {
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      background-color: ${({ theme }) => theme.cardBackgroundColor};
+      background-color: ${({ theme }) => theme.insideColor};
       font-size: 34px;
 
       @media (max-width: 480px) {

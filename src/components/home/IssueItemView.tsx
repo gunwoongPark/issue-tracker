@@ -84,7 +84,7 @@ const S = {
       .issue-title {
         margin-left: 16px;
         text-decoration: none;
-        color: ${({ theme }) => theme.subTextColor};
+        color: ${({ theme }) => theme.textColor1};
         font-size: 16px;
         line-height: 26px;
         font-weight: 400;
@@ -113,7 +113,7 @@ const S = {
           margin-left: 6px;
           font-size: 12px;
           line-height: 22px;
-          color: ${({ theme }) => theme.issueItemSubTextColor};
+          color: ${({ theme }) => theme.issueItemTextColor};
         }
       }
 
@@ -125,7 +125,7 @@ const S = {
           margin-left: 6px;
           font-size: 12px;
           line-height: 22px;
-          color: ${({ theme }) => theme.issueItemSubTextColor};
+          color: ${({ theme }) => theme.issueItemTextColor};
         }
       }
     }

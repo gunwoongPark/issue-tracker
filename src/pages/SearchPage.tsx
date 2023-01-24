@@ -221,12 +221,12 @@ const SearchPage = () => {
         {(isNil(error) && isBlank(searchRepoList)) || isReload || (
           <div className="button-container">
             <button onClick={() => onClickPageButton(-1)}>
-              <BiLeftArrowCircle size={34} color={theme.arrowIconColor} />
+              <BiLeftArrowCircle size={34} color={theme.iconColor} />
             </button>
 
             {isValidationFailed || (
               <button onClick={() => onClickPageButton(1)}>
-                <BiRightArrowCircle size={34} color={theme.arrowIconColor} />
+                <BiRightArrowCircle size={34} color={theme.iconColor} />
               </button>
             )}
           </div>
@@ -262,7 +262,7 @@ const S = {
               `}
         width: 169px;
         height: 32px;
-        background-color: ${({ theme }) => theme.selectBackgroundColor};
+        background-color: ${({ theme }) => theme.insideColor};
         color: ${({ theme }) => theme.selectTextColor};
         border-radius: 6px;
         font-size: 16px;

@@ -7,20 +7,14 @@ declare module "styled-components" {
     mainColor: string;
     backgroundColor: string;
     dividerColor: string;
-
-    subTextColor: string;
-    cardBackgroundColor: string;
-    inputBackgroundColor: string;
-    inputTextColor: string;
+    textColor1: string;
+    insideColor: string;
     iconColor: string;
-    arrowIconColor: string;
-
     skeletonBaseColor: string;
     skeletonHighlightColor: string;
-    selectBackgroundColor: string;
     selectTextColor: string;
     issueItemColor: string;
-    issueItemSubTextColor: string;
+    issueItemTextColor: string;
     paginationIndexColor: string;
     paginationCurrentIndexColor: string;
   }
