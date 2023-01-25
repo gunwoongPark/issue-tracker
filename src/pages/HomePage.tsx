@@ -24,20 +24,26 @@ const HomePage = () => {
   }, []);
 
   // 북마크 repository 삭제시
-  const deleteBookmarkRepo = (deleteBookmarkId: number) => {
-    const bookmarkList: BookmarkListType = JSON.parse(
-      localStorage.getItem("bookmarkList") as string,
-    );
+  const deleteBookmarkRepo = useCallback(
+    (deleteBookmarkId: number) => {
+      const bookmarkList: BookmarkListType = JSON.parse(
+        localStorage.getItem("bookmarkList") as string,
+      );
 
-    const filteredBookmarkList = bookmarkList.filter(
-      (bookmark) => bookmark.id !== deleteBookmarkId,
-    );
+      const filteredBookmarkList = bookmarkList.filter(
+        (bookmark) => bookmark.id !== deleteBookmarkId,
+      );
 
-    setBookmarkList(filteredBookmarkList);
-    localStorage.setItem("bookmarkList", JSON.stringify(filteredBookmarkList));
+      setBookmarkList(filteredBookmarkList);
+      localStorage.setItem(
+        "bookmarkList",
+        JSON.stringify(filteredBookmarkList),
+      );
 
-    setIsToastMessage(true);
-  };
+      setIsToastMessage(true);
+    },
+    [setIsToastMessage],
+  );
 
   return (
     <>

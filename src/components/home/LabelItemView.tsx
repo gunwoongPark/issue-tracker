@@ -1,19 +1,13 @@
-import { useMemo } from "react";
 import styled, { css } from "styled-components";
 import { calcTextColor } from "../../util/calcTextColor";
 import type { Label as LabelType } from "../../lib/api/issues/schema";
 
 const LabelItemView = (props: { label: LabelType }) => {
-  const labelTextColor = useMemo(
-    () => calcTextColor(props.label.color),
-    [props.label.color],
-  );
-
   return (
     <Label
       className="label"
       backgroundColor={props.label.color}
-      textColor={labelTextColor}
+      textColor={calcTextColor(props.label.color)}
     >
       {props.label.name}
     </Label>

@@ -22,7 +22,8 @@ const BookmarkRepoItemView = (props: {
   // pagination 전체 페이지 수
   const totalPage = Math.ceil(props.bookmark.openIssuesCount / PER_PAGE);
 
-  const [page, setPage] = useState<number>(1); // pagination 현재 페이지
+  // pagination 현재 페이지
+  const [page, setPage] = useState<number>(1);
 
   // issue data fetching
   const { issueList, isLoading, isFetching } = useIssues({
