@@ -1,3 +1,4 @@
+// 구글링 참조
 export const calcTextColor = (backgroundColor: string): string => {
   const rgb = parseInt(backgroundColor, 16);
   const r = (rgb >> 16) & 0xff;

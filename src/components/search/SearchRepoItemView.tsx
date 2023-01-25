@@ -275,6 +275,11 @@ const S = {
       margin-top: 10px;
       display: flex;
       justify-content: space-between;
+
+      @media (max-width: 767px) {
+        flex-direction: column;
+      }
+
       .repo-information {
         display: flex;
         flex-wrap: wrap;
@@ -285,7 +290,7 @@ const S = {
 
         div {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
 
           @media (min-width: 768px) {
             &:not(:first-child) {
@@ -307,7 +312,7 @@ const S = {
         display: flex;
         align-items: center;
         @media (max-width: 767px) {
-          align-items: flex-end;
+          justify-content: flex-end;
         }
 
         span {
