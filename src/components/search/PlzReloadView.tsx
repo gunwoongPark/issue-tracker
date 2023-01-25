@@ -5,7 +5,7 @@ const PlzReloadView = () => {
   return (
     <S.Container>
       <img src={GhostImage} alt="유령 이미지" />
-      <span>요금 제한을 초과했습니다. 잠시 기다려 주십시오.</span>
+      <span>요금 제한을 초과했으니 잠시 기다리고 시도해주세요 :)</span>
       <button onClick={() => window.location.reload()}>Reload</button>
     </S.Container>
   );
