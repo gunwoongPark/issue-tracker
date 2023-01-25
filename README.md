@@ -2,7 +2,7 @@
 
 url : https://payhere-fe-challenge.netlify.app/
 
----
+<br/>
 
 ### 개발 환경 실행 방법
 
@@ -10,14 +10,14 @@ url : https://payhere-fe-challenge.netlify.app/
 
 ```env
 REACT_APP_API_BASE_URI=https://api.github.com
-REACT_APP_API_TOKEN={토큰은 따로 전달드리겠습니다.}
+REACT_APP_API_TOKEN={토큰은 메일로 전달 드릴테니 해당 토큰을 이 안에 넣고 실행하시면 됩니다.}
 ```
 
 2. `npm install` 커맨드 실행
 
 3. `npm start` 커맨드 실행
 
----
+<br/>
 
 ### 추가 개발
 
