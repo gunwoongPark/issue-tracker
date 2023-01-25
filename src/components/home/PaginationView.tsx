@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import {
   BiChevronsLeft,
@@ -53,18 +53,15 @@ const PaginationView = (props: {
   }, [props.page, props.totalPage]);
 
   // 한 페이지 이동 클릭시
-  const onClickPage = useCallback(
-    (addPageValue: number) => {
-      if (addPageValue > 0 && props.totalPage === props.page) {
-        return;
-      } else if (0 > addPageValue && props.page === 1) {
-        return;
-      }
+  const onClickPage = (addPageValue: number) => {
+    if (addPageValue > 0 && props.totalPage === props.page) {
+      return;
+    } else if (0 > addPageValue && props.page === 1) {
+      return;
+    }
 
-      props.changePage(props.page + addPageValue);
-    },
-    [props],
-  );
+    props.changePage(props.page + addPageValue);
+  };
 
   return (
     <S.Container isOnlyNumber={props.totalPage <= 5}>

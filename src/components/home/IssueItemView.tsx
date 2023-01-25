@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { BiAlarm } from "react-icons/bi";
 import ReactTimeago from "react-timeago";
 import styled, { useTheme } from "styled-components";
@@ -10,13 +9,8 @@ const IssueItemView = (props: { repoName: string; issue: Issue }) => {
   // theme
   const theme = useTheme();
 
-  // 이슈 클릭시
-  const onClickIssue = useCallback(() => {
-    window.open(props.issue.html_url, "_blank");
-  }, [props.issue.html_url]);
-
   return (
-    <S.Container onClick={() => onClickIssue()}>
+    <S.Container onClick={() => window.open(props.issue.html_url, "_blank")}>
       <div className="head-container">
         <span className="repo-name">{props.repoName} </span>
         <span className="issue-title">{props.issue.title}</span>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import styled, { css, useTheme } from "styled-components";
 import useIssues from "../../hooks/react-query/useIssues";
 import IssueItemView from "./IssueItemView";
@@ -20,10 +20,8 @@ const BookmarkRepoItemView = (props: {
   const theme = useTheme();
 
   // pagination 전체 페이지 수
-  const totalPage = useMemo(
-    () => Math.ceil(props.bookmark.openIssuesCount / PER_PAGE),
-    [props.bookmark.openIssuesCount],
-  );
+  const totalPage = Math.ceil(props.bookmark.openIssuesCount / PER_PAGE);
+
   const [page, setPage] = useState<number>(1); // pagination 현재 페이지
 
   // issue data fetching

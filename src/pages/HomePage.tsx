@@ -1,5 +1,5 @@
 import { isNil } from "lodash";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import ToastMessageView from "../components/common/ToastMessageView";
 import BookmarkRepoItemView from "../components/home/BookmarkRepoItemView";
