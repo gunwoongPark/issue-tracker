@@ -23,3 +23,4 @@ REACT_APP_API_TOKEN={토큰은 메일로 전달 드릴테니 해당 토큰을 �
 
 1. 반응형
 2. 테마 기능
+3. Repository 검색시 필터
