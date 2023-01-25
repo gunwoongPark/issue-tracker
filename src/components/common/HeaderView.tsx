@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 import styled, { css } from "styled-components";
 import { themeContext } from "../../context/CustomThemeProvider";
 import InputView from "./InputView";
@@ -12,10 +12,7 @@ const HeaderView = () => {
   const location = useLocation();
 
   // 홈인지 여부
-  const isHomePage = useMemo(
-    () => location.pathname === "/",
-    [location.pathname],
-  );
+  const isHomePage = location.pathname === "/";
 
   return (
     <S.Container isHomePage={isHomePage}>
