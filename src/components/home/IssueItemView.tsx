@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { BiAlarm } from "react-icons/bi";
 import ReactTimeago from "react-timeago";
-import styled, { css, useTheme } from "styled-components";
-import { calcTextColor } from "../../util/calcTextColor";
+import styled, { useTheme } from "styled-components";
 import { isNotBlank } from "../../util/lodash";
+import LabelItemView from "./LabelItemView";
 import type { Issue } from "../../lib/api/issues/schema";
 
 const IssueItemView = (props: { repoName: string; issue: Issue }) => {
@@ -23,18 +23,11 @@ const IssueItemView = (props: { repoName: string; issue: Issue }) => {
       </div>
 
       {isNotBlank(props.issue.labels) && (
-        <div className="label-container">
+        <ul className="label-container">
           {props.issue.labels.map((label) => (
-            <S.Label
-              key={label.id}
-              className="label"
-              color={label.color}
-              textColor={calcTextColor(label.color)}
-            >
-              {label.name}
-            </S.Label>
+            <LabelItemView key={label.id} label={label} />
           ))}
-        </div>
+        </ul>
       )}
 
       <div className="bottom-container">
@@ -129,18 +122,6 @@ const S = {
           color: ${({ theme }) => theme.issueItemTextColor};
         }
       }
-    }
-  `,
-
-  Label: styled.span<{ color: string; textColor: string }>`
-    background-color: ${({ color }) => css`#${color}`};
-    color: ${({ textColor }) => textColor};
-    font-size: 10px;
-    line-height: 12px;
-    border-radius: 12px;
-    padding: 0 3px;
-    &:not(:first-child) {
-      margin-left: 5px;
     }
   `,
 };
