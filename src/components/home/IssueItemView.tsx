@@ -80,8 +80,9 @@ const S = {
     }
 
     .label-container {
-      margin-top: 4px;
+      margin-top: 2px;
       display: flex;
+      flex-wrap: wrap;
     }
 
     .bottom-container {

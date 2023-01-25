@@ -19,6 +19,7 @@ export default LabelItemView;
 const Label = styled.li<{ backgroundColor: string; textColor: string }>`
   background-color: ${({ backgroundColor }) => css`#${backgroundColor}`};
   color: ${({ textColor }) => textColor};
+  margin-top: 2px;
   font-size: 10px;
   line-height: 12px;
   border-radius: 12px;
