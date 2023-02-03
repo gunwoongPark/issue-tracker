@@ -80,5 +80,7 @@ module.exports = {
     "no-bitwise": 0,
     // 모든 요소에 이벤트 적용 가능
     "jsx-a11y/no-noninteractive-element-interactions": 0,
+    // any 타입 허용
+    "@typescript-eslint/no-explicit-any": 0,
   },
 };
