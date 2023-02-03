@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import HeaderView from "./HeaderView";
 
-const LayoutView = (props: PropsWithChildren<Record<never, any>>) => {
+const LayoutView = (props: PropsWithChildren) => {
   const location = useLocation();
 
   const isValidPage = useMemo(() => {

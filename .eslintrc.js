@@ -72,9 +72,6 @@ module.exports = {
     "import/prefer-default-export": 0,
     // 파라미터 재할당 허용
     "no-param-reassign": 0,
-    // TODO : 삭제
-    // any 임시 허용
-    "@typescript-eslint/no-explicit-any": 0,
 
     // TODO : 리서치 필요
     "jsx-a11y/no-static-element-interactions": 0,
