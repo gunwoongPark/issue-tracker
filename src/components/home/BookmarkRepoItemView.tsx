@@ -90,7 +90,6 @@ const BookmarkRepoItemView = (props: {
         {totalPage > 1 && (
           // component: pagination
           <PaginationView
-            openIssuesCount={props.bookmark.openIssuesCount}
             totalPage={totalPage}
             page={page}
             changePage={changePage}

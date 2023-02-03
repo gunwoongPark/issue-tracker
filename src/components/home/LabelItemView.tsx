@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
-import { calcTextColor } from "../../util/calcTextColor";
+
 import type { Label as LabelType } from "../../lib/api/issues/schema";
+import { calcTextColor } from "../../util/calcTextColor";
 
 const LabelItemView = (props: { label: LabelType }) => {
   return (

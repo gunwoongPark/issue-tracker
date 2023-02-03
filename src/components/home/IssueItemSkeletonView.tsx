@@ -1,5 +1,6 @@
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+
+import Skeleton from "react-loading-skeleton";
 import styled, { useTheme } from "styled-components";
 
 const IssueItemSkeletonView = () => {

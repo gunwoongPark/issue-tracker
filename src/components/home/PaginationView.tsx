@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import styled, { css, useTheme } from "styled-components";
 import {
-  BiChevronsLeft,
   BiChevronLeft,
   BiChevronRight,
+  BiChevronsLeft,
   BiChevronsRight,
 } from "react-icons/bi";
+import styled, { css, useTheme } from "styled-components";
 
 const PER_PAGINATION = 5;
 
 const PaginationView = (props: {
-  openIssuesCount: number;
   totalPage: number;
   page: number;
   changePage: (page: number) => void;
@@ -22,7 +21,7 @@ const PaginationView = (props: {
 
   // setting pagination
   useEffect(() => {
-    let tempPageList = [];
+    const tempPageList = [];
 
     if (PER_PAGINATION + 1 > props.page) {
       if (PER_PAGINATION > props.totalPage) {
@@ -57,7 +56,8 @@ const PaginationView = (props: {
     (addPageValue: number) => {
       if (addPageValue > 0 && props.totalPage === props.page) {
         return;
-      } else if (0 > addPageValue && props.page === 1) {
+      }
+      if (addPageValue < 0 && props.page === 1) {
         return;
       }
 

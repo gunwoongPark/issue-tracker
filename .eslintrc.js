@@ -78,5 +78,7 @@ module.exports = {
     "jsx-a11y/click-events-have-key-events": 0,
     // 비트 연산자 허용
     "no-bitwise": 0,
+    // 모든 요소에 이벤트 적용 가능
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
   },
 };

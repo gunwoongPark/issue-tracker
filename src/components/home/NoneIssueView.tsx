@@ -1,5 +1,5 @@
-import styled, { useTheme } from "styled-components";
 import { BsEmojiSmile } from "react-icons/bs";
+import styled, { useTheme } from "styled-components";
 
 const NoneIssueView = () => {
   const theme = useTheme();

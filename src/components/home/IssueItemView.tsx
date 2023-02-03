@@ -1,9 +1,10 @@
 import { BiAlarm } from "react-icons/bi";
 import ReactTimeago from "react-timeago";
 import styled, { useTheme } from "styled-components";
+
+import type { Issue } from "../../lib/api/issues/schema";
 import { isNotBlank } from "../../util/lodash";
 import LabelItemView from "./LabelItemView";
-import type { Issue } from "../../lib/api/issues/schema";
 
 const IssueItemView = (props: { repoName: string; issue: Issue }) => {
   // theme
