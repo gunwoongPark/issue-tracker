@@ -72,9 +72,9 @@ module.exports = {
     "import/prefer-default-export": 0,
     // 파라미터 재할당 허용
     "no-param-reassign": 0,
-
-    // TODO : 리서치 필요
+    // 자식 요소가 없는 태그 self-closing 해제
     "jsx-a11y/no-static-element-interactions": 0,
+    // 불필요한 onKey... 이벤트 규약 해제
     "jsx-a11y/click-events-have-key-events": 0,
     // 비트 연산자 허용
     "no-bitwise": 0,
