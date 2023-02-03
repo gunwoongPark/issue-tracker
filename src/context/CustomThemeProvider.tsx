@@ -1,5 +1,12 @@
-import { ChangeEvent, createContext, PropsWithChildren, useState } from "react";
+import {
+  ChangeEvent,
+  createContext,
+  PropsWithChildren,
+  useMemo,
+  useState,
+} from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
+
 import { darkTheme, lightTheme } from "../theme/theme";
 import { ThemeContextValueType } from "../types/theme";
 import { getTheme } from "../util/getTheme";
@@ -19,10 +26,12 @@ const CustomThemeProvider = (props: PropsWithChildren<Record<never, any>>) => {
     }
   };
 
-  const value: ThemeContextValueType = {
-    theme,
-    toggle: (e: ChangeEvent<HTMLInputElement>) => toggleTheme(e),
-  };
+  const value: ThemeContextValueType = useMemo(() => {
+    return {
+      theme,
+      toggle: (e: ChangeEvent<HTMLInputElement>) => toggleTheme(e),
+    };
+  }, [theme]);
 
   return (
     <themeContext.Provider value={value}>

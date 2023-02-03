@@ -2,6 +2,7 @@
 export const calcTextColor = (backgroundColor: string): string => {
   const rgb = parseInt(backgroundColor, 16);
   const r = (rgb >> 16) & 0xff;
+  // eslint-disable-next-line no-bitwise
   const g = (rgb >> 8) & 0xff;
   const b = (rgb >> 0) & 0xff;
 

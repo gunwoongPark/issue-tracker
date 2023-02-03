@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import GhostImage from "../assets/ghost.svg";
 
 const NotFoundPage = () => {

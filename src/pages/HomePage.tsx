@@ -1,6 +1,7 @@
 import { isNil } from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+
 import ToastMessageView from "../components/common/ToastMessageView";
 import BookmarkRepoItemView from "../components/home/BookmarkRepoItemView";
 import NoneBookmarkItemView from "../components/home/NoneBookmarkItemView";
@@ -26,6 +27,7 @@ const HomePage = () => {
   // 북마크 repository 삭제시
   const deleteBookmarkRepo = useCallback(
     (deleteBookmarkId: number) => {
+      // eslint-disable-next-line no-shadow
       const bookmarkList: BookmarkListType = JSON.parse(
         localStorage.getItem("bookmarkList") as string,
       );

@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+
 import { config as basedConfig } from "../config";
 
 export const axiosInstance = axios.create({

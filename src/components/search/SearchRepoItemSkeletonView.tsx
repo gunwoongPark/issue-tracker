@@ -1,6 +1,7 @@
+import "react-loading-skeleton/dist/skeleton.css";
+
 import Skeleton from "react-loading-skeleton";
 import styled, { css, useTheme } from "styled-components";
-import "react-loading-skeleton/dist/skeleton.css";
 
 const SearchRepoItemSkeletonView = () => {
   // theme

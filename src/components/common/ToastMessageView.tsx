@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import Portal from "./Portal";
 
 const ToastMessageView = (props: { message: string }) => {

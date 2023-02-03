@@ -1,14 +1,16 @@
-import { useState } from "react";
-import styled, { css, useTheme } from "styled-components";
-import useIssues from "../../hooks/react-query/useIssues";
-import IssueItemView from "./IssueItemView";
-import { AiFillStar } from "react-icons/ai";
-import PaginationView from "./PaginationView";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import IssueItemSkeletonView from "./IssueItemSkeletonView";
-import NoneIssueView from "./NoneIssueView";
+
+import { useState } from "react";
+import { AiFillStar } from "react-icons/ai";
+import Skeleton from "react-loading-skeleton";
+import styled, { css, useTheme } from "styled-components";
+
+import useIssues from "../../hooks/react-query/useIssues";
 import type { BookmarkType } from "../../types/bookmark";
+import IssueItemSkeletonView from "./IssueItemSkeletonView";
+import IssueItemView from "./IssueItemView";
+import NoneIssueView from "./NoneIssueView";
+import PaginationView from "./PaginationView";
 
 const PER_PAGE = 3;
 
