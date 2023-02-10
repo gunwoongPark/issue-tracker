@@ -8,6 +8,7 @@ import { BiLeftArrowCircle, BiRightArrowCircle } from "react-icons/bi";
 import Skeleton from "react-loading-skeleton";
 import { useQueryClient } from "react-query";
 import { useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import styled, { css, useTheme } from "styled-components";
 
 import ToastMessageView from "../components/common/ToastMessageView";
@@ -16,7 +17,6 @@ import PlzReloadView from "../components/search/PlzReloadView";
 import SearchRepoItemSkeletonView from "../components/search/SearchRepoItemSkeletonView";
 import SearchRepoItemView from "../components/search/SearchRepoItemView";
 import ValidationFailedView from "../components/search/ValidationFailedView";
-import useToastMessage from "../hooks/custom/useToastMessage";
 import useSearch from "../hooks/react-query/useSearch";
 import type {
   OrderType,
@@ -79,7 +79,6 @@ const SearchPage = () => {
   const [isReload, setIsReload] = useState<boolean>(false);
   const [isValidationFailed, setIsValidationFailed] = useState<boolean>(false);
   const [toastMessageValue, setToastMessageValue] = useState<string>("");
-  const { isToastMessage, setIsToastMessage } = useToastMessage();
 
   // 페이지 이동시 스크롤 최 상단으로
   useEffect(() => {
@@ -115,13 +114,11 @@ const SearchPage = () => {
         ]) as SearchRepoRes | undefined;
 
         if (isBlank(prefetchData?.items)) {
-          setToastMessageValue("마지막 페이지입니다.");
-          setIsToastMessage(true);
+          toast.warn("마지막 페이지입니다.");
           return;
         }
       } else if (page === 1) {
-        setToastMessageValue("첫 페이지입니다.");
-        setIsToastMessage(true);
+        toast.warn("첫 페이지입니다.");
         return;
       }
 
@@ -136,7 +133,6 @@ const SearchPage = () => {
       queryClient,
       searchParams,
       searchRepoName,
-      setIsToastMessage,
       setSearchParams,
       sort,
     ],
@@ -234,9 +230,6 @@ const SearchPage = () => {
           </div>
         )}
       </S.Container>
-
-      {/* component: 토스트 메시지 (첫 & 마지막 페이지) */}
-      {isToastMessage && <ToastMessageView message={toastMessageValue} />}
     </>
   );
 };

@@ -3,6 +3,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import Skeleton from "react-loading-skeleton";
+import { toast } from "react-toastify";
 import styled, { css, useTheme } from "styled-components";
 
 import useIssues from "../../hooks/react-query/useIssues";
@@ -39,6 +40,11 @@ const BookmarkRepoItemView = (props: {
     setPage(page);
   };
 
+  const onClickDeleteRepo = () => {
+    props.deleteBookmarkRepo(props.bookmark.id);
+    toast.success("북마크가 제거되었습니다.");
+  };
+
   return (
     <>
       <S.Container>
@@ -47,10 +53,7 @@ const BookmarkRepoItemView = (props: {
             <span className="repo-full-name">
               {props.bookmark.owner}/{props.bookmark.repoName}
             </span>
-            <i
-              className="delete-button"
-              onClick={() => props.deleteBookmarkRepo(props.bookmark.id)}
-            >
+            <i className="delete-button" onClick={() => onClickDeleteRepo()}>
               <AiFillStar size={24} color={theme.mainColor} />
             </i>
           </div>

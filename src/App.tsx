@@ -1,6 +1,7 @@
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
+import CustomToastContainer from "./components/common/CustomToastContainer";
 import LayoutView from "./components/common/LayoutView";
 import CustomThemeProvider from "./context/CustomThemeProvider";
 import { queryClient } from "./react-query/queryClient";
@@ -16,6 +17,7 @@ function App() {
           <LayoutView>
             <Routes />
           </LayoutView>
+          <CustomToastContainer />
         </CustomThemeProvider>
         <ReactQueryDevtools />
       </QueryClientProvider>

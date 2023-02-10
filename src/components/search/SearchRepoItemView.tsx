@@ -7,20 +7,18 @@ import { BsBookmarkCheck, BsBookmarkCheckFill } from "react-icons/bs";
 import { HiOutlineScale } from "react-icons/hi";
 import { TbGitFork, TbLanguage } from "react-icons/tb";
 import ReactTimeago from "react-timeago";
+import { toast } from "react-toastify";
 import styled, { css, useTheme } from "styled-components";
 
-import useToastMessage from "../../hooks/custom/useToastMessage";
 import type { Repository } from "../../lib/api/search/schema";
 import type { BookmarkListType } from "../../types/bookmark";
 import { isNotBlank, isNotNil } from "../../util/lodash";
-import ToastMessageView from "../common/ToastMessageView";
 
 const SearchRepoItemView = (props: { repo: Repository }) => {
   // theme
   const theme = useTheme();
 
   const [isBookmark, setIsBookmark] = useState<boolean>(false); // 북마크 체크 여부
-  const { isToastMessage, setIsToastMessage } = useToastMessage();
 
   // 북마크 체크 여부 초기화
   useEffect(() => {
@@ -66,7 +64,7 @@ const SearchRepoItemView = (props: { repo: Repository }) => {
 
         // 최대 북마크 수 초과
         if (bookmarkList.length === 4) {
-          setIsToastMessage(true);
+          toast.warn("저장소는 최대 4개 등록 가능합니다.");
           return;
         }
 
@@ -105,7 +103,6 @@ const SearchRepoItemView = (props: { repo: Repository }) => {
       props.repo.name,
       props.repo.open_issues_count,
       props.repo.owner?.login,
-      setIsToastMessage,
     ],
   );
 
@@ -185,11 +182,6 @@ const SearchRepoItemView = (props: { repo: Repository }) => {
           </div>
         </div>
       </S.Container>
-
-      {isToastMessage && (
-        // component: 토스트 메시지
-        <ToastMessageView message="등록 가능한 최대 레포지토리 수를 초과했습니다." />
-      )}
     </>
   );
 };
