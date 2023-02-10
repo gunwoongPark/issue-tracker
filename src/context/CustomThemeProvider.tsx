@@ -13,7 +13,7 @@ import { getTheme } from "../util/getTheme";
 
 export const themeContext = createContext<ThemeContextValueType>(null);
 
-const CustomThemeProvider = (props: PropsWithChildren) => {
+const CustomThemeProvider = (props: PropsWithChildren<unknown>) => {
   const [theme, setTheme] = useState<DefaultTheme>(getTheme());
 
   const toggleTheme = (e: ChangeEvent<HTMLInputElement>) => {
