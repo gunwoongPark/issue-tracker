@@ -1,13 +1,14 @@
 import { isNil } from "lodash";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useState } from "react";
 
 import { BookmarkListType } from "../../types/bookmark";
+import useMount from "./useMount";
 
-const useBookmark = (setIsToastMessage: Dispatch<SetStateAction<boolean>>) => {
+const useBookmark = () => {
   const [bookmarkList, setBookmarkList] = useState<BookmarkListType>([]);
 
   // 북마크 목록 초기화
-  useEffect(() => {
+  useMount(() => {
     const data = localStorage.getItem("bookmarkList");
 
     if (isNil(data)) {
@@ -16,7 +17,7 @@ const useBookmark = (setIsToastMessage: Dispatch<SetStateAction<boolean>>) => {
 
     const localStorageBookmarkList: BookmarkListType = JSON.parse(data);
     setBookmarkList(localStorageBookmarkList);
-  }, []);
+  });
 
   const deleteBookmarkRepo = (deleteBookmarkId: number) => {
     const bookmarkList: BookmarkListType = JSON.parse(
@@ -29,8 +30,6 @@ const useBookmark = (setIsToastMessage: Dispatch<SetStateAction<boolean>>) => {
 
     setBookmarkList(filteredBookmarkList);
     localStorage.setItem("bookmarkList", JSON.stringify(filteredBookmarkList));
-
-    setIsToastMessage(true);
   };
 
   return { bookmarkList, deleteBookmarkRepo };

@@ -1,14 +1,11 @@
 import styled from "styled-components";
 
-import ToastMessageView from "../components/common/ToastMessageView";
 import BookmarkRepoItemView from "../components/home/BookmarkRepoItemView";
 import NoneBookmarkItemView from "../components/home/NoneBookmarkItemView";
 import useBookmark from "../hooks/custom/useBookmark";
-import useToastMessage from "../hooks/custom/useToastMessage";
 
 const HomePage = () => {
-  const { isToastMessage, setIsToastMessage } = useToastMessage();
-  const { bookmarkList, deleteBookmarkRepo } = useBookmark(setIsToastMessage);
+  const { bookmarkList, deleteBookmarkRepo } = useBookmark();
 
   return (
     <>
@@ -30,9 +27,6 @@ const HomePage = () => {
             />
           ))}
       </S.Container>
-
-      {/* component: 토스트 메시지 */}
-      {isToastMessage && <ToastMessageView message="북마크가 제거됐습니다." />}
     </>
   );
 };
