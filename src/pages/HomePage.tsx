@@ -1,51 +1,14 @@
-import { isNil } from "lodash";
-import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import ToastMessageView from "../components/common/ToastMessageView";
 import BookmarkRepoItemView from "../components/home/BookmarkRepoItemView";
 import NoneBookmarkItemView from "../components/home/NoneBookmarkItemView";
+import useBookmark from "../hooks/custom/useBookmark";
 import useToastMessage from "../hooks/custom/useToastMessage";
-import type { BookmarkListType } from "../types/bookmark";
 
 const HomePage = () => {
-  const [bookmarkList, setBookmarkList] = useState<BookmarkListType>([]); // 북마크 목록
   const { isToastMessage, setIsToastMessage } = useToastMessage();
-
-  // setting bookmark list
-  useEffect(() => {
-    const data = localStorage.getItem("bookmarkList");
-
-    if (isNil(data)) {
-      return;
-    }
-
-    const localStorageBookmarkList: BookmarkListType = JSON.parse(data);
-    setBookmarkList(localStorageBookmarkList);
-  }, []);
-
-  // 북마크 repository 삭제시
-  const deleteBookmarkRepo = useCallback(
-    (deleteBookmarkId: number) => {
-      // eslint-disable-next-line no-shadow
-      const bookmarkList: BookmarkListType = JSON.parse(
-        localStorage.getItem("bookmarkList") as string,
-      );
-
-      const filteredBookmarkList = bookmarkList.filter(
-        (bookmark) => bookmark.id !== deleteBookmarkId,
-      );
-
-      setBookmarkList(filteredBookmarkList);
-      localStorage.setItem(
-        "bookmarkList",
-        JSON.stringify(filteredBookmarkList),
-      );
-
-      setIsToastMessage(true);
-    },
-    [setIsToastMessage],
-  );
+  const { bookmarkList, deleteBookmarkRepo } = useBookmark(setIsToastMessage);
 
   return (
     <>
