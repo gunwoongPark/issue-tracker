@@ -22,7 +22,7 @@ const LayoutView = (props: PropsWithChildren<unknown>) => {
     <>
       {isValidPage && <HeaderView />}
 
-      {props.children}
+      <main>{props.children}</main>
     </>
   );
 };
