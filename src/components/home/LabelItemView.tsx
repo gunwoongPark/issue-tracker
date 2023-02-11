@@ -25,7 +25,4 @@ const Label = styled.li<{ backgroundColor: string; textColor: string }>`
   line-height: 12px;
   border-radius: 12px;
   padding: 0 3px;
-  &:not(:first-child) {
-    margin-left: 5px;
-  }
 `;

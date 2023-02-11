@@ -84,6 +84,7 @@ const S = {
       margin-top: 2px;
       display: flex;
       flex-wrap: wrap;
+      gap: 5px;
     }
 
     .bottom-container {
