@@ -230,13 +230,11 @@ const S = {
       margin-top: 5px;
       display: flex;
       flex-wrap: wrap;
+      gap: 5px;
       .topic {
         border-radius: 31px;
         border: 1px solid ${({ theme }) => theme.mainColor};
         margin-top: 5px;
-        &:not(:first-child) {
-          margin-left: 5px;
-        }
 
         .topic-name {
           color: ${({ theme }) => theme.mainColor};

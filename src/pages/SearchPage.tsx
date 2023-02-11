@@ -11,7 +11,6 @@ import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled, { css, useTheme } from "styled-components";
 
-import ToastMessageView from "../components/common/ToastMessageView";
 import NoneSearchRepoView from "../components/search/NoneSearchRepoView";
 import PlzReloadView from "../components/search/PlzReloadView";
 import SearchRepoItemSkeletonView from "../components/search/SearchRepoItemSkeletonView";
@@ -78,7 +77,6 @@ const SearchPage = () => {
 
   const [isReload, setIsReload] = useState<boolean>(false);
   const [isValidationFailed, setIsValidationFailed] = useState<boolean>(false);
-  const [toastMessageValue, setToastMessageValue] = useState<string>("");
 
   // 페이지 이동시 스크롤 최 상단으로
   useEffect(() => {
