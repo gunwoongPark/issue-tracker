@@ -1,6 +1,6 @@
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import Skeleton from "react-loading-skeleton";
 import { toast } from "react-toastify";
@@ -40,10 +40,10 @@ const BookmarkRepoItemView = (props: {
     setPage(page);
   };
 
-  const onClickDeleteRepo = () => {
+  const onClickDeleteRepo = useCallback(() => {
     props.deleteBookmarkRepo(props.bookmark.id);
     toast.success("북마크가 제거되었습니다.");
-  };
+  }, [props]);
 
   return (
     <>
