@@ -139,23 +139,23 @@ const SearchPage = () => {
   // order 변경시
   const onChangeOrder = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
-      searchParams.set("page", String(page));
+      searchParams.set("page", "1");
       searchParams.set("order", e.target.value);
       searchParams.set("sort", sort);
       setSearchParams(searchParams);
     },
-    [page, searchParams, setSearchParams, sort],
+    [searchParams, setSearchParams, sort],
   );
 
   // sort 변경시
   const onChangeSort = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
-      searchParams.set("page", String(page));
+      searchParams.set("page", "1");
       searchParams.set("order", order);
       searchParams.set("sort", e.target.value);
       setSearchParams(searchParams);
     },
-    [order, page, searchParams, setSearchParams],
+    [order, searchParams, setSearchParams],
   );
 
   return (
