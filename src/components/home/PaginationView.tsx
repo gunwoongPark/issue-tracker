@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import {
   BiChevronLeft,
   BiChevronRight,
@@ -7,7 +7,7 @@ import {
 } from "react-icons/bi";
 import styled, { css, useTheme } from "styled-components";
 
-const PER_PAGINATION = 5;
+import usePagination from "../../hooks/custom/usePagination";
 
 const PaginationView = (props: {
   totalPage: number;
@@ -17,39 +17,8 @@ const PaginationView = (props: {
   // theme
   const theme = useTheme();
 
-  const [pageList, setPageList] = useState<Array<number>>([]);
-
-  // setting pagination
-  useEffect(() => {
-    const tempPageList = [];
-
-    if (PER_PAGINATION + 1 > props.page) {
-      if (PER_PAGINATION > props.totalPage) {
-        for (let idx = 1; props.totalPage >= idx; ++idx) {
-          tempPageList.push(idx);
-        }
-      } else {
-        for (let idx = 1; PER_PAGINATION >= idx; ++idx) {
-          tempPageList.push(idx);
-        }
-      }
-    } else {
-      const pivot =
-        (Math.ceil(props.page / PER_PAGINATION) - 1) * PER_PAGINATION;
-
-      if (pivot + 1 + PER_PAGINATION > props.totalPage) {
-        for (let idx = pivot + 1; props.totalPage >= idx; ++idx) {
-          tempPageList.push(idx);
-        }
-      } else {
-        for (let idx = pivot + 1; pivot + PER_PAGINATION >= idx; ++idx) {
-          tempPageList.push(idx);
-        }
-      }
-    }
-
-    setPageList(tempPageList);
-  }, [props.page, props.totalPage]);
+  // pageList
+  const { pageList } = usePagination(props.page, props.totalPage);
 
   // 한 페이지 이동 클릭시
   const onClickPage = useCallback(
