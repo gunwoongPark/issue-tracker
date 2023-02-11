@@ -1,5 +1,5 @@
 import { FormEvent, useCallback, useEffect, useState } from "react";
-import { BiSearch } from "react-icons/bi";
+import { BiSearchAlt } from "react-icons/bi";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -49,7 +49,10 @@ const InputView = () => {
         onChange={(e) => setInput(e.target.value)}
       />
       <button type="submit" disabled={isBlank(input)}>
-        <BiSearch color="#4d6ab6" />
+        {/* safari issue */}
+        <i>
+          <BiSearchAlt color="#4d6ab6" />
+        </i>
       </button>
     </S.Container>
   );
@@ -91,11 +94,13 @@ const S = {
       height: 71px;
       border-radius: 50%;
       border: 1px solid ${({ theme }) => theme.mainColor};
-      display: flex;
-      justify-content: center;
-      align-items: center;
       cursor: pointer;
       background-color: ${({ theme }) => theme.insideColor};
+      display: flex;
+
+      /* safari issue */
+      justify-content: center;
+      align-items: center;
       font-size: 34px;
 
       @media (max-width: 480px) {
@@ -104,6 +109,13 @@ const S = {
         min-width: 51px;
         margin-left: 8px;
         font-size: 24px;
+      }
+
+      /* safari issue */
+      i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   `,
