@@ -16,17 +16,12 @@ const useIssues = ({
     data: issueList = [],
     isLoading,
     isFetching,
-  } = useQuery(
-    [queryKeys.issues, owner, repoName, page],
-    () =>
-      issuesApi.fetchIssues({
-        owner,
-        repo: repoName,
-        page,
-      }),
-    {
-      keepPreviousData: true,
-    },
+  } = useQuery([queryKeys.issues, owner, repoName, page], () =>
+    issuesApi.fetchIssues({
+      owner,
+      repo: repoName,
+      page,
+    }),
   );
 
   return { issueList, isLoading, isFetching };

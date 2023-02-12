@@ -91,10 +91,18 @@ const SearchPage = () => {
     }
 
     if (axios.isAxiosError(error)) {
-      if (error.response?.status === 403) {
-        setIsReload(true);
-      } else if (error.response?.status === 422) {
-        setIsValidationFailed(true);
+      switch (error.response?.status) {
+        // 자주 발생 1
+        case 403:
+          setIsReload(true);
+          break;
+
+        // 자주 발생 2
+        case 422:
+          setIsValidationFailed(true);
+          break;
+
+        default:
       }
     }
   }, [error]);
