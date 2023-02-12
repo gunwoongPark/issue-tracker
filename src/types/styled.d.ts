@@ -19,5 +19,6 @@ declare module "styled-components" {
     issueItemTextColor: string;
     paginationIndexColor: string;
     paginationCurrentIndexColor: string;
+    disabledColor: string;
   }
 }

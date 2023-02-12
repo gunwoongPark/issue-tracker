@@ -38,11 +38,14 @@ const PaginationView = (props: {
     <S.Container isOnlyNumber={props.totalPage <= 5}>
       {props.totalPage > 5 && (
         <div className="prev-container">
-          <button onClick={() => props.changePage(1)}>
-            <BiChevronsLeft size={24} color={theme.paginationIndexColor} />
+          <button
+            onClick={() => props.changePage(1)}
+            disabled={props.page === 1}
+          >
+            <BiChevronsLeft size={24} />
           </button>
-          <button onClick={() => onClickPage(-1)}>
-            <BiChevronLeft size={24} color={theme.paginationIndexColor} />
+          <button onClick={() => onClickPage(-1)} disabled={props.page === 1}>
+            <BiChevronLeft size={24} />
           </button>
         </div>
       )}
@@ -63,11 +66,17 @@ const PaginationView = (props: {
 
       {props.totalPage > 5 && (
         <div className="next-container">
-          <button onClick={() => onClickPage(1)}>
-            <BiChevronRight size={24} color={theme.paginationIndexColor} />
+          <button
+            onClick={() => onClickPage(1)}
+            disabled={props.totalPage === props.page}
+          >
+            <BiChevronRight size={24} />
           </button>
-          <button onClick={() => props.changePage(props.totalPage)}>
-            <BiChevronsRight size={24} color={theme.paginationIndexColor} />
+          <button
+            onClick={() => props.changePage(props.totalPage)}
+            disabled={props.totalPage === props.page}
+          >
+            <BiChevronsRight size={24} />
           </button>
         </div>
       )}
@@ -96,6 +105,11 @@ const S = {
         border: none;
         cursor: pointer;
         background-color: transparent;
+        color: ${({ theme }) => theme.paginationIndexColor};
+
+        &:disabled {
+          color: ${({ theme }) => theme.disabledColor};
+        }
       }
     }
 

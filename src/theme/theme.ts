@@ -16,6 +16,7 @@ export const darkTheme: DefaultTheme = {
   issueItemTextColor: "#AAAAAA",
   paginationIndexColor: "#AAAAAA",
   paginationCurrentIndexColor: "#8FAFFF",
+  disabledColor: "#666666",
 };
 
 export const lightTheme: DefaultTheme = {
@@ -34,4 +35,5 @@ export const lightTheme: DefaultTheme = {
   issueItemTextColor: "#444444",
   paginationIndexColor: "#444444",
   paginationCurrentIndexColor: "#8FAFFF",
+  disabledColor: "#AAAAAA",
 };
