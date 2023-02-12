@@ -1,7 +1,6 @@
+import issuesApi from "lib/api/issues";
 import { useQuery } from "react-query";
-
-import issuesApi from "../../lib/api/issues";
-import { queryKeys } from "../../react-query/queryKeys";
+import { queryKeys } from "react-query/queryKeys";
 
 const useIssues = ({
   owner,

@@ -1,7 +1,6 @@
 import { isNil } from "lodash";
-
-import { darkTheme, lightTheme } from "../theme/theme";
-import { ThemeType } from "../types/theme";
+import { darkTheme, lightTheme } from "theme/theme";
+import { ThemeType } from "types/theme";
 
 export const getTheme = () => {
   const localStorageTheme: ThemeType | null = localStorage.getItem(

@@ -1,3 +1,4 @@
+import usePagination from "hooks/custom/usePagination";
 import { useCallback } from "react";
 import {
   BiChevronLeft,
@@ -6,8 +7,6 @@ import {
   BiChevronsRight,
 } from "react-icons/bi";
 import styled, { css, useTheme } from "styled-components";
-
-import usePagination from "../../hooks/custom/usePagination";
 
 const PaginationView = (props: {
   totalPage: number;

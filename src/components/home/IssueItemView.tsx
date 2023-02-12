@@ -1,9 +1,9 @@
+import type { Issue } from "lib/api/issues/schema";
 import { BiAlarm } from "react-icons/bi";
 import ReactTimeago from "react-timeago";
 import styled, { useTheme } from "styled-components";
+import { isNotBlank } from "util/lodash";
 
-import type { Issue } from "../../lib/api/issues/schema";
-import { isNotBlank } from "../../util/lodash";
 import LabelItemView from "./LabelItemView";
 
 const IssueItemView = (props: { repoName: string; issue: Issue }) => {

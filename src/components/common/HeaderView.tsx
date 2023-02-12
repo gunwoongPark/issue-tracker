@@ -1,9 +1,9 @@
+import { themeContext } from "context/CustomThemeProvider";
 import { useContext } from "react";
 import { BiHomeAlt, BiMoon, BiSun } from "react-icons/bi";
 import { Link, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-import { themeContext } from "../../context/CustomThemeProvider";
 import InputView from "./InputView";
 
 const HeaderView = () => {

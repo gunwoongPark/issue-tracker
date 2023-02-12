@@ -1,6 +1,5 @@
+import GhostImage from "assets/ghost.svg";
 import styled from "styled-components";
-
-import GhostImage from "../../assets/ghost.svg";
 
 const ValidationFailedView = () => {
   return (

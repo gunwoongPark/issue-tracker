@@ -1,7 +1,7 @@
 import { isNil } from "lodash";
 import { useState } from "react";
+import { BookmarkListType } from "types/bookmark";
 
-import { BookmarkListType } from "../../types/bookmark";
 import useMount from "./useMount";
 
 const useBookmark = () => {

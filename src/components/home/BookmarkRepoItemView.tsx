@@ -1,13 +1,13 @@
 import "react-loading-skeleton/dist/skeleton.css";
 
+import useIssues from "hooks/react-query/useIssues";
 import { useCallback, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import Skeleton from "react-loading-skeleton";
 import { toast } from "react-toastify";
 import styled, { css, useTheme } from "styled-components";
+import type { BookmarkType } from "types/bookmark";
 
-import useIssues from "../../hooks/react-query/useIssues";
-import type { BookmarkType } from "../../types/bookmark";
 import IssueItemSkeletonView from "./IssueItemSkeletonView";
 import IssueItemView from "./IssueItemView";
 import NoneIssueView from "./NoneIssueView";

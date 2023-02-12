@@ -6,10 +6,9 @@ import {
   useState,
 } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
-
-import { darkTheme, lightTheme } from "../theme/theme";
-import { ThemeContextValueType } from "../types/theme";
-import { getTheme } from "../util/getTheme";
+import { darkTheme, lightTheme } from "theme/theme";
+import { ThemeContextValueType } from "types/theme";
+import { getTheme } from "util/getTheme";
 
 export const themeContext = createContext<ThemeContextValueType>(null);
 

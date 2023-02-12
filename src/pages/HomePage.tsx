@@ -1,8 +1,7 @@
+import BookmarkRepoItemView from "components/home/BookmarkRepoItemView";
+import NoneBookmarkItemView from "components/home/NoneBookmarkItemView";
+import useBookmark from "hooks/custom/useBookmark";
 import styled from "styled-components";
-
-import BookmarkRepoItemView from "../components/home/BookmarkRepoItemView";
-import NoneBookmarkItemView from "../components/home/NoneBookmarkItemView";
-import useBookmark from "../hooks/custom/useBookmark";
 
 const HomePage = () => {
   const { bookmarkList, deleteBookmarkRepo } = useBookmark();

@@ -1,3 +1,4 @@
+import type { Repository } from "lib/api/search/schema";
 import { isNil } from "lodash";
 import type { ChangeEvent } from "react";
 import { useCallback, useEffect, useState } from "react";
@@ -9,10 +10,8 @@ import { TbGitFork, TbLanguage } from "react-icons/tb";
 import ReactTimeago from "react-timeago";
 import { toast } from "react-toastify";
 import styled, { css, useTheme } from "styled-components";
-
-import type { Repository } from "../../lib/api/search/schema";
-import type { BookmarkListType } from "../../types/bookmark";
-import { isNotBlank, isNotNil } from "../../util/lodash";
+import type { BookmarkListType } from "types/bookmark";
+import { isNotBlank, isNotNil } from "util/lodash";
 
 const SearchRepoItemView = (props: { repo: Repository }) => {
   // theme

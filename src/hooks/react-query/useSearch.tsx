@@ -1,9 +1,8 @@
+import searchApi from "lib/api/search";
+import { OrderType, SortType } from "lib/api/search/schema";
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "react-query";
-
-import searchApi from "../../lib/api/search";
-import { OrderType, SortType } from "../../lib/api/search/schema";
-import { queryKeys } from "../../react-query/queryKeys";
+import { queryKeys } from "react-query/queryKeys";
 
 const useSearch = (
   searchRepoName: string,

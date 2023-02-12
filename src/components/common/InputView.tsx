@@ -2,8 +2,7 @@ import { FormEvent, useCallback, useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-
-import { isBlank } from "../../util/lodash";
+import { isBlank } from "util/lodash";
 
 const InputView = () => {
   // navigate
