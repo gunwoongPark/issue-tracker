@@ -1,7 +1,7 @@
 import "react-loading-skeleton/dist/skeleton.css";
 
 import useIssues from "hooks/react-query/useIssues";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import Skeleton from "react-loading-skeleton";
 import { toast } from "react-toastify";
@@ -22,6 +22,9 @@ const BookmarkRepoItemView = (props: {
   // theme
   const theme = useTheme();
 
+  // issue ref
+  const issueListRef = useRef<HTMLUListElement>(null);
+
   // pagination 전체 페이지 수
   const totalPage = Math.ceil(props.bookmark.openIssuesCount / PER_PAGE);
 
@@ -37,6 +40,7 @@ const BookmarkRepoItemView = (props: {
 
   // 페이지 변경
   const changePage = (page: number) => {
+    issueListRef.current?.scrollTo(0, 0);
     setPage(page);
   };
 
@@ -76,7 +80,7 @@ const BookmarkRepoItemView = (props: {
             }
 
             return (
-              <ul className="issue-list">
+              <ul className="issue-list" ref={issueListRef}>
                 {issueList.map((issue) => (
                   // component: issue item
                   <IssueItemView
