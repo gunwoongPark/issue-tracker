@@ -8,6 +8,7 @@ declare module "styled-components" {
     mainColor: string;
     backgroundColor: string;
     dividerColor: string;
+    scrollbarColor: string;
     textColor1: string;
     insideColor: string;
     iconColor: string;

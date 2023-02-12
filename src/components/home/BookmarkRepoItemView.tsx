@@ -155,7 +155,23 @@ const S = {
 
     .issue-list {
       height: 316px;
-      overflow-y: auto;
+      overflow: overlay;
+
+      &::-webkit-scrollbar {
+        width: 18px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: ${({ theme }) => theme.scrollbarColor};
+
+        border-radius: 16px;
+        background-clip: padding-box;
+        border: 6px solid transparent;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
     }
 
     .button-container {
