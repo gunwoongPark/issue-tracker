@@ -67,7 +67,7 @@ const BookmarkRepoItemView = (props: {
           {(() => {
             if (isLoading || isFetching) {
               return (
-                <ul>
+                <ul className="issue-list">
                   {/* component: skeleton ui */}
                   <Skeleton wrapper={IssueItemSkeletonView} count={3} />
                 </ul>
