@@ -1,5 +1,5 @@
 import { isNil } from "lodash";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { BookmarkListType } from "types/bookmark";
 
 import useMount from "./useMount";
@@ -19,7 +19,7 @@ const useBookmark = () => {
     setBookmarkList(localStorageBookmarkList);
   });
 
-  const deleteBookmarkRepo = (deleteBookmarkId: number) => {
+  const deleteBookmarkRepo = useCallback((deleteBookmarkId: number) => {
     const bookmarkList: BookmarkListType = JSON.parse(
       localStorage.getItem("bookmarkList") as string,
     );
@@ -30,7 +30,7 @@ const useBookmark = () => {
 
     setBookmarkList(filteredBookmarkList);
     localStorage.setItem("bookmarkList", JSON.stringify(filteredBookmarkList));
-  };
+  }, []);
 
   return { bookmarkList, deleteBookmarkRepo };
 };

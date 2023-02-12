@@ -38,12 +38,12 @@ const PaginationView = (props: {
     <S.Container isOnlyNumber={props.totalPage <= 5}>
       {props.totalPage > 5 && (
         <div className="prev-container">
-          <span onClick={() => props.changePage(1)}>
+          <button onClick={() => props.changePage(1)}>
             <BiChevronsLeft size={24} color={theme.paginationIndexColor} />
-          </span>
-          <span onClick={() => onClickPage(-1)}>
+          </button>
+          <button onClick={() => onClickPage(-1)}>
             <BiChevronLeft size={24} color={theme.paginationIndexColor} />
-          </span>
+          </button>
         </div>
       )}
 
@@ -63,12 +63,12 @@ const PaginationView = (props: {
 
       {props.totalPage > 5 && (
         <div className="next-container">
-          <span onClick={() => onClickPage(1)}>
+          <button onClick={() => onClickPage(1)}>
             <BiChevronRight size={24} color={theme.paginationIndexColor} />
-          </span>
-          <span onClick={() => props.changePage(props.totalPage)}>
+          </button>
+          <button onClick={() => props.changePage(props.totalPage)}>
             <BiChevronsRight size={24} color={theme.paginationIndexColor} />
-          </span>
+          </button>
         </div>
       )}
     </S.Container>
@@ -92,8 +92,10 @@ const S = {
 
     .prev-container,
     .next-container {
-      span {
+      button {
+        border: none;
         cursor: pointer;
+        background-color: transparent;
       }
     }
 

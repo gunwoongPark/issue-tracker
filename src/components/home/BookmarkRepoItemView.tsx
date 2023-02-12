@@ -39,10 +39,10 @@ const BookmarkRepoItemView = (props: {
   });
 
   // 페이지 변경
-  const changePage = (page: number) => {
+  const changePage = useCallback((page: number) => {
     issueListRef.current?.scrollTo(0, 0);
     setPage(page);
-  };
+  }, []);
 
   const onClickDeleteRepo = useCallback(() => {
     props.deleteBookmarkRepo(props.bookmark.id);
