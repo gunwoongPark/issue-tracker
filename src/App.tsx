@@ -9,18 +9,16 @@ import { GlobalStyle } from "styles/GlobalStyle";
 
 function App() {
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        <CustomThemeProvider>
-          <GlobalStyle />
-          <LayoutView>
-            <Routes />
-          </LayoutView>
-          <CustomToastContainer />
-        </CustomThemeProvider>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <CustomThemeProvider>
+        <GlobalStyle />
+        <LayoutView>
+          <Routes />
+        </LayoutView>
+        <CustomToastContainer />
+      </CustomThemeProvider>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
 
