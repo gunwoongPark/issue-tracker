@@ -6,16 +6,13 @@ import {
   BiChevronsLeft,
   BiChevronsRight,
 } from "react-icons/bi";
-import styled, { css, useTheme } from "styled-components";
+import styled, { css } from "styled-components";
 
 const PaginationView = (props: {
   totalPage: number;
   page: number;
   changePage: (page: number) => void;
 }) => {
-  // theme
-  const theme = useTheme();
-
   // pageList
   const { pageList } = usePagination(props.page, props.totalPage);
 
