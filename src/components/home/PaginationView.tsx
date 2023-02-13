@@ -108,6 +108,7 @@ const S = {
         color: ${({ theme }) => theme.paginationIndexColor};
 
         &:disabled {
+          cursor: default;
           color: ${({ theme }) => theme.disabledColor};
         }
       }
