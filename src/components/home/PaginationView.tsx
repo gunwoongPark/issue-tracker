@@ -1,5 +1,4 @@
 import usePagination from "hooks/custom/usePagination";
-import { useCallback } from "react";
 import {
   BiChevronLeft,
   BiChevronRight,
@@ -16,21 +15,6 @@ const PaginationView = (props: {
   // pageList
   const { pageList } = usePagination(props.page, props.totalPage);
 
-  // 한 페이지 이동 클릭시
-  const onClickPage = useCallback(
-    (addPageValue: number) => {
-      if (addPageValue > 0 && props.totalPage === props.page) {
-        return;
-      }
-      if (addPageValue < 0 && props.page === 1) {
-        return;
-      }
-
-      props.changePage(props.page + addPageValue);
-    },
-    [props],
-  );
-
   return (
     <S.Container isOnlyNumber={props.totalPage <= 5}>
       {props.totalPage > 5 && (
@@ -41,7 +25,10 @@ const PaginationView = (props: {
           >
             <BiChevronsLeft size={24} />
           </button>
-          <button onClick={() => onClickPage(-1)} disabled={props.page === 1}>
+          <button
+            onClick={() => props.changePage(props.page - 1)}
+            disabled={props.page === 1}
+          >
             <BiChevronLeft size={24} />
           </button>
         </div>
@@ -64,7 +51,7 @@ const PaginationView = (props: {
       {props.totalPage > 5 && (
         <div className="next-container">
           <button
-            onClick={() => onClickPage(1)}
+            onClick={() => props.changePage(props.page + 1)}
             disabled={props.totalPage === props.page}
           >
             <BiChevronRight size={24} />
