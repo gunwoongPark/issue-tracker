@@ -7,6 +7,8 @@ import {
 } from "react-icons/bi";
 import styled, { css } from "styled-components";
 
+const PER_PAGINATION = 5;
+
 const PaginationView = (props: {
   totalPage: number;
   page: number;
@@ -17,7 +19,7 @@ const PaginationView = (props: {
 
   return (
     <S.Container isOnlyNumber={props.totalPage <= 5}>
-      {props.totalPage > 5 && (
+      {props.totalPage > PER_PAGINATION && (
         <div className="prev-container">
           <button
             onClick={() => props.changePage(1)}
@@ -48,7 +50,7 @@ const PaginationView = (props: {
         ))}
       </ul>
 
-      {props.totalPage > 5 && (
+      {props.totalPage > PER_PAGINATION && (
         <div className="next-container">
           <button
             onClick={() => props.changePage(props.page + 1)}
