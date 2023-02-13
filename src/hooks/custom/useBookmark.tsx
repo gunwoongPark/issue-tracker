@@ -1,5 +1,6 @@
 import { isNil } from "lodash";
 import { useCallback, useState } from "react";
+import { toast } from "react-toastify";
 import { BookmarkListType } from "types/bookmark";
 
 import useMount from "./useMount";
@@ -30,6 +31,8 @@ const useBookmark = () => {
 
     setBookmarkList(filteredBookmarkList);
     localStorage.setItem("bookmarkList", JSON.stringify(filteredBookmarkList));
+
+    toast.success("북마크가 제거되었습니다.");
   }, []);
 
   return { bookmarkList, deleteBookmarkRepo };
