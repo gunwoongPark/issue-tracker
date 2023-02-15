@@ -88,6 +88,7 @@ const SearchPage = () => {
     if (isNil(error)) {
       setIsReload(false);
       setIsValidationFailed(false);
+      return;
     }
 
     if (axios.isAxiosError(error)) {
@@ -167,76 +168,74 @@ const SearchPage = () => {
   );
 
   return (
-    <>
-      <S.Container>
-        <div className="filter-container">
-          <select value={order as string} onChange={(e) => onChangeOrder(e)}>
-            <option value="desc">desc</option>
-            <option value="asc">asc</option>
-          </select>
+    <S.Container>
+      <div className="filter-container">
+        <select value={order as string} onChange={(e) => onChangeOrder(e)}>
+          <option value="desc">desc</option>
+          <option value="asc">asc</option>
+        </select>
 
-          <select value={sort as string} onChange={(e) => onChangeSort(e)}>
-            <option value="best-match">best match</option>
-            <option value="updated">updated</option>
-            <option value="stars">stars</option>
-            <option value="forks">forks</option>
-            <option value="help-wanted-issues">help wanted issues</option>
-          </select>
-        </div>
+        <select value={sort as string} onChange={(e) => onChangeSort(e)}>
+          <option value="best-match">best match</option>
+          <option value="updated">updated</option>
+          <option value="stars">stars</option>
+          <option value="forks">forks</option>
+          <option value="help-wanted-issues">help wanted issues</option>
+        </select>
+      </div>
 
-        {(() => {
-          if (isLoading || isFetching) {
-            return (
-              <ul>
-                {/* component: skeleton ui */}
-                <Skeleton wrapper={SearchRepoItemSkeletonView} count={15} />
-              </ul>
-            );
-          }
-
-          if (isReload) {
-            // component: 잦은 fetching => 403 에러
-            return <PlzReloadView />;
-          }
-
-          if (isValidationFailed) {
-            // component: 422 에러
-            return <ValidationFailedView />;
-          }
-
-          if (isBlank(searchRepoList)) {
-            // component: 검색시 repository가 없을 때
-            return <NoneSearchRepoView />;
-          }
-
+      {(() => {
+        if (isLoading || isFetching) {
           return (
             <ul>
-              {searchRepoList.map((repo) => (
-                // component: repository item
-                <SearchRepoItemView
-                  key={`search-repo-list-item-${repo.id}`}
-                  repo={repo}
-                />
-              ))}
+              {/* component: skeleton ui */}
+              <Skeleton wrapper={SearchRepoItemSkeletonView} count={15} />
             </ul>
           );
-        })()}
+        }
 
-        {(isNil(error) && isBlank(searchRepoList)) || isReload || (
-          <div className="button-container">
-            <button onClick={() => onClickPageButton(-1)}>
-              <BiLeftArrowCircle size={34} color={theme.iconColor} />
+        if (isReload) {
+          // component: 잦은 fetching => 403 에러
+          return <PlzReloadView />;
+        }
+
+        if (isValidationFailed) {
+          // component: 422 에러
+          return <ValidationFailedView />;
+        }
+
+        if (isBlank(searchRepoList)) {
+          // component: 검색시 repository가 없을 때
+          return <NoneSearchRepoView />;
+        }
+
+        return (
+          <ul>
+            {searchRepoList.map((repo) => (
+              // component: repository item
+              <SearchRepoItemView
+                key={`search-repo-list-item-${repo.id}`}
+                repo={repo}
+              />
+            ))}
+          </ul>
+        );
+      })()}
+
+      {(isNil(error) && isBlank(searchRepoList)) || isReload || (
+        <div className="button-container">
+          <button onClick={() => onClickPageButton(-1)}>
+            <BiLeftArrowCircle size={34} color={theme.iconColor} />
+          </button>
+
+          {isValidationFailed || (
+            <button onClick={() => onClickPageButton(1)}>
+              <BiRightArrowCircle size={34} color={theme.iconColor} />
             </button>
-
-            {isValidationFailed || (
-              <button onClick={() => onClickPageButton(1)}>
-                <BiRightArrowCircle size={34} color={theme.iconColor} />
-              </button>
-            )}
-          </div>
-        )}
-      </S.Container>
-    </>
+          )}
+        </div>
+      )}
+    </S.Container>
   );
 };
 
