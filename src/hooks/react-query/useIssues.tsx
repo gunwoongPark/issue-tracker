@@ -11,19 +11,17 @@ const useIssues = ({
   repoName: string;
   page: number;
 }) => {
-  const {
-    data: issueList = [],
-    isLoading,
-    isFetching,
-  } = useQuery([queryKeys.issues, owner, repoName, page], () =>
-    issuesApi.fetchIssues({
-      owner,
-      repo: repoName,
-      page,
-    }),
+  const { data: issueList = [], isLoading } = useQuery(
+    [queryKeys.issues, owner, repoName, page],
+    () =>
+      issuesApi.fetchIssues({
+        owner,
+        repo: repoName,
+        page,
+      }),
   );
 
-  return { issueList, isLoading, isFetching };
+  return { issueList, isLoading };
 };
 
 export default useIssues;

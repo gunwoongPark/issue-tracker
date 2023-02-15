@@ -31,7 +31,7 @@ const BookmarkRepoItemView = (props: {
   const [page, setPage] = useState<number>(1);
 
   // issue data fetching
-  const { issueList, isLoading, isFetching } = useIssues({
+  const { issueList, isLoading } = useIssues({
     owner: props.bookmark.owner,
     repoName: props.bookmark.repoName,
     page,
@@ -62,7 +62,7 @@ const BookmarkRepoItemView = (props: {
           <div className="divider" />
 
           {(() => {
-            if (isLoading || isFetching) {
+            if (isLoading) {
               return (
                 <ul className="issue-list">
                   {/* component: skeleton ui */}
