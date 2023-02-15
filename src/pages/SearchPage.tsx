@@ -185,7 +185,7 @@ const SearchPage = () => {
       </div>
 
       {(() => {
-        if (isLoading || isFetching) {
+        if (isLoading) {
           return (
             <ul>
               {/* component: skeleton ui */}
