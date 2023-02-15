@@ -25,12 +25,13 @@ const CustomThemeProvider = (props: PropsWithChildren<unknown>) => {
     }
   };
 
-  const value: ThemeContextValueType = useMemo(() => {
-    return {
+  const value: ThemeContextValueType = useMemo(
+    () => ({
       theme,
       toggle: (e: ChangeEvent<HTMLInputElement>) => toggleTheme(e),
-    };
-  }, [theme]);
+    }),
+    [theme],
+  );
 
   return (
     <themeContext.Provider value={value}>

@@ -37,7 +37,6 @@ const useSearch = (
     () => searchApi.searchRepo({ q: searchRepoName, page, order, sort }),
     {
       select: (response) => response.items,
-      keepPreviousData: true,
     },
   );
 
