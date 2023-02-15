@@ -47,8 +47,6 @@ module.exports = {
     "dot-notation": 0,
     // props destructuring 제한
     "react/destructuring-assignment": 0,
-    // dangerous html 허용
-    "react/no-danger": 0,
     // console 허용
     "no-console": 0,
     // import 순서
