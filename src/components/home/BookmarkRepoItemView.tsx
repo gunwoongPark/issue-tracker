@@ -44,63 +44,61 @@ const BookmarkRepoItemView = (props: {
   }, []);
 
   return (
-    <>
-      <S.Container>
-        <div className="body-container">
-          <div className="title-container">
-            <span className="repo-full-name">
-              {props.bookmark.owner}/{props.bookmark.repoName}
-            </span>
-            <i
-              className="delete-button"
-              onClick={() => props.deleteBookmarkRepo(props.bookmark.id)}
-            >
-              <AiFillStar size={24} color={theme.mainColor} />
-            </i>
-          </div>
-
-          <div className="divider" />
-
-          {(() => {
-            if (isLoading) {
-              return (
-                <ul className="issue-list">
-                  {/* component: skeleton ui */}
-                  <Skeleton wrapper={IssueItemSkeletonView} count={3} />
-                </ul>
-              );
-            }
-
-            if (!totalPage) {
-              // component: repository에 이슈가 없을 때
-              return <NoneIssueView />;
-            }
-
-            return (
-              <ul className="issue-list" ref={issueListRef}>
-                {issueList.map((issue) => (
-                  // component: issue item
-                  <IssueItemView
-                    key={`repo-list-item-${issue.id}`}
-                    repoName={props.bookmark.repoName}
-                    issue={issue}
-                  />
-                ))}
-              </ul>
-            );
-          })()}
+    <S.Container>
+      <div className="body-container">
+        <div className="title-container">
+          <span className="repo-full-name">
+            {props.bookmark.owner}/{props.bookmark.repoName}
+          </span>
+          <i
+            className="delete-button"
+            onClick={() => props.deleteBookmarkRepo(props.bookmark.id)}
+          >
+            <AiFillStar size={24} color={theme.mainColor} />
+          </i>
         </div>
 
-        {totalPage > 1 && (
-          // component: pagination
-          <PaginationView
-            totalPage={totalPage}
-            page={page}
-            changePage={changePage}
-          />
-        )}
-      </S.Container>
-    </>
+        <div className="divider" />
+
+        {(() => {
+          if (isLoading) {
+            return (
+              <ul className="issue-list">
+                {/* component: skeleton ui */}
+                <Skeleton wrapper={IssueItemSkeletonView} count={3} />
+              </ul>
+            );
+          }
+
+          if (!totalPage) {
+            // component: repository에 이슈가 없을 때
+            return <NoneIssueView />;
+          }
+
+          return (
+            <ul className="issue-list" ref={issueListRef}>
+              {issueList.map((issue) => (
+                // component: issue item
+                <IssueItemView
+                  key={`repo-list-item-${issue.id}`}
+                  repoName={props.bookmark.repoName}
+                  issue={issue}
+                />
+              ))}
+            </ul>
+          );
+        })()}
+      </div>
+
+      {totalPage > 1 && (
+        // component: pagination
+        <PaginationView
+          totalPage={totalPage}
+          page={page}
+          changePage={changePage}
+        />
+      )}
+    </S.Container>
   );
 };
 
