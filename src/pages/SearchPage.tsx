@@ -68,7 +68,7 @@ const SearchPage = () => {
   }, [searchParams]);
 
   // search repository data fetching
-  const { searchRepoList, isLoading, isFetching, error } = useSearch(
+  const { searchRepoList, isLoading, error } = useSearch(
     searchRepoName ?? "",
     page,
     order as OrderType,

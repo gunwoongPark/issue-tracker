@@ -31,7 +31,6 @@ const useSearch = (
   const {
     data: searchRepoList = [],
     isLoading,
-    isFetching,
     error,
   } = useQuery(
     [queryKeys.search, searchRepoName, page, order, sort],
@@ -42,7 +41,7 @@ const useSearch = (
     },
   );
 
-  return { searchRepoList, isLoading, isFetching, error };
+  return { searchRepoList, isLoading, error };
 };
 
 export default useSearch;

@@ -233,7 +233,6 @@ const S = {
       .topic {
         border-radius: 31px;
         border: 1px solid ${({ theme }) => theme.mainColor};
-        margin-top: 5px;
 
         .topic-name {
           color: ${({ theme }) => theme.mainColor};
