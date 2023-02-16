@@ -2,6 +2,7 @@ import {
   ChangeEvent,
   createContext,
   PropsWithChildren,
+  useCallback,
   useMemo,
   useState,
 } from "react";
@@ -15,7 +16,7 @@ export const themeContext = createContext<ThemeContextValueType>(null);
 const CustomThemeProvider = (props: PropsWithChildren<unknown>) => {
   const [theme, setTheme] = useState<DefaultTheme>(getTheme());
 
-  const toggleTheme = (e: ChangeEvent<HTMLInputElement>) => {
+  const toggleTheme = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       localStorage.setItem("theme", "DARK");
       setTheme(darkTheme);
@@ -23,14 +24,14 @@ const CustomThemeProvider = (props: PropsWithChildren<unknown>) => {
       localStorage.setItem("theme", "LIGHT");
       setTheme(lightTheme);
     }
-  };
+  }, []);
 
   const value: ThemeContextValueType = useMemo(
     () => ({
       theme,
       toggle: (e: ChangeEvent<HTMLInputElement>) => toggleTheme(e),
     }),
-    [theme],
+    [theme, toggleTheme],
   );
 
   return (
